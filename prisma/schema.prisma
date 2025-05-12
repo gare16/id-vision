@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id  Int    @id @default(autoincrement())
+  username String
+  password String
+}
+
+model Log_Pengunjung {
+  id_log     Int        @id @default(autoincrement())
+  rfid_tag   String
+  nik        String
+  waktu      DateTime
+  access     Boolean
+  lokasi     String
+  Rfid_Tag   Rfid_Tag   @relation(fields: [rfid_tag], references: [rfid_tag], map: "Log_Pengunjung_id_tag_fkey")
+  Pengunjung Pengunjung @relation(fields: [nik], references: [nik])
+}
+
+model Pengunjung {
+  id             Int              @id @default(autoincrement())
+  nik            String           @unique
+  nama           String
+  alamat         String
+  ttl            String
+  Log_Pengunjung Log_Pengunjung[]
+  Rfid_Tag       Rfid_Tag[]
+}
+
+model Rfid_Tag {
+  rfid_tag       String           @id
+  nik            String?
+  status         Boolean
+  id             Int              @default(autoincrement())
+  Log_Pengunjung Log_Pengunjung[]
+  Pengunjung     Pengunjung?      @relation(fields: [nik], references: [nik], onDelete: Restrict)
+}
