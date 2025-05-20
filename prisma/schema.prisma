@@ -8,29 +8,29 @@ datasource db {
 }
 
 model User {
-  user_id  Int    @id @default(autoincrement())
+  user_id  Int          @id @default(autoincrement())
   username String
   password String
 }
 
-model Log_Pengunjung {
+model Log_Visitor {
   id_log     Int        @id @default(autoincrement())
   rfid_tag   String
   nik        String
-  waktu      DateTime
+  date       DateTime
   access     Boolean
-  lokasi     String
-  Rfid_Tag   Rfid_Tag   @relation(fields: [rfid_tag], references: [rfid_tag], map: "Log_Pengunjung_id_tag_fkey")
-  Pengunjung Pengunjung @relation(fields: [nik], references: [nik])
+  location   String
+  Rfid_Tag   Rfid_Tag   @relation(fields: [rfid_tag], references: [rfid_tag], map: "Log_Visitor_id_tag_fkey")
+  Visitor    Visitor    @relation(fields: [nik], references: [nik])
 }
 
-model Pengunjung {
+model Visitor {
   id             Int              @id @default(autoincrement())
   nik            String           @unique
-  nama           String
-  alamat         String
-  ttl            String
-  Log_Pengunjung Log_Pengunjung[]
+  name           String
+  address        String
+  birth_info     String
+  Log_Visitor Log_Visitor[]
   Rfid_Tag       Rfid_Tag[]
 }
 
@@ -39,6 +39,6 @@ model Rfid_Tag {
   nik            String?
   status         Boolean
   id             Int              @default(autoincrement())
-  Log_Pengunjung Log_Pengunjung[]
-  Pengunjung     Pengunjung?      @relation(fields: [nik], references: [nik], onDelete: Restrict)
-}
+  Log_Visitor    Log_Visitor[]
+  Visitor        Visitor?         @relation(fields: [nik], references: [nik], onDelete: Restrict)
+} 

@@ -111,7 +111,7 @@ const columns: ColumnDef<z.infer<typeof visitorSchema>>[] = [
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
           id={`${row.original.id}-name`}
         >
-          {row.original.nama}
+          {row.original.name}
         </p>
       </>
     ),
@@ -128,7 +128,7 @@ const columns: ColumnDef<z.infer<typeof visitorSchema>>[] = [
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
           id={`${row.original.id}-address`}
         >
-          {row.original.alamat}
+          {row.original.address}
         </p>
       </>
     ),
@@ -145,7 +145,7 @@ const columns: ColumnDef<z.infer<typeof visitorSchema>>[] = [
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
           id={`${row.original.id}-born`}
         >
-          {row.original.ttl}
+          {row.original.birth_info}
         </p>
       </>
     ),

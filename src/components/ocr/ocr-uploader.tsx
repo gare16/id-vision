@@ -11,7 +11,7 @@ import { Tooltip, TooltipProvider } from "../ui/tooltip";
 import { TooltipContent, TooltipTrigger } from "@radix-ui/react-tooltip";
 import Tesseract from "tesseract.js";
 
-export default function ComponentUpload() {
+export default function UploadImageOCR() {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -55,9 +55,7 @@ export default function ComponentUpload() {
 
     try {
       const imageURL = URL.createObjectURL(file);
-      const result = await Tesseract.recognize(imageURL, "ind", {
-        logger: (m) => console.log(m),
-      });
+      const result = await Tesseract.recognize(imageURL, "ind");
       setTextResult(result.data.text);
     } catch (err) {
       console.error(err);

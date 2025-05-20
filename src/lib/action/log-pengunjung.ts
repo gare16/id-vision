@@ -2,16 +2,16 @@ import { prisma } from "@/lib/prisma";
 import { endOfDay, startOfDay } from "date-fns";
 
 export async function getLogPengunjung() {
-  const res = await prisma.log_Pengunjung.findMany({
+  const res = await prisma.log_Visitor.findMany({
     select: {
       id_log: true,
       access: true,
-      lokasi: true,
+      location: true,
       rfid_tag: true,
-      waktu: true,
-      Pengunjung: {
+      date: true,
+      Visitor: {
         select: {
-          nama: true,
+          name: true,
         },
       },
     },
@@ -20,14 +20,14 @@ export async function getLogPengunjung() {
 }
 
 export async function getChartLogPengunjung() {
-  const date = await prisma.log_Pengunjung.findMany({
+  const date = await prisma.log_Visitor.findMany({
     select: {
-      waktu: true,
+      date: true,
     },
   });
 
   const grouped: Record<string, number> = date.reduce((acc, log) => {
-    const date = new Date(log.waktu).toISOString().split("T")[0];
+    const date = new Date(log.date).toISOString().split("T")[0];
     acc[date] = (acc[date] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
@@ -41,9 +41,9 @@ export async function getChartLogPengunjung() {
 }
 
 export async function getDailyTableLogVisitor() {
-  const log = await prisma.log_Pengunjung.findMany({
+  const log = await prisma.log_Visitor.findMany({
     where: {
-      waktu: {
+      date: {
         gte: startOfDay(new Date()),
         lte: endOfDay(new Date()),
       },
@@ -51,12 +51,12 @@ export async function getDailyTableLogVisitor() {
     select: {
       id_log: true,
       access: true,
-      lokasi: true,
+      location: true,
       rfid_tag: true,
-      waktu: true,
-      Pengunjung: {
+      date: true,
+      Visitor: {
         select: {
-          nama: true,
+          name: true,
         },
       },
     },

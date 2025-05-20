@@ -27,7 +27,7 @@ export function SheetEditVisitor({
       </SheetTrigger>
       <SheetContent side="bottom" className=" px-4 flex flex-col">
         <SheetHeader className="gap-1">
-          <SheetTitle>{item.nama}</SheetTitle>
+          <SheetTitle>{item.name}</SheetTitle>
           <SheetDescription>
             Showing total visitors for the last 6 months
           </SheetDescription>
@@ -37,7 +37,7 @@ export function SheetEditVisitor({
             <form className="flex flex-col gap-4">
               <div className="flex flex-col gap-3">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" defaultValue={item.nama} />
+                <Input id="name" defaultValue={item.name} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-3">
@@ -48,11 +48,11 @@ export function SheetEditVisitor({
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="address">Address</Label>
-                  <Input id="address" defaultValue={item.alamat} />
+                  <Input id="address" defaultValue={item.address} />
                 </div>
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="born">Date of Birth</Label>
-                  <Input id="born" defaultValue={item.ttl} />
+                  <Input id="born" defaultValue={item.birth_info} />
                 </div>
               </div>
             </form>

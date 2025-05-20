@@ -4,9 +4,9 @@ import { subDays, startOfDay, endOfDay } from "date-fns";
 export async function getRfidTag() {
   const res = await prisma.rfid_Tag.findMany({
     select: {
-      Pengunjung: {
+      Visitor: {
         select: {
-          nama: true,
+          name: true,
         },
       },
       status: true,
@@ -22,18 +22,18 @@ export async function getDataSummaryCard() {
     await Promise.all([
       prisma.rfid_Tag.findMany({ where: { status: true } }),
       prisma.rfid_Tag.findMany({ where: { status: false } }),
-      prisma.pengunjung.findMany(),
-      prisma.log_Pengunjung.count({
+      prisma.visitor.findMany(),
+      prisma.log_Visitor.count({
         where: {
-          waktu: {
+          date: {
             gte: startOfDay(new Date()),
             lte: endOfDay(new Date()),
           },
         },
       }),
-      prisma.log_Pengunjung.count({
+      prisma.log_Visitor.count({
         where: {
-          waktu: {
+          date: {
             gte: startOfDay(subDays(new Date(), 1)),
             lte: endOfDay(subDays(new Date(), 1)),
           },

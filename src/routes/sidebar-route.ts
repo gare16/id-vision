@@ -1,4 +1,10 @@
-import { LayoutDashboardIcon, ScrollText, Upload, User } from "lucide-react";
+import {
+  LayoutDashboardIcon,
+  ScrollText,
+  Tag,
+  Upload,
+  User,
+} from "lucide-react";
 
 export const data = {
   user: {
@@ -11,21 +17,35 @@ export const data = {
       title: "Dashboard",
       url: "/dashboard",
       icon: LayoutDashboardIcon,
+      isActive: false,
     },
     {
       title: "Visitors",
       url: "/visitors",
       icon: User,
+      isActive: false,
     },
     {
       title: "Logs Visitors",
       url: "/logs-visitors",
       icon: ScrollText,
+      isActive: false,
     },
     {
       title: "RFID Tag",
       url: "/rfid-tag",
-      icon: ScrollText,
+      icon: Tag,
+      isActive: true,
+      items: [
+        {
+          title: "List RFID Tag",
+          url: "/rfid-tag",
+        },
+        {
+          title: "Check RFID",
+          url: "/check-rfid",
+        },
+      ],
     },
   ],
   documents: [

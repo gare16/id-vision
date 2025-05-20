@@ -12,10 +12,10 @@ export const logSchema = z.array(log);
 export const DailylogVisitorSchema = z.object({
   id_log: z.number(),
   access: z.boolean(),
-  lokasi: z.string(),
+  location: z.string(),
   rfid_tag: z.string(),
-  waktu: z.date(), // or z.string().datetime() if you prefer strict ISO strings
-  Pengunjung: z.object({
-    nama: z.string(),
+  date: z.date(), // or z.string().datetime() if you prefer strict ISO strings
+  Visitor: z.object({
+    name: z.string(),
   }),
 });

@@ -34,7 +34,7 @@ export function SheetEditRFIDTag({
       </SheetTrigger>
       <SheetContent side="bottom" className=" px-4 flex flex-col">
         <SheetHeader className="gap-1">
-          <SheetTitle>{item.Pengunjung?.nama}</SheetTitle>
+          <SheetTitle>{item.Pengunjung?.name}</SheetTitle>
           <SheetDescription>Showing RFID Tag to Edit</SheetDescription>
         </SheetHeader>
         <div className="w-full flex justify-center items-center">
@@ -51,7 +51,7 @@ export function SheetEditRFIDTag({
             >
               <div className="flex flex-col gap-3">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" defaultValue={item.Pengunjung?.nama ?? ""} />
+                <Input id="name" defaultValue={item.Pengunjung?.name ?? ""} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-3">

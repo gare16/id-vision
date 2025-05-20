@@ -1,0 +1,40 @@
+## Install PostgreSQL di Windows:
+
+https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+
+## Install Node JS di Windows Pakai Terminal( CMD ):
+
+winget install Schniz.fnm
+
+fnm install 22
+
+node -v
+
+# Should print "v22.15.0".
+
+npm -v
+
+# Should print "10.9.2".
+
+## Download Project Next Js nya:
+
+https://github.com/gare16/id-vision
+-> Code => Download Zip -> Extract FIle
+
+## Restore Database:
+
+https://medium.com/codex/postgresql-and-their-dumps-in-windows-10-fdff4c960ea3
+
+## Singkronkan Database dengan prisma orm (Jalankan di terminal vscode):
+
+npx prisma db pull
+
+npx prisma generate
+
+## Jalankan Project Next js nya di terminal vscode:
+
+npm run dev
+
+## Lihat hasil di browser:
+
+localhost:3000/

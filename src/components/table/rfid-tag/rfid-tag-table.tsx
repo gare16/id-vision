@@ -103,7 +103,7 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
     cell: ({ row }) => (
       <>
         <Label
-          htmlFor={`${row.original.Pengunjung?.nama}-name`}
+          htmlFor={`${row.original.Visitor?.name}-name`}
           className="sr-only"
         >
           Nama
@@ -112,7 +112,7 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
           id={`${row.original.id}-name`}
         >
-          {row.original.Pengunjung?.nama}
+          {row.original.Visitor?.name}
         </p>
       </>
     ),
