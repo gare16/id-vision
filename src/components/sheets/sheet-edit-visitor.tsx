@@ -1,3 +1,5 @@
+"use client";
+
 import { visitorSchema } from "@/schema/visitors-schema";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -12,12 +14,37 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { z } from "zod";
+import { useTransition } from "react";
+import { updateVisitor } from "@/lib/action/visitor";
 
 export function SheetEditVisitor({
   item,
 }: {
   item: z.infer<typeof visitorSchema>;
 }) {
+  const [isPending, startTransition] = useTransition();
+
+  const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const nik = formData.get("nik") as string;
+    const name = formData.get("name") as string;
+    const address = formData.get("address") as string;
+    const birth_info = formData.get("birth_info") as string;
+    const data = { nik, name, address, birth_info };
+    console.log(data);
+    startTransition(async () => {
+      await updateVisitor(data).then((res) => {
+        if (!res.success) {
+          console.error(res.error);
+        } else {
+          console.log("Updated:", res.data);
+          window.location.reload();
+        }
+      });
+    });
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -34,33 +61,35 @@ export function SheetEditVisitor({
         </SheetHeader>
         <div className="w-full flex justify-center items-center">
           <div className="w-full flex flex-col gap-4 overflow-y-auto py-4 text-sm md:w-2/5">
-            <form className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4" onSubmit={handleEditSubmit}>
               <div className="flex flex-col gap-3">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" defaultValue={item.name} />
+                <Input name="name" defaultValue={item.name} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="nik">NIK</Label>
-                  <Input id="nik" defaultValue={item.nik} />
+                  <Input name="nik" defaultValue={item.nik} />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="address">Address</Label>
-                  <Input id="address" defaultValue={item.address} />
+                  <Input name="address" defaultValue={item.address} />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <Label htmlFor="born">Date of Birth</Label>
-                  <Input id="born" defaultValue={item.birth_info} />
+                  <Label htmlFor="birth_info">Date of Birth</Label>
+                  <Input name="birth_info" defaultValue={item.birth_info} />
                 </div>
               </div>
+              <SheetFooter className="w-full mt-auto  flex gap-2 justify-center items-center sm:space-x-0">
+                <Button className="w-2/5">
+                  {isPending ? "Updating..." : "Update"}
+                </Button>
+              </SheetFooter>
             </form>
           </div>
         </div>
-        <SheetFooter className="w-full mt-auto  flex gap-2 justify-center items-center sm:space-x-0">
-          <Button className="w-2/5">Submit</Button>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );

@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 import { subDays, startOfDay, endOfDay } from "date-fns";
 
@@ -88,4 +90,72 @@ export async function getDataSummaryCard() {
       status: "inactive",
     },
   ];
+}
+
+export async function createRfidTag({
+  rfid_tag,
+  status,
+}: {
+  rfid_tag: string;
+  status: boolean;
+}) {
+  try {
+    const created = await prisma.rfid_Tag.create({
+      data: { rfid_tag, status },
+    });
+    return { success: true, data: created };
+  } catch (error) {
+    console.log("Failed to create RFID Tag: ", error);
+    return { success: false, error: "Create failed" };
+  }
+}
+
+export async function updateRfidTag({
+  rfid_tag,
+  nik,
+  status,
+}: {
+  rfid_tag: string;
+  nik: string;
+  status: boolean;
+}) {
+  try {
+    const updated = await prisma.rfid_Tag.update({
+      where: { rfid_tag },
+      data: { status, nik },
+    });
+
+    return { success: true, data: updated };
+  } catch (error) {
+    console.error("Failed to update RFID tag:", error);
+    return { success: false, error: "Update failed" };
+  }
+}
+
+export async function createLogVisitor({
+  data,
+}: {
+  data: {
+    access: boolean;
+    date: Date;
+    location: string;
+    nik: string;
+    rfid_tag: string;
+  };
+}) {
+  try {
+    const created = await prisma.log_Visitor.create({
+      data: {
+        access: data.access,
+        date: data.date,
+        location: data.location,
+        nik: data.nik,
+        rfid_tag: data.rfid_tag,
+      },
+    });
+    return { success: true, data: created };
+  } catch (error) {
+    console.error("Failed to create Log Visitor :", error);
+    return { success: false, error: "Create failed" };
+  }
 }

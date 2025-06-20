@@ -1,54 +1,38 @@
 "use client";
 
-import { useMqttClient } from "@/hooks/use-mqtt";
-import { useEffect, useState } from "react";
-
-type RFIDPayloadType = {
-  access: string;
-  location: string;
-  rfid_tag: string;
-};
+import { RFIDPayloadSchema } from "@/schema/mqtt-payload";
+import { z } from "zod";
+import CheckCardRFID from "./card/check-card";
+import { useMQTT } from "@/context/mqtt-context";
 
 const MQTTComponent = () => {
-  // const { client, isConnected } = useMqttClient("ws://192.168.43.85:8083/mqtt");
-  const { client, isConnected } = useMqttClient("ws://192.168.0.100:8083/mqtt");
-  const [message, setMessage] = useState<RFIDPayloadType>({
-    access: "",
-    location: "",
-    rfid_tag: "",
-  });
-
-  useEffect(() => {
-    if (!client || !isConnected) return;
-
-    const topic = "rfid/uid";
-
-    client.subscribe(topic, (err) => {
-      if (err) console.error("Subscribe error:", err);
-      else console.log("Subscribed to topic:", topic);
-    });
-
-    client.on("message", (topic, payload) => {
-      const parsed: RFIDPayloadType = JSON.parse(payload.toString());
-      setMessage({
-        ...message,
-        access: parsed.access,
-        location: parsed.location,
-        rfid_tag: parsed.rfid_tag,
-      });
-    });
-
-    return () => {
-      client.unsubscribe(topic);
-    };
-  }, [client, isConnected, message]);
+  const { messages } = useMQTT();
 
   return (
-    <div>
-      <p>Status: {isConnected ? "Connected" : "Disconnected"}</p>
-      <p>{message.access}</p>
-      <p>{message.location}</p>
-      <p>{message.rfid_tag}</p>
+    <>
+      {/* {JSON.stringify(messages)} */}
+      <Connected message={messages} />
+    </>
+  );
+};
+
+const Connected = ({
+  message,
+}: {
+  message: z.infer<typeof RFIDPayloadSchema> | undefined;
+}) => {
+  if (!message) {
+    return (
+      <div className="w-full min-h-[100dvh] flex flex-col justify-center items-center gap-2">
+        <p>Please Tap the Card</p>
+        <div className="loader"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full min-h-[100dvh] flex flex-col justify-center items-center">
+      <CheckCardRFID items={message} />
     </div>
   );
 };

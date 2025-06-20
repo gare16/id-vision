@@ -22,6 +22,7 @@ export async function GET(request: Request) {
       Visitor: {
         select: {
           name: true,
+          nik: true,
         },
       },
     },
@@ -31,7 +32,7 @@ export async function GET(request: Request) {
 
   if (rfid?.rfid_tag) {
     return NextResponse.json(
-      { status: statusRfid, name: rfid.Visitor?.name },
+      { status: statusRfid, name: rfid.Visitor?.name, nik: rfid.Visitor?.nik },
       { status: 200 }
     );
   } else {

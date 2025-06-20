@@ -1,9 +1,9 @@
 import { DataTableProvider } from "@/components/table/data-table";
 import { TableVisitors } from "@/components/table/visitors/visitors-table";
-import { getPengunjung } from "@/lib/action/pengunjung";
+import { getVisitor } from "@/lib/action/visitor";
 
 export default async function Page() {
-  const data = await getPengunjung();
+  const data = await getVisitor();
   return (
     <DataTableProvider
       defaultValue="visitors"

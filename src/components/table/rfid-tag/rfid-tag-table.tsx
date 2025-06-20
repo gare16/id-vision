@@ -109,7 +109,7 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
           Nama
         </Label>
         <p
-          className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
+          className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
           id={`${row.original.id}-name`}
         >
           {row.original.Visitor?.name}

@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { SiteHeader } from "@/components/site-header";
 import { AppSidebar } from "@/components/sidebar/sidebar";
+import { MQTTProvider } from "@/context/mqtt-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,11 +42,13 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <SidebarProvider defaultOpen={defaultOpen}>
-            <AppSidebar variant="inset" />
-            <SidebarInset>
-              <SiteHeader />
-              {children}
-            </SidebarInset>
+            <MQTTProvider>
+              <AppSidebar variant="inset" />
+              <SidebarInset>
+                <SiteHeader />
+                {children}
+              </SidebarInset>
+            </MQTTProvider>
           </SidebarProvider>
         </ThemeProvider>
       </body>

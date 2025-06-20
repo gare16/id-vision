@@ -10,3 +10,8 @@ export const RFIDTagSchema = z.object({
     })
     .nullable(),
 });
+
+export const RegisterRFIDSchema = z.object({
+  rfid_tag: z.string(),
+  status: z.string(),
+});
