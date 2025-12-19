@@ -1,40 +1,50 @@
-## Install PostgreSQL di Windows:
+TATA CARA KONFIGURASI PROJECT ID-VISION SYSTEM (Pertama Kali Clone)
 
-https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+1. CLONE PROJECT
+   - git clone https://github.com/gare16/id-vision.git
+   - cd id-vision-system
 
-## Install Node JS di Windows Pakai Terminal( CMD ):
+2. INSTALL DEPENDENCIES
+   - npm install
+   - atau: yarn install
+   - atau: pnpm install
 
-winget install Schniz.fnm
+3. SETUP DATABASE
+   - Pastikan PostgreSQL sudah terinstall dan berjalan di sistem
+   - Buat database baru di PostgreSQL dengan nama sesuai kebutuhan
+   - Atau gunakan Docker untuk menjalankan PostgreSQL:
+     docker run --name postgres-idvision -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=idvision321 -e POSTGRES_DB=mydb -p 5432:5432 -d postgres
 
-fnm install 22
+4. CONFIGURE ENVIRONMENT VARIABLES
+   - Copy file .env.example menjadi .env
+   - Sesuaikan konfigurasi di file .env sesuai kebutuhan:
+     DATABASE_URL="postgresql://postgres:idvision321@localhost:5432/mydb?schema=public"
+     JWT_SECRET=your_secure_jwt_secret_here
+     NEXTAUTH_SECRET=your_nextauth_secret_here
+     NEXT_PUBLIC_WEBSOCKET_URL=ws://localhost:8083/mqtt (sesuaikan dengan IP lokal Anda)
+     NEXT_PUBLIC_BROKER_URL=mqtt://localhost:1883 (sesuaikan dengan IP lokal Anda)
 
-node -v
+5. GENERATE PRISMA CLIENT
+   - npx prisma generate
 
-# Should print "v22.15.0".
+6. RUN DATABASE MIGRATIONS
+   - npx prisma db push (untuk development)
+   - atau jalankan migration jika sudah ada: npx prisma migrate dev
 
-npm -v
+7. RUN THE DEVELOPMENT SERVER
+   - npm run dev
+   - atau: yarn dev
+   - atau: pnpm dev
+   - Buka browser di http://localhost:3000
 
-# Should print "10.9.2".
+8. (Opsional) Jika menggunakan MQTT
+   - Pastikan broker MQTT berjalan di server yang dituju
+   - Konfigurasi IP broker MQTT sesuai dengan server Anda
 
-## Download Project Next Js nya:
-
-https://github.com/gare16/id-vision
--> Code => Download Zip -> Extract FIle
-
-## Restore Database:
-
-https://medium.com/codex/postgresql-and-their-dumps-in-windows-10-fdff4c960ea3
-
-## Singkronkan Database dengan prisma orm (Jalankan di terminal vscode):
-
-npx prisma db pull
-
-npx prisma generate
-
-## Jalankan Project Next js nya di terminal vscode:
-
-npm run dev
-
-## Lihat hasil di browser:
-
-localhost:3000/
+CATATAN TAMBAHAN:
+- Project ini dibangun dengan Next.js 16, React 19, Typescript, dan Tailwind CSS
+- Menggunakan Prisma sebagai ORM untuk database PostgreSQL
+- Menggunakan Radix UI Components dan shadcn untuk komponen UI
+- Sistem autentikasi menggunakan JWT
+- Terdapat integrasi dengan OCR (Tesseract.js) untuk pengolahan gambar
+- Terdapat integrasi MQTT untuk komunikasi real-time
