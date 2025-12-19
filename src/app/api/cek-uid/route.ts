@@ -1,5 +1,6 @@
-import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+
+import { prisma } from "@/lib/prisma";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -8,7 +9,7 @@ export async function GET(request: Request) {
   if (!uid) {
     return NextResponse.json(
       { status: "error", message: "UID tidak ditemukan" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -33,7 +34,7 @@ export async function GET(request: Request) {
   if (rfid?.rfidTag) {
     return NextResponse.json(
       { status: statusRfid, name: rfid.visitor?.name, nik: rfid.visitor?.nik },
-      { status: 200 }
+      { status: 200 },
     );
   } else {
     return NextResponse.json({ status: "denied" }, { status: 403 });

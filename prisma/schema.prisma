@@ -27,13 +27,20 @@ model LogVisitor {
 }
 
 model Visitor {
-  id          Int          @id @default(autoincrement())
-  nik         String       @unique
-  name        String
-  address     String
-  birthInfo   String
-  logVisitors LogVisitor[]
-  rfidTags    RfidTag[]
+  id               Int          @id @default(autoincrement())
+  nik              String       @unique
+  name             String
+  address          String
+  birthInfo        String
+  nationality      String?
+  phoneNumber      String?
+  organization     String?
+  visitingPurpose  String?
+  placeDestination String?
+  personToVisit    String?
+  vehicleNumber    String?
+  logVisitors      LogVisitor[]
+  rfidTags         RfidTag[]
 }
 
 model RfidTag {

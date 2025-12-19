@@ -39,7 +39,7 @@ export function TableSearchInput<TData>({
       <div
         className={`transition-all duration-500 fade-in-35 overflow-hidden ${
           isInputVisible
-            ? "max-w-[500px] opacity-90 translate-x-0 mr-3"
+            ? "max-w-125 opacity-90 translate-x-0 mr-3"
             : "max-w-0 opacity-0 translate-x-4"
         }`}
       >

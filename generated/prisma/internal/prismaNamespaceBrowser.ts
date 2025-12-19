@@ -101,7 +101,14 @@ export const VisitorScalarFieldEnum = {
   nik: 'nik',
   name: 'name',
   address: 'address',
-  birthInfo: 'birthInfo'
+  birthInfo: 'birthInfo',
+  nationality: 'nationality',
+  phoneNumber: 'phoneNumber',
+  organization: 'organization',
+  visitingPurpose: 'visitingPurpose',
+  placeDestination: 'placeDestination',
+  personToVisit: 'personToVisit',
+  vehicleNumber: 'vehicleNumber'
 } as const
 
 export type VisitorScalarFieldEnum = (typeof VisitorScalarFieldEnum)[keyof typeof VisitorScalarFieldEnum]

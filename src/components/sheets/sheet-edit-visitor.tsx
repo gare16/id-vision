@@ -29,11 +29,19 @@ export function SheetEditVisitor({
   const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const nik = formData.get("nik") as string;
-    const name = formData.get("name") as string;
-    const address = formData.get("address") as string;
-    const birthInfo = formData.get("birthInfo") as string;
-    const data = { nik, name, address, birthInfo };
+    const data = {
+      nik: formData.get("nik") as string,
+      name: formData.get("name") as string,
+      address: formData.get("address") as string,
+      birthInfo: formData.get("birthInfo") as string,
+      nationality: formData.get("nationality") as string,
+      phoneNumber: formData.get("phoneNumber") as string,
+      organization: formData.get("organization") as string,
+      visitingPurpose: formData.get("visitingPurpose") as string,
+      placeDestination: formData.get("placeDestination") as string,
+      personToVisit: formData.get("personToVisit") as string,
+      vehicleNumber: formData.get("vehicleNumber") as string,
+    };
     console.log(data);
     startTransition(async () => {
       await updateVisitor(data).then((res) => {
@@ -50,39 +58,90 @@ export function SheetEditVisitor({
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <button className="w-full hover:bg-accent focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
+        <button className="w-full hover:bg-accent focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive! [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
           Edit
         </button>
       </SheetTrigger>
       <SheetContent side="bottom" className=" px-4 flex flex-col">
         <SheetHeader className="gap-1">
           <SheetTitle>{item.name}</SheetTitle>
-          <SheetDescription>
-            Showing total visitors for the last 6 months
-          </SheetDescription>
+          <SheetDescription>Edit visitor information</SheetDescription>
         </SheetHeader>
         <div className="w-full flex justify-center items-center">
           <div className="w-full flex flex-col gap-4 overflow-y-auto py-4 text-sm md:w-2/5">
             <form className="flex flex-col gap-4" onSubmit={handleEditSubmit}>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="name">Name</Label>
-                <Input name="name" defaultValue={item.name} />
-              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="nik">NIK</Label>
                   <Input name="nik" defaultValue={item.nik} />
                 </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="name">Name</Label>
+                  <Input name="name" defaultValue={item.name} />
+                </div>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="address">Address</Label>
+                <Input name="address" defaultValue={item.address} />
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-3">
-                  <Label htmlFor="address">Address</Label>
-                  <Input name="address" defaultValue={item.address} />
-                </div>
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="birthInfo">Date of Birth</Label>
                   <Input name="birthInfo" defaultValue={item.birthInfo} />
                 </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="nationality">Nationality</Label>
+                  <Input
+                    name="nationality"
+                    defaultValue={item.nationality ?? ""}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="phoneNumber">Phone Number</Label>
+                  <Input
+                    name="phoneNumber"
+                    defaultValue={item.phoneNumber ?? ""}
+                  />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="organization">Organization</Label>
+                  <Input
+                    name="organization"
+                    defaultValue={item.organization ?? ""}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="visitingPurpose">Visiting Purpose</Label>
+                <Input
+                  name="visitingPurpose"
+                  defaultValue={item.visitingPurpose ?? ""}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="placeDestination">Place Destination</Label>
+                  <Input
+                    name="placeDestination"
+                    defaultValue={item.placeDestination ?? ""}
+                  />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="personToVisit">Person to Visit</Label>
+                  <Input
+                    name="personToVisit"
+                    defaultValue={item.personToVisit ?? ""}
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="vehicleNumber">Vehicle Number</Label>
+                <Input
+                  name="vehicleNumber"
+                  defaultValue={item.vehicleNumber ?? ""}
+                />
               </div>
               <SheetFooter className="w-full mt-auto  flex gap-2 justify-center items-center sm:space-x-0">
                 <Button className="w-2/5">

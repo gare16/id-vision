@@ -45,6 +45,7 @@ import {
 import { useEffect, useId, useMemo, useState } from "react";
 import { z } from "zod";
 
+import { TableSearchInput } from "@/components/search/table-search";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -94,7 +95,8 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
     cell: ({ row }) => <DragHandle id={row.original.idLog} />,
   },
   {
-    accessorKey: "nama",
+    accessorFn: (row) => row.visitor.name,
+    id: "name",
     header: () => <div className="w-full text-left">Nama</div>,
     cell: ({ row }) => (
       <>
@@ -114,7 +116,7 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
     ),
   },
   {
-    accessorKey: "rfid_tag",
+    accessorKey: "rfidTag",
     header: () => <div className="w-full text-left">RFID Tag</div>,
     cell: ({ row }) => (
       <>
@@ -278,6 +280,15 @@ export function DailyTableLogVisitors({
       className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
     >
       <div className="overflow-hidden rounded-lg border">
+        <div className="w-full flex items-center justify-between">
+          <div />
+          <TableSearchInput
+            table={table}
+            columnId="name"
+            placeholder="Search by name..."
+            className="max-w-sm my-2 me-2"
+          />
+        </div>
         <DndContext
           collisionDetection={closestCenter}
           modifiers={[restrictToVerticalAxis]}

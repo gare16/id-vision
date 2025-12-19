@@ -20,7 +20,6 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
-  ColumnDef,
   ColumnFiltersState,
   Row,
   SortingState,
@@ -39,20 +38,12 @@ import {
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
-  GripVerticalIcon,
-  MoreVerticalIcon,
 } from "lucide-react";
 import { useEffect, useId, useMemo, useState } from "react";
 import { z } from "zod";
 
 import { TableSearchInput } from "@/components/search/table-search";
-import { SheetEditVisitor } from "@/components/sheets/sheet-edit-visitor";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -74,103 +65,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import { useBoolean } from "@/hooks/use-boolean";
 import { visitorSchema } from "@/schema/visitors-schema";
 
-function DragHandle({ id }: { id: number }) {
-  const { attributes, listeners } = useSortable({
-    id,
-  });
-
-  return (
-    <Button
-      {...attributes}
-      {...listeners}
-      variant="ghost"
-      size="icon"
-      className="size-7 text-muted-foreground hover:bg-transparent"
-    >
-      <GripVerticalIcon className="size-3 text-muted-foreground" />
-      <span className="sr-only">Drag to reorder</span>
-    </Button>
-  );
-}
-
-const columns: ColumnDef<z.infer<typeof visitorSchema>>[] = [
-  {
-    id: "drag",
-    header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
-  },
-  {
-    accessorKey: "nama",
-    header: () => <div className="w-full text-left">Nama</div>,
-    cell: ({ row }) => (
-      <>
-        <Label htmlFor={`${row.original.id}-name`} className="sr-only">
-          Nama
-        </Label>
-        <p
-          className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-name`}
-        >
-          {row.original.name}
-        </p>
-      </>
-    ),
-  },
-  {
-    accessorKey: "address",
-    header: () => <div className="w-full text-left">Address</div>,
-    cell: ({ row }) => (
-      <>
-        <Label htmlFor={`${row.original.id}-address`} className="sr-only">
-          Address
-        </Label>
-        <p
-          className="h-full w-96 border-transparent text-pretty bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-address`}
-        >
-          {row.original.address}
-        </p>
-      </>
-    ),
-  },
-  {
-    accessorKey: "born",
-    header: () => <div className="w-full text-left">Date of Birth</div>,
-    cell: ({ row }) => (
-      <>
-        <Label htmlFor={`${row.original.id}-born`} className="sr-only">
-          Date of Birth
-        </Label>
-        <p
-          className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-born`}
-        >
-          {row.original.birthInfo}
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
-            size="icon"
-          >
-            <MoreVerticalIcon />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-32">
-          <SheetEditVisitor item={row.original} />
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-];
+import { columnVisitors } from "./column";
 
 function DraggableRow({ row }: { row: Row<z.infer<typeof visitorSchema>> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
@@ -182,7 +77,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof visitorSchema>> }) {
       data-state={row.getIsSelected() && "selected"}
       data-dragging={isDragging}
       ref={setNodeRef}
-      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
+      className="data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
       style={{
         transform: CSS.Transform.toString(transform),
         transition: transition,
@@ -228,7 +123,7 @@ export function TableVisitors({
 
   const table = useReactTable({
     data,
-    columns,
+    columns: columnVisitors,
     state: {
       sorting,
       columnVisibility,
@@ -277,16 +172,16 @@ export function TableVisitors({
   return (
     <TabsContent
       value={valueContent}
-      className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
+      className="relative flex flex-col gap-4 px-4 lg:px-6"
     >
       <div className="overflow-hidden rounded-lg border">
-        <div className="w-full flex items-center justify-between 4">
-          <div></div>
+        <div className="w-full flex items-center justify-between px-4 py-4">
+          <div />
           <TableSearchInput
             table={table}
-            columnId="nama"
+            columnId="name"
             placeholder="Search by name..."
-            className="max-w-sm my-2 me-2"
+            className="w-64"
           />
         </div>
         <DndContext
@@ -296,47 +191,49 @@ export function TableVisitors({
           sensors={sensors}
           id={sortableId}
         >
-          <Table>
-            <TableHeader className="sticky top-0 z-10 bg-muted">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead key={header.id} colSpan={header.colSpan}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                      </TableHead>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody className="**:data-[slot=table-cell]:first:w-8">
-              {table.getRowModel().rows?.length ? (
-                <SortableContext
-                  items={dataIds}
-                  strategy={verticalListSortingStrategy}
-                >
-                  {table.getRowModel().rows.map((row) => (
-                    <DraggableRow key={row.id} row={row} />
-                  ))}
-                </SortableContext>
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
+          <div className="overflow-x-auto min-w-full">
+            <Table className="min-w-full">
+              <TableHeader className="sticky top-0 bg-muted">
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => {
+                      return (
+                        <TableHead key={header.id} colSpan={header.colSpan}>
+                          {header.isPlaceholder
+                            ? null
+                            : flexRender(
+                                header.column.columnDef.header,
+                                header.getContext(),
+                              )}
+                        </TableHead>
+                      );
+                    })}
+                  </TableRow>
+                ))}
+              </TableHeader>
+              <TableBody className="**:data-[slot=table-cell]:first:w-8">
+                {table.getRowModel().rows?.length ? (
+                  <SortableContext
+                    items={dataIds}
+                    strategy={verticalListSortingStrategy}
                   >
-                    No results.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+                    {table.getRowModel().rows.map((row) => (
+                      <DraggableRow key={row.id} row={row} />
+                    ))}
+                  </SortableContext>
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columnVisitors.length}
+                      className="h-24 text-center"
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </DndContext>
       </div>
       <div className="flex items-center justify-between px-4">

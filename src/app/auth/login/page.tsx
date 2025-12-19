@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -20,7 +19,6 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,8 +38,7 @@ export default function LoginPage() {
       if (response.ok) {
         toast.success("Login successful!");
         // Redirect to dashboard after successful login
-        router.push("/dashboard");
-        router.refresh(); // Refresh to update UI based on auth state
+        window.location.href = "/dashboard";
       } else {
         toast.error(data.message || "Login failed. Please try again.");
       }
@@ -54,7 +51,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 p-4">
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
@@ -92,7 +89,11 @@ export default function LoginPage() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full my-4 mt-5"
+              disabled={isLoading}
+            >
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
             <p className="mt-4 text-sm text-muted-foreground">

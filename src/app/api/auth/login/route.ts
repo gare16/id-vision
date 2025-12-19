@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Find user by username
-    const user = await prisma.user.findFirstOrThrow({
+    const user = await prisma.user.findFirst({
       where: { username },
     });
 

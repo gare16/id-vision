@@ -341,10 +341,6 @@ export type RfidTagUncheckedUpdateManyWithoutVisitorNestedInput = {
   deleteMany?: Prisma.RfidTagScalarWhereInput | Prisma.RfidTagScalarWhereInput[]
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type RfidTagCreateWithoutLogVisitorsInput = {
   rfidTag: string
   status: boolean

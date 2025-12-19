@@ -60,7 +60,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 p-4">
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">

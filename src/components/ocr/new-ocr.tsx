@@ -4,6 +4,8 @@ import Tesseract from "tesseract.js";
 
 import { preprocessImage } from "@/utils/image-preprocess";
 
+import { Input } from "../ui/input";
+
 interface Props {
   onTextExtracted: (text: string) => void;
 }
@@ -22,7 +24,7 @@ export default function OCRUploader({ onTextExtracted }: Props) {
     setPreview(processed);
 
     Tesseract.recognize(processed, "ind", {
-      langPath: "/tessdata",
+      langPath: "/tessdata/",
       logger: (m) =>
         m.status === "recognizing text" &&
         setProgress(Math.floor(m.progress * 100)),
@@ -39,7 +41,7 @@ export default function OCRUploader({ onTextExtracted }: Props) {
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={handleFileChange} />
+      <Input type="file" accept="image/*" onChange={handleFileChange} />
       {preview && (
         <Image
           width={200}

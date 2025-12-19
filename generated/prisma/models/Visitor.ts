@@ -40,6 +40,13 @@ export type VisitorMinAggregateOutputType = {
   name: string | null
   address: string | null
   birthInfo: string | null
+  nationality: string | null
+  phoneNumber: string | null
+  organization: string | null
+  visitingPurpose: string | null
+  placeDestination: string | null
+  personToVisit: string | null
+  vehicleNumber: string | null
 }
 
 export type VisitorMaxAggregateOutputType = {
@@ -48,6 +55,13 @@ export type VisitorMaxAggregateOutputType = {
   name: string | null
   address: string | null
   birthInfo: string | null
+  nationality: string | null
+  phoneNumber: string | null
+  organization: string | null
+  visitingPurpose: string | null
+  placeDestination: string | null
+  personToVisit: string | null
+  vehicleNumber: string | null
 }
 
 export type VisitorCountAggregateOutputType = {
@@ -56,6 +70,13 @@ export type VisitorCountAggregateOutputType = {
   name: number
   address: number
   birthInfo: number
+  nationality: number
+  phoneNumber: number
+  organization: number
+  visitingPurpose: number
+  placeDestination: number
+  personToVisit: number
+  vehicleNumber: number
   _all: number
 }
 
@@ -74,6 +95,13 @@ export type VisitorMinAggregateInputType = {
   name?: true
   address?: true
   birthInfo?: true
+  nationality?: true
+  phoneNumber?: true
+  organization?: true
+  visitingPurpose?: true
+  placeDestination?: true
+  personToVisit?: true
+  vehicleNumber?: true
 }
 
 export type VisitorMaxAggregateInputType = {
@@ -82,6 +110,13 @@ export type VisitorMaxAggregateInputType = {
   name?: true
   address?: true
   birthInfo?: true
+  nationality?: true
+  phoneNumber?: true
+  organization?: true
+  visitingPurpose?: true
+  placeDestination?: true
+  personToVisit?: true
+  vehicleNumber?: true
 }
 
 export type VisitorCountAggregateInputType = {
@@ -90,6 +125,13 @@ export type VisitorCountAggregateInputType = {
   name?: true
   address?: true
   birthInfo?: true
+  nationality?: true
+  phoneNumber?: true
+  organization?: true
+  visitingPurpose?: true
+  placeDestination?: true
+  personToVisit?: true
+  vehicleNumber?: true
   _all?: true
 }
 
@@ -185,6 +227,13 @@ export type VisitorGroupByOutputType = {
   name: string
   address: string
   birthInfo: string
+  nationality: string | null
+  phoneNumber: string | null
+  organization: string | null
+  visitingPurpose: string | null
+  placeDestination: string | null
+  personToVisit: string | null
+  vehicleNumber: string | null
   _count: VisitorCountAggregateOutputType | null
   _avg: VisitorAvgAggregateOutputType | null
   _sum: VisitorSumAggregateOutputType | null
@@ -216,6 +265,13 @@ export type VisitorWhereInput = {
   name?: Prisma.StringFilter<"Visitor"> | string
   address?: Prisma.StringFilter<"Visitor"> | string
   birthInfo?: Prisma.StringFilter<"Visitor"> | string
+  nationality?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  organization?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  visitingPurpose?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  placeDestination?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  personToVisit?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  vehicleNumber?: Prisma.StringNullableFilter<"Visitor"> | string | null
   logVisitors?: Prisma.LogVisitorListRelationFilter
   rfidTags?: Prisma.RfidTagListRelationFilter
 }
@@ -226,6 +282,13 @@ export type VisitorOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   birthInfo?: Prisma.SortOrder
+  nationality?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  organization?: Prisma.SortOrderInput | Prisma.SortOrder
+  visitingPurpose?: Prisma.SortOrderInput | Prisma.SortOrder
+  placeDestination?: Prisma.SortOrderInput | Prisma.SortOrder
+  personToVisit?: Prisma.SortOrderInput | Prisma.SortOrder
+  vehicleNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   logVisitors?: Prisma.LogVisitorOrderByRelationAggregateInput
   rfidTags?: Prisma.RfidTagOrderByRelationAggregateInput
 }
@@ -239,6 +302,13 @@ export type VisitorWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Visitor"> | string
   address?: Prisma.StringFilter<"Visitor"> | string
   birthInfo?: Prisma.StringFilter<"Visitor"> | string
+  nationality?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  phoneNumber?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  organization?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  visitingPurpose?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  placeDestination?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  personToVisit?: Prisma.StringNullableFilter<"Visitor"> | string | null
+  vehicleNumber?: Prisma.StringNullableFilter<"Visitor"> | string | null
   logVisitors?: Prisma.LogVisitorListRelationFilter
   rfidTags?: Prisma.RfidTagListRelationFilter
 }, "id" | "nik">
@@ -249,6 +319,13 @@ export type VisitorOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   birthInfo?: Prisma.SortOrder
+  nationality?: Prisma.SortOrderInput | Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  organization?: Prisma.SortOrderInput | Prisma.SortOrder
+  visitingPurpose?: Prisma.SortOrderInput | Prisma.SortOrder
+  placeDestination?: Prisma.SortOrderInput | Prisma.SortOrder
+  personToVisit?: Prisma.SortOrderInput | Prisma.SortOrder
+  vehicleNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.VisitorCountOrderByAggregateInput
   _avg?: Prisma.VisitorAvgOrderByAggregateInput
   _max?: Prisma.VisitorMaxOrderByAggregateInput
@@ -265,6 +342,13 @@ export type VisitorScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Visitor"> | string
   address?: Prisma.StringWithAggregatesFilter<"Visitor"> | string
   birthInfo?: Prisma.StringWithAggregatesFilter<"Visitor"> | string
+  nationality?: Prisma.StringNullableWithAggregatesFilter<"Visitor"> | string | null
+  phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"Visitor"> | string | null
+  organization?: Prisma.StringNullableWithAggregatesFilter<"Visitor"> | string | null
+  visitingPurpose?: Prisma.StringNullableWithAggregatesFilter<"Visitor"> | string | null
+  placeDestination?: Prisma.StringNullableWithAggregatesFilter<"Visitor"> | string | null
+  personToVisit?: Prisma.StringNullableWithAggregatesFilter<"Visitor"> | string | null
+  vehicleNumber?: Prisma.StringNullableWithAggregatesFilter<"Visitor"> | string | null
 }
 
 export type VisitorCreateInput = {
@@ -272,6 +356,13 @@ export type VisitorCreateInput = {
   name: string
   address: string
   birthInfo: string
+  nationality?: string | null
+  phoneNumber?: string | null
+  organization?: string | null
+  visitingPurpose?: string | null
+  placeDestination?: string | null
+  personToVisit?: string | null
+  vehicleNumber?: string | null
   logVisitors?: Prisma.LogVisitorCreateNestedManyWithoutVisitorInput
   rfidTags?: Prisma.RfidTagCreateNestedManyWithoutVisitorInput
 }
@@ -282,6 +373,13 @@ export type VisitorUncheckedCreateInput = {
   name: string
   address: string
   birthInfo: string
+  nationality?: string | null
+  phoneNumber?: string | null
+  organization?: string | null
+  visitingPurpose?: string | null
+  placeDestination?: string | null
+  personToVisit?: string | null
+  vehicleNumber?: string | null
   logVisitors?: Prisma.LogVisitorUncheckedCreateNestedManyWithoutVisitorInput
   rfidTags?: Prisma.RfidTagUncheckedCreateNestedManyWithoutVisitorInput
 }
@@ -291,6 +389,13 @@ export type VisitorUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   birthInfo?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personToVisit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logVisitors?: Prisma.LogVisitorUpdateManyWithoutVisitorNestedInput
   rfidTags?: Prisma.RfidTagUpdateManyWithoutVisitorNestedInput
 }
@@ -301,6 +406,13 @@ export type VisitorUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   birthInfo?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personToVisit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logVisitors?: Prisma.LogVisitorUncheckedUpdateManyWithoutVisitorNestedInput
   rfidTags?: Prisma.RfidTagUncheckedUpdateManyWithoutVisitorNestedInput
 }
@@ -311,6 +423,13 @@ export type VisitorCreateManyInput = {
   name: string
   address: string
   birthInfo: string
+  nationality?: string | null
+  phoneNumber?: string | null
+  organization?: string | null
+  visitingPurpose?: string | null
+  placeDestination?: string | null
+  personToVisit?: string | null
+  vehicleNumber?: string | null
 }
 
 export type VisitorUpdateManyMutationInput = {
@@ -318,6 +437,13 @@ export type VisitorUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   birthInfo?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personToVisit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type VisitorUncheckedUpdateManyInput = {
@@ -326,6 +452,13 @@ export type VisitorUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   birthInfo?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personToVisit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type VisitorScalarRelationFilter = {
@@ -339,6 +472,13 @@ export type VisitorCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   birthInfo?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  organization?: Prisma.SortOrder
+  visitingPurpose?: Prisma.SortOrder
+  placeDestination?: Prisma.SortOrder
+  personToVisit?: Prisma.SortOrder
+  vehicleNumber?: Prisma.SortOrder
 }
 
 export type VisitorAvgOrderByAggregateInput = {
@@ -351,6 +491,13 @@ export type VisitorMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   birthInfo?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  organization?: Prisma.SortOrder
+  visitingPurpose?: Prisma.SortOrder
+  placeDestination?: Prisma.SortOrder
+  personToVisit?: Prisma.SortOrder
+  vehicleNumber?: Prisma.SortOrder
 }
 
 export type VisitorMinOrderByAggregateInput = {
@@ -359,6 +506,13 @@ export type VisitorMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   address?: Prisma.SortOrder
   birthInfo?: Prisma.SortOrder
+  nationality?: Prisma.SortOrder
+  phoneNumber?: Prisma.SortOrder
+  organization?: Prisma.SortOrder
+  visitingPurpose?: Prisma.SortOrder
+  placeDestination?: Prisma.SortOrder
+  personToVisit?: Prisma.SortOrder
+  vehicleNumber?: Prisma.SortOrder
 }
 
 export type VisitorSumOrderByAggregateInput = {
@@ -384,6 +538,10 @@ export type VisitorUpdateOneRequiredWithoutLogVisitorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VisitorUpdateToOneWithWhereWithoutLogVisitorsInput, Prisma.VisitorUpdateWithoutLogVisitorsInput>, Prisma.VisitorUncheckedUpdateWithoutLogVisitorsInput>
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type VisitorCreateNestedOneWithoutRfidTagsInput = {
   create?: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagsInput, Prisma.VisitorUncheckedCreateWithoutRfidTagsInput>
   connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutRfidTagsInput
@@ -405,6 +563,13 @@ export type VisitorCreateWithoutLogVisitorsInput = {
   name: string
   address: string
   birthInfo: string
+  nationality?: string | null
+  phoneNumber?: string | null
+  organization?: string | null
+  visitingPurpose?: string | null
+  placeDestination?: string | null
+  personToVisit?: string | null
+  vehicleNumber?: string | null
   rfidTags?: Prisma.RfidTagCreateNestedManyWithoutVisitorInput
 }
 
@@ -414,6 +579,13 @@ export type VisitorUncheckedCreateWithoutLogVisitorsInput = {
   name: string
   address: string
   birthInfo: string
+  nationality?: string | null
+  phoneNumber?: string | null
+  organization?: string | null
+  visitingPurpose?: string | null
+  placeDestination?: string | null
+  personToVisit?: string | null
+  vehicleNumber?: string | null
   rfidTags?: Prisma.RfidTagUncheckedCreateNestedManyWithoutVisitorInput
 }
 
@@ -438,6 +610,13 @@ export type VisitorUpdateWithoutLogVisitorsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   birthInfo?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personToVisit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfidTags?: Prisma.RfidTagUpdateManyWithoutVisitorNestedInput
 }
 
@@ -447,6 +626,13 @@ export type VisitorUncheckedUpdateWithoutLogVisitorsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   birthInfo?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personToVisit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfidTags?: Prisma.RfidTagUncheckedUpdateManyWithoutVisitorNestedInput
 }
 
@@ -455,6 +641,13 @@ export type VisitorCreateWithoutRfidTagsInput = {
   name: string
   address: string
   birthInfo: string
+  nationality?: string | null
+  phoneNumber?: string | null
+  organization?: string | null
+  visitingPurpose?: string | null
+  placeDestination?: string | null
+  personToVisit?: string | null
+  vehicleNumber?: string | null
   logVisitors?: Prisma.LogVisitorCreateNestedManyWithoutVisitorInput
 }
 
@@ -464,6 +657,13 @@ export type VisitorUncheckedCreateWithoutRfidTagsInput = {
   name: string
   address: string
   birthInfo: string
+  nationality?: string | null
+  phoneNumber?: string | null
+  organization?: string | null
+  visitingPurpose?: string | null
+  placeDestination?: string | null
+  personToVisit?: string | null
+  vehicleNumber?: string | null
   logVisitors?: Prisma.LogVisitorUncheckedCreateNestedManyWithoutVisitorInput
 }
 
@@ -488,6 +688,13 @@ export type VisitorUpdateWithoutRfidTagsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   birthInfo?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personToVisit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logVisitors?: Prisma.LogVisitorUpdateManyWithoutVisitorNestedInput
 }
 
@@ -497,6 +704,13 @@ export type VisitorUncheckedUpdateWithoutRfidTagsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   birthInfo?: Prisma.StringFieldUpdateOperationsInput | string
+  nationality?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organization?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  personToVisit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logVisitors?: Prisma.LogVisitorUncheckedUpdateManyWithoutVisitorNestedInput
 }
 
@@ -546,6 +760,13 @@ export type VisitorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name?: boolean
   address?: boolean
   birthInfo?: boolean
+  nationality?: boolean
+  phoneNumber?: boolean
+  organization?: boolean
+  visitingPurpose?: boolean
+  placeDestination?: boolean
+  personToVisit?: boolean
+  vehicleNumber?: boolean
   logVisitors?: boolean | Prisma.Visitor$logVisitorsArgs<ExtArgs>
   rfidTags?: boolean | Prisma.Visitor$rfidTagsArgs<ExtArgs>
   _count?: boolean | Prisma.VisitorCountOutputTypeDefaultArgs<ExtArgs>
@@ -557,6 +778,13 @@ export type VisitorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   address?: boolean
   birthInfo?: boolean
+  nationality?: boolean
+  phoneNumber?: boolean
+  organization?: boolean
+  visitingPurpose?: boolean
+  placeDestination?: boolean
+  personToVisit?: boolean
+  vehicleNumber?: boolean
 }, ExtArgs["result"]["visitor"]>
 
 export type VisitorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -565,6 +793,13 @@ export type VisitorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   address?: boolean
   birthInfo?: boolean
+  nationality?: boolean
+  phoneNumber?: boolean
+  organization?: boolean
+  visitingPurpose?: boolean
+  placeDestination?: boolean
+  personToVisit?: boolean
+  vehicleNumber?: boolean
 }, ExtArgs["result"]["visitor"]>
 
 export type VisitorSelectScalar = {
@@ -573,9 +808,16 @@ export type VisitorSelectScalar = {
   name?: boolean
   address?: boolean
   birthInfo?: boolean
+  nationality?: boolean
+  phoneNumber?: boolean
+  organization?: boolean
+  visitingPurpose?: boolean
+  placeDestination?: boolean
+  personToVisit?: boolean
+  vehicleNumber?: boolean
 }
 
-export type VisitorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nik" | "name" | "address" | "birthInfo", ExtArgs["result"]["visitor"]>
+export type VisitorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nik" | "name" | "address" | "birthInfo" | "nationality" | "phoneNumber" | "organization" | "visitingPurpose" | "placeDestination" | "personToVisit" | "vehicleNumber", ExtArgs["result"]["visitor"]>
 export type VisitorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   logVisitors?: boolean | Prisma.Visitor$logVisitorsArgs<ExtArgs>
   rfidTags?: boolean | Prisma.Visitor$rfidTagsArgs<ExtArgs>
@@ -596,6 +838,13 @@ export type $VisitorPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     name: string
     address: string
     birthInfo: string
+    nationality: string | null
+    phoneNumber: string | null
+    organization: string | null
+    visitingPurpose: string | null
+    placeDestination: string | null
+    personToVisit: string | null
+    vehicleNumber: string | null
   }, ExtArgs["result"]["visitor"]>
   composites: {}
 }
@@ -1026,6 +1275,13 @@ export interface VisitorFieldRefs {
   readonly name: Prisma.FieldRef<"Visitor", 'String'>
   readonly address: Prisma.FieldRef<"Visitor", 'String'>
   readonly birthInfo: Prisma.FieldRef<"Visitor", 'String'>
+  readonly nationality: Prisma.FieldRef<"Visitor", 'String'>
+  readonly phoneNumber: Prisma.FieldRef<"Visitor", 'String'>
+  readonly organization: Prisma.FieldRef<"Visitor", 'String'>
+  readonly visitingPurpose: Prisma.FieldRef<"Visitor", 'String'>
+  readonly placeDestination: Prisma.FieldRef<"Visitor", 'String'>
+  readonly personToVisit: Prisma.FieldRef<"Visitor", 'String'>
+  readonly vehicleNumber: Prisma.FieldRef<"Visitor", 'String'>
 }
     
 

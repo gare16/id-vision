@@ -3,6 +3,13 @@ export interface KTPData {
   name: string;
   address: string;
   birthInfo: string;
+  nationality?: string | null;
+  phoneNumber?: string | null;
+  organization?: string | null;
+  visitingPurpose?: string | null;
+  placeDestination?: string | null;
+  personToVisit?: string | null;
+  vehicleNumber?: string | null;
 }
 
 export function parseKTPText(raw: string): KTPData {

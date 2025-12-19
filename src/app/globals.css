@@ -73,31 +73,17 @@
   }
 
   .custom-scrollbar {
-    overflow-y: auto;
-    padding-right: 2px;
-  }
+  overflow: scroll;
+  padding-right: 2px; /* Anda masih bisa mempertahankan padding jika diperlukan */
+}
 
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 0.5rem;
-  }
+.custom-scrollbar::-webkit-scrollbar {
+  display: none; /* Ini untuk menyembunyikan scrollbar */
+}
 
-  .custom-scrollbar::-webkit-scrollbar-track {
-    border-radius: 9999px;
-    background-color: #f3f4f6;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 9999px;
-    background-color: oklch(0.6 0.118 184.704);
-  }
-
-  .dark .custom-scrollbar::-webkit-scrollbar-track {
-    background-color: #3f3f46;
-  }
-
-  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: oklch(0.6 0.118 184.704);
-  }
+.dark .custom-scrollbar::-webkit-scrollbar {
+  display: none; /* Pastikan scrollbar juga tersembunyi di mode gelap */
+}
 
   :root {
     --radius: 0.625rem;
