@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { useState } from "react";
 import Tesseract from "tesseract.js";
+
 import { preprocessImage } from "@/utils/image-preprocess";
-import Image from "next/image";
 
 interface Props {
   onTextExtracted: (text: string) => void;

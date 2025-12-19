@@ -1,3 +1,4 @@
+import { requireAuth } from "@/components/auth/auth-checker";
 import { ChartAreaInteractive } from "@/components/chart/chart-area-interactive";
 import { SectionCards } from "@/components/dnd-card/dnd-section-card";
 import { DataTableProvider } from "@/components/table/data-table";
@@ -9,6 +10,9 @@ import {
 import { getDataSummaryCard } from "@/lib/action/rfid";
 
 export default async function Dashboard() {
+  // Check if user is authenticated
+  await requireAuth();
+
   const { chart } = await getChartLogPengunjung();
   const dataCard = await getDataSummaryCard();
   const log = await getDailyTableLogVisitor();

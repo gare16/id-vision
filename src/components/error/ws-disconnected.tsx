@@ -1,4 +1,5 @@
 import { TriangleAlert } from "lucide-react";
+
 import { Button } from "../ui/button";
 
 export const Disconnected = () => {

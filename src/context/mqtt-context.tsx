@@ -1,5 +1,6 @@
 "use client";
 
+import mqtt from "mqtt";
 import React, {
   createContext,
   useContext,
@@ -7,10 +8,10 @@ import React, {
   useRef,
   useState,
 } from "react";
-import mqtt from "mqtt";
-import { RFIDPayloadSchema } from "@/schema/mqtt-payload";
 import { z } from "zod";
+
 import { createLogVisitor } from "@/lib/action/rfid";
+import { RFIDPayloadSchema } from "@/schema/mqtt-payload";
 
 type MQTTContextType = {
   client: mqtt.MqttClient | null;
@@ -30,11 +31,13 @@ const MQTTContext = createContext<MQTTContextType>({
 });
 
 export const MQTTProvider = ({ children }: { children: React.ReactNode }) => {
+  const websocketUrl =
+    process.env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://192.168.43.85:8083/mqtt";
   const [messages, setMessages] = useState<z.infer<typeof RFIDPayloadSchema>>();
   const clientRef = useRef<mqtt.MqttClient | null>(null);
 
   useEffect(() => {
-    const client = mqtt.connect("ws://192.168.43.85:8083/mqtt");
+    const client = mqtt.connect(websocketUrl);
     const topic = "rfid/uid";
     clientRef.current = client;
 
@@ -46,7 +49,7 @@ export const MQTTProvider = ({ children }: { children: React.ReactNode }) => {
     client.on("message", async (_topic, message) => {
       try {
         const parsed: z.infer<typeof RFIDPayloadSchema> = JSON.parse(
-          message.toString()
+          message.toString(),
         );
 
         setMessages(parsed);
@@ -67,7 +70,7 @@ export const MQTTProvider = ({ children }: { children: React.ReactNode }) => {
     return () => {
       client.end();
     };
-  }, []);
+  }, [websocketUrl]);
 
   return (
     <MQTTContext.Provider value={{ client: clientRef.current, messages }}>

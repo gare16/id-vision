@@ -1,6 +1,11 @@
 "use client";
 
+import clsx from "clsx";
 import { ChevronRight, type LucideIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -12,14 +17,12 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../ui/collapsible";
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import clsx from "clsx";
 
 type NavMainType = {
   items: {
@@ -87,7 +90,7 @@ export function NavMain({ items }: NavMainType) {
                           return (
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton asChild>
-                                <a
+                                <Link
                                   href={subItem.url}
                                   className={clsx({
                                     "bg-chart-2 text-white hover:bg-[oklch(0.8416 0.17 162.48)]":
@@ -95,7 +98,7 @@ export function NavMain({ items }: NavMainType) {
                                   })}
                                 >
                                   <span>{subItem.title}</span>
-                                </a>
+                                </Link>
                               </SidebarMenuSubButton>
                             </SidebarMenuSubItem>
                           );

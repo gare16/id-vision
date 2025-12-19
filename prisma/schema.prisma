@@ -14,35 +14,32 @@ model User {
 }
 
 model LogVisitor {
-  idLog      Int      @id @default(autoincrement())
-  rfidTag    String
-  nik        String
-  date       DateTime
-  access     Boolean
-  location   String
-  rfidTagId  String
-  nikVisitor String
-
-  rfidTagRelation RfidTag @relation(fields: [rfidTagId], references: [rfidTag])
-  visitor         Visitor @relation(fields: [nikVisitor], references: [nik])
+  idLog           Int      @id @default(autoincrement())
+  rfidTag         String
+  nik             String
+  date            DateTime
+  access          Boolean
+  location        String
+  rfidTagId       String
+  nikVisitor      String
+  visitor         Visitor  @relation(fields: [nikVisitor], references: [nik])
+  rfidTagRelation RfidTag  @relation(fields: [rfidTagId], references: [rfidTag])
 }
 
 model Visitor {
-  id        Int    @id @default(autoincrement())
-  nik       String @unique
-  name      String
-  address   String
-  birthInfo String
-
+  id          Int          @id @default(autoincrement())
+  nik         String       @unique
+  name        String
+  address     String
+  birthInfo   String
   logVisitors LogVisitor[]
   rfidTags    RfidTag[]
 }
 
 model RfidTag {
-  rfidTag String  @id
-  nik     String?
-  status  Boolean
-
+  rfidTag     String       @id
+  nik         String?
+  status      Boolean
   logVisitors LogVisitor[]
-  visitor     Visitor?     @relation(fields: [nik], references: [nik], onDelete: Restrict, onUpdate: Cascade)
+  visitor     Visitor?     @relation(fields: [nik], references: [nik], onDelete: Restrict)
 }

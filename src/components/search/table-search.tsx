@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Table } from "@tanstack/react-table";
+import { useState } from "react";
+
+import { Input } from "@/components/ui/input";
 
 interface TableSearchInputProps<TData> {
   table: Table<TData>;

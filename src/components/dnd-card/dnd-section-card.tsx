@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import {
   DndContext,
@@ -16,16 +17,6 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-
-import { useState, useEffect } from "react";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   AlertTriangleIcon,
   BadgeCheck,
@@ -34,13 +25,24 @@ import {
   TrendingUpIcon,
   User,
 } from "lucide-react";
-import { Skeleton } from "../ui/skeleton";
+import { useState, useEffect } from "react";
+import { z } from "zod";
+
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { useBoolean } from "@/hooks/use-boolean";
 import {
   SectionCardSchema,
   SectionCardsPropsSchema,
 } from "@/schema/summary-card";
-import { z } from "zod";
+
+import { Skeleton } from "../ui/skeleton";
 
 function SortableCard({
   id,
@@ -130,7 +132,7 @@ export function SectionCards(props: z.infer<typeof SectionCardsPropsSchema>) {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   function handleDragEnd(event: DragEndEvent) {

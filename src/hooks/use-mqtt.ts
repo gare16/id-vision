@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import mqtt, { MqttClient } from "mqtt";
+import { useEffect, useRef, useState } from "react";
 
 export function useMqttClient(brokerUrl: string, options = {}) {
   const clientRef = useRef<MqttClient | null>(null);
@@ -32,7 +32,7 @@ export function useMqttClient(brokerUrl: string, options = {}) {
     return () => {
       client.end();
     };
-  }, [brokerUrl]);
+  }, [brokerUrl, options]);
 
   return {
     client: clientRef.current,

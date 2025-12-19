@@ -240,8 +240,8 @@ export type LogVisitorWhereInput = {
   location?: Prisma.StringFilter<"LogVisitor"> | string
   rfidTagId?: Prisma.StringFilter<"LogVisitor"> | string
   nikVisitor?: Prisma.StringFilter<"LogVisitor"> | string
-  rfidTagRelation?: Prisma.XOR<Prisma.RfidTagScalarRelationFilter, Prisma.RfidTagWhereInput>
   visitor?: Prisma.XOR<Prisma.VisitorScalarRelationFilter, Prisma.VisitorWhereInput>
+  rfidTagRelation?: Prisma.XOR<Prisma.RfidTagScalarRelationFilter, Prisma.RfidTagWhereInput>
 }
 
 export type LogVisitorOrderByWithRelationInput = {
@@ -253,8 +253,8 @@ export type LogVisitorOrderByWithRelationInput = {
   location?: Prisma.SortOrder
   rfidTagId?: Prisma.SortOrder
   nikVisitor?: Prisma.SortOrder
-  rfidTagRelation?: Prisma.RfidTagOrderByWithRelationInput
   visitor?: Prisma.VisitorOrderByWithRelationInput
+  rfidTagRelation?: Prisma.RfidTagOrderByWithRelationInput
 }
 
 export type LogVisitorWhereUniqueInput = Prisma.AtLeast<{
@@ -269,8 +269,8 @@ export type LogVisitorWhereUniqueInput = Prisma.AtLeast<{
   location?: Prisma.StringFilter<"LogVisitor"> | string
   rfidTagId?: Prisma.StringFilter<"LogVisitor"> | string
   nikVisitor?: Prisma.StringFilter<"LogVisitor"> | string
-  rfidTagRelation?: Prisma.XOR<Prisma.RfidTagScalarRelationFilter, Prisma.RfidTagWhereInput>
   visitor?: Prisma.XOR<Prisma.VisitorScalarRelationFilter, Prisma.VisitorWhereInput>
+  rfidTagRelation?: Prisma.XOR<Prisma.RfidTagScalarRelationFilter, Prisma.RfidTagWhereInput>
 }, "idLog">
 
 export type LogVisitorOrderByWithAggregationInput = {
@@ -309,8 +309,8 @@ export type LogVisitorCreateInput = {
   date: Date | string
   access: boolean
   location: string
-  rfidTagRelation: Prisma.RfidTagCreateNestedOneWithoutLogVisitorsInput
   visitor: Prisma.VisitorCreateNestedOneWithoutLogVisitorsInput
+  rfidTagRelation: Prisma.RfidTagCreateNestedOneWithoutLogVisitorsInput
 }
 
 export type LogVisitorUncheckedCreateInput = {
@@ -330,8 +330,8 @@ export type LogVisitorUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   access?: Prisma.BoolFieldUpdateOperationsInput | boolean
   location?: Prisma.StringFieldUpdateOperationsInput | string
-  rfidTagRelation?: Prisma.RfidTagUpdateOneRequiredWithoutLogVisitorsNestedInput
   visitor?: Prisma.VisitorUpdateOneRequiredWithoutLogVisitorsNestedInput
+  rfidTagRelation?: Prisma.RfidTagUpdateOneRequiredWithoutLogVisitorsNestedInput
 }
 
 export type LogVisitorUncheckedUpdateInput = {
@@ -711,8 +711,8 @@ export type LogVisitorSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   location?: boolean
   rfidTagId?: boolean
   nikVisitor?: boolean
-  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
+  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["logVisitor"]>
 
 export type LogVisitorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -724,8 +724,8 @@ export type LogVisitorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   location?: boolean
   rfidTagId?: boolean
   nikVisitor?: boolean
-  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
+  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["logVisitor"]>
 
 export type LogVisitorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -737,8 +737,8 @@ export type LogVisitorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   location?: boolean
   rfidTagId?: boolean
   nikVisitor?: boolean
-  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
+  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["logVisitor"]>
 
 export type LogVisitorSelectScalar = {
@@ -754,23 +754,23 @@ export type LogVisitorSelectScalar = {
 
 export type LogVisitorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idLog" | "rfidTag" | "nik" | "date" | "access" | "location" | "rfidTagId" | "nikVisitor", ExtArgs["result"]["logVisitor"]>
 export type LogVisitorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
+  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }
 export type LogVisitorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
+  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }
 export type LogVisitorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
+  rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }
 
 export type $LogVisitorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "LogVisitor"
   objects: {
-    rfidTagRelation: Prisma.$RfidTagPayload<ExtArgs>
     visitor: Prisma.$VisitorPayload<ExtArgs>
+    rfidTagRelation: Prisma.$RfidTagPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     idLog: number
@@ -1175,8 +1175,8 @@ readonly fields: LogVisitorFieldRefs;
  */
 export interface Prisma__LogVisitorClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  rfidTagRelation<T extends Prisma.RfidTagDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RfidTagDefaultArgs<ExtArgs>>): Prisma.Prisma__RfidTagClient<runtime.Types.Result.GetResult<Prisma.$RfidTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   visitor<T extends Prisma.VisitorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.VisitorDefaultArgs<ExtArgs>>): Prisma.Prisma__VisitorClient<runtime.Types.Result.GetResult<Prisma.$VisitorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  rfidTagRelation<T extends Prisma.RfidTagDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RfidTagDefaultArgs<ExtArgs>>): Prisma.Prisma__RfidTagClient<runtime.Types.Result.GetResult<Prisma.$RfidTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

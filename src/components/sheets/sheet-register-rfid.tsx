@@ -1,8 +1,21 @@
 "use client";
 
+import { useTransition } from "react";
+import { z } from "zod";
+
+import { createRfidTag } from "@/lib/action/rfid";
+import { RegisterRFIDSchema } from "@/schema/rfid-schema";
+
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import {
   Sheet,
   SheetContent,
@@ -12,17 +25,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "../ui/sheet";
-import { z } from "zod";
-import { RegisterRFIDSchema } from "@/schema/rfid-schema";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { createRfidTag } from "@/lib/action/rfid";
-import { useTransition } from "react";
 
 export function SheetRegisterRFID({
   item,
@@ -67,11 +69,7 @@ export function SheetRegisterRFID({
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="address">RFID Tag</Label>
-                  <Input
-                    name="rfid_tag"
-                    defaultValue={item.rfidTag}
-                    readOnly
-                  />
+                  <Input name="rfid_tag" defaultValue={item.rfidTag} readOnly />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-3">

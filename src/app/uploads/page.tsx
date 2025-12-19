@@ -1,10 +1,11 @@
 "use client";
 
-import OCRUploader from "@/components/ocr/new-ocr";
 import { useState, useTransition } from "react";
-import { parseKTPText, KTPData } from "@/utils/parse-ktp";
+
+import OCRUploader from "@/components/ocr/new-ocr";
 import { Button } from "@/components/ui/button";
 import { createVisitor } from "@/lib/action/visitor";
+import { parseKTPText, KTPData } from "@/utils/parse-ktp";
 
 export default function Home() {
   const [isPending, startTransition] = useTransition();

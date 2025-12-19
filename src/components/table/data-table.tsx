@@ -1,7 +1,9 @@
-import { Tabs } from "@/components/ui/tabs";
-import { TableToolbar } from "./table-toolbar";
 import { ReactNode } from "react";
+
+import { Tabs } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+
+import { TableToolbar } from "./table-toolbar";
 
 export async function DataTableProvider({
   defaultValue,

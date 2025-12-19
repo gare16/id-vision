@@ -6,6 +6,8 @@ import {
   ShareIcon,
   type LucideIcon,
 } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   DropdownMenu,
@@ -22,8 +24,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 export function NavDocuments({
   items,

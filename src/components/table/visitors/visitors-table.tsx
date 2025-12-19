@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import {
   DndContext,
@@ -41,10 +42,12 @@ import {
   GripVerticalIcon,
   MoreVerticalIcon,
 } from "lucide-react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { z } from "zod";
 
+import { TableSearchInput } from "@/components/search/table-search";
+import { SheetEditVisitor } from "@/components/sheets/sheet-edit-visitor";
 import { Button } from "@/components/ui/button";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -58,6 +61,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -66,13 +70,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { visitorSchema } from "@/schema/visitors-schema";
 import { TabsContent } from "@/components/ui/tabs";
-import { useEffect, useId, useMemo, useState } from "react";
 import { useBoolean } from "@/hooks/use-boolean";
-import { Skeleton } from "@/components/ui/skeleton";
-import { TableSearchInput } from "@/components/search/table-search";
-import { SheetEditVisitor } from "@/components/sheets/sheet-edit-visitor";
+import { visitorSchema } from "@/schema/visitors-schema";
 
 function DragHandle({ id }: { id: number }) {
   const { attributes, listeners } = useSortable({
@@ -218,12 +218,12 @@ export function TableVisitors({
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {})
+    useSensor(KeyboardSensor, {}),
   );
 
   const dataIds = useMemo<UniqueIdentifier[]>(
     () => data?.map(({ id }) => id) || [],
-    [data]
+    [data],
   );
 
   const table = useReactTable({
@@ -307,7 +307,7 @@ export function TableVisitors({
                           ? null
                           : flexRender(
                               header.column.columnDef.header,
-                              header.getContext()
+                              header.getContext(),
                             )}
                       </TableHead>
                     );

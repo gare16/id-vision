@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import {
@@ -42,8 +43,16 @@ import {
   GripVerticalIcon,
   MoreVerticalIcon,
 } from "lucide-react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { z } from "zod";
+
+import { SheetEditRFIDTag } from "@/components/sheets/sheet-edit-rfid";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -52,6 +61,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -61,16 +71,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { TabsContent } from "@/components/ui/tabs";
-import { useEffect, useId, useMemo, useState } from "react";
 import { useBoolean } from "@/hooks/use-boolean";
-import { Skeleton } from "@/components/ui/skeleton";
 import { RFIDTagSchema } from "@/schema/rfid-schema";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { SheetEditRFIDTag } from "@/components/sheets/sheet-edit-rfid";
 
 function DragHandle({ id }: { id: string }) {
   const { attributes, listeners } = useSortable({
@@ -218,12 +220,12 @@ export function TableRFIDTag({
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {})
+    useSensor(KeyboardSensor, {}),
   );
 
   const dataIds = useMemo<UniqueIdentifier[]>(
     () => data?.map(({ rfidTag }) => rfidTag) || [],
-    [data]
+    [data],
   );
 
   const table = useReactTable({
@@ -298,7 +300,7 @@ export function TableRFIDTag({
                           ? null
                           : flexRender(
                               header.column.columnDef.header,
-                              header.getContext()
+                              header.getContext(),
                             )}
                       </TableHead>
                     );

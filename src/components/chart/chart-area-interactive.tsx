@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { z } from "zod";
 
-import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Card,
   CardContent,
@@ -24,11 +25,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { useEffect, useState } from "react";
 import { useBoolean } from "@/hooks/use-boolean";
-import { Skeleton } from "../ui/skeleton";
-import { z } from "zod";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { logSchema } from "@/schema/log-schema";
+
+import { Skeleton } from "../ui/skeleton";
 
 const chartConfig = {
   visitors: {

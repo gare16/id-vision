@@ -1,6 +1,7 @@
 "use client";
 
-import * as React from "react";
+import { Biohazard } from "lucide-react";
+import Link from "next/link";
 
 import {
   Sidebar,
@@ -11,12 +12,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { NavUser } from "./nav-user";
-import { NavMain } from "./nav-main";
-import { NavDocuments } from "./nav-documents";
-import { Biohazard } from "lucide-react";
 import { data } from "@/routes/sidebar-route";
-import Link from "next/link";
+
+import { NavDocuments } from "./nav-documents";
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (

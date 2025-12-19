@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import {
@@ -41,7 +42,9 @@ import {
   ChevronsRightIcon,
   GripVerticalIcon,
 } from "lucide-react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -51,6 +54,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -60,11 +64,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { TabsContent } from "@/components/ui/tabs";
-import { useEffect, useId, useMemo, useState } from "react";
 import { useBoolean } from "@/hooks/use-boolean";
-import { Skeleton } from "@/components/ui/skeleton";
-import { DailylogVisitorSchema } from "@/schema/log-schema";
 import { formatDateToYMD } from "@/lib/format-date";
+import { DailylogVisitorSchema } from "@/schema/log-schema";
 
 function DragHandle({ id }: { id: number }) {
   const { attributes, listeners } = useSortable({
@@ -214,12 +216,12 @@ export function DailyTableLogVisitors({
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {})
+    useSensor(KeyboardSensor, {}),
   );
 
   const dataIds = useMemo<UniqueIdentifier[]>(
     () => data?.map(({ idLog }) => idLog) || [],
-    [data]
+    [data],
   );
 
   const table = useReactTable({
@@ -294,7 +296,7 @@ export function DailyTableLogVisitors({
                           ? null
                           : flexRender(
                               header.column.columnDef.header,
-                              header.getContext()
+                              header.getContext(),
                             )}
                       </TableHead>
                     );

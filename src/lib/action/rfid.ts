@@ -1,7 +1,8 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
 import { subDays, startOfDay, endOfDay } from "date-fns";
+
+import { prisma } from "@/lib/prisma";
 
 export async function getRfidTag() {
   const res = await prisma.rfidTag.findMany({
@@ -52,8 +53,8 @@ export async function getDataSummaryCard() {
     logsToday > logsYesterday
       ? "up"
       : logsToday < logsYesterday
-      ? "down"
-      : "stable";
+        ? "down"
+        : "stable";
 
   return [
     {
@@ -153,8 +154,8 @@ export async function createLogVisitor({
         rfidTagId: data.rfid_tag,
         nik: data.nik,
         rfidTag: data.rfid_tag,
-      }
-    })
+      },
+    });
     return { success: true, data: created };
   } catch (error) {
     console.error("Failed to create Log Visitor :", error);

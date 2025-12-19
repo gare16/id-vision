@@ -1,5 +1,6 @@
-import { prisma } from "@/lib/prisma";
 import { endOfDay, startOfDay } from "date-fns";
+
+import { prisma } from "@/lib/prisma";
 
 export async function getLogPengunjung() {
   const res = await prisma.logVisitor.findMany({
@@ -27,11 +28,14 @@ export async function getChartLogPengunjung() {
     },
   });
 
-  const grouped: Record<string, number> = date.reduce((acc, log) => {
-    const date = new Date(log.date).toISOString().split("T")[0];
-    acc[date] = (acc[date] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+  const grouped: Record<string, number> = date.reduce(
+    (acc, log) => {
+      const date = new Date(log.date).toISOString().split("T")[0];
+      acc[date] = (acc[date] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   const chart = Object.entries(grouped).map(([date, visitors]) => ({
     date,
