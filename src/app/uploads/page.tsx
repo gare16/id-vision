@@ -22,8 +22,8 @@ export default function Home() {
     const nik = formData.get("nik") as string;
     const name = formData.get("name") as string;
     const address = formData.get("address") as string;
-    const birth_info = formData.get("birth_info") as string;
-    const data = { nik, name, address, birth_info };
+    const birthInfo = formData.get("birthInfo") as string;
+    const data = { nik, name, address, birthInfo };
 
     startTransition(async () => {
       await createVisitor(data).then((res) => {
@@ -64,9 +64,9 @@ export default function Home() {
               placeholder="Address"
             />
             <input
-              name="birth_info"
+              name="birthInfo"
               className="w-full border p-2"
-              defaultValue={formData.birth_info}
+              defaultValue={formData.birthInfo}
               placeholder="Birth Info"
             />
             <Button type="submit">

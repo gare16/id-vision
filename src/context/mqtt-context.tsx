@@ -24,7 +24,7 @@ const MQTTContext = createContext<MQTTContextType>({
     location: "",
     name: "",
     nik: "",
-    rfid_tag: "",
+    rfidTag: "",
     status: "",
   },
 });
@@ -88,7 +88,7 @@ async function handleCreateLogHistory({
       nik: data.nik,
       date: new Date(),
       location: data.location,
-      rfid_tag: data.rfid_tag,
+      rfid_tag: data.rfidTag,
     },
   };
   try {

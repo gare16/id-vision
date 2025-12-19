@@ -72,7 +72,7 @@ export function SheetEditRFIDTag({
       </SheetTrigger>
       <SheetContent side="bottom" className="px-4 flex flex-col">
         <SheetHeader className="gap-1">
-          <SheetTitle>{item.Visitor?.name ?? "Unknown Visitor"}</SheetTitle>
+          <SheetTitle>{item.visitor?.name ?? "Unknown Visitor"}</SheetTitle>
           <SheetDescription>Showing RFID Tag to Edit</SheetDescription>
         </SheetHeader>
         <div className="w-full flex justify-center items-center">
@@ -83,7 +83,7 @@ export function SheetEditRFIDTag({
                 {visitors.length > 0 && (
                   <Select
                     name="visitorNIK"
-                    defaultValue={item.Visitor?.name ?? ""}
+                    defaultValue={item.visitor?.name ?? ""}
                   >
                     <SelectTrigger className="flex w-40">
                       <SelectValue placeholder="Select a visitor" />
@@ -103,7 +103,7 @@ export function SheetEditRFIDTag({
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-3">
                   <Label htmlFor="rfid_tag">RFID Tag</Label>
-                  <Input name="rfid_tag" value={item.rfid_tag} readOnly />
+                  <Input name="rfid_tag" value={item.rfidTag} readOnly />
                 </div>
               </div>
 

@@ -12,14 +12,14 @@ export async function GET(request: Request) {
     );
   }
 
-  const rfid = await prisma.rfid_Tag.findFirst({
+  const rfid = await prisma.rfidTag.findFirst({
     where: {
-      rfid_tag: uid,
+      rfidTag: uid,
     },
     select: {
       status: true,
-      rfid_tag: true,
-      Visitor: {
+      rfidTag: true,
+      visitor: {
         select: {
           name: true,
           nik: true,
@@ -30,9 +30,9 @@ export async function GET(request: Request) {
 
   const statusRfid = !rfid?.status ? "unavailable" : "available";
 
-  if (rfid?.rfid_tag) {
+  if (rfid?.rfidTag) {
     return NextResponse.json(
-      { status: statusRfid, name: rfid.Visitor?.name, nik: rfid.Visitor?.nik },
+      { status: statusRfid, name: rfid.visitor?.name, nik: rfid.visitor?.nik },
       { status: 200 }
     );
   } else {

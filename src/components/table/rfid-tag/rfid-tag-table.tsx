@@ -72,7 +72,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SheetEditRFIDTag } from "@/components/sheets/sheet-edit-rfid";
 
-function DragHandle({ id }: { id: number }) {
+function DragHandle({ id }: { id: string }) {
   const { attributes, listeners } = useSortable({
     id,
   });
@@ -95,7 +95,7 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
   {
     id: "drag",
     header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
+    cell: ({ row }) => <DragHandle id={row.original.rfidTag} />,
   },
   {
     accessorKey: "nama",
@@ -103,33 +103,33 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
     cell: ({ row }) => (
       <>
         <Label
-          htmlFor={`${row.original.Visitor?.name}-name`}
+          htmlFor={`${row.original.visitor?.name}-name`}
           className="sr-only"
         >
           Nama
         </Label>
         <p
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-name`}
+          id={`${row.original.rfidTag}-name`}
         >
-          {row.original.Visitor?.name}
+          {row.original.visitor?.name}
         </p>
       </>
     ),
   },
   {
-    accessorKey: "rfid_tag",
+    accessorKey: "rfidTag",
     header: () => <div className="w-full text-left">RFID Tag</div>,
     cell: ({ row }) => (
       <>
-        <Label htmlFor={`${row.original.id}-rfid_tag`} className="sr-only">
+        <Label htmlFor={`${row.original.rfidTag}-rfid_tag`} className="sr-only">
           RFID Tag
         </Label>
         <p
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-rfid_tag`}
+          id={`${row.original.rfidTag}-rfid_tag`}
         >
-          {row.original.rfid_tag}
+          {row.original.rfidTag}
         </p>
       </>
     ),
@@ -139,7 +139,7 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
     header: () => <div className="w-full">Status</div>,
     cell: ({ row }) => (
       <Label
-        htmlFor={`${row.original.id}-status`}
+        htmlFor={`${row.original.rfidTag}-status`}
         className={
           row.original.status === true
             ? "w-20 h-4 bg-green-400 flex justify-center p-3 rounded-lg text-white"
@@ -174,7 +174,7 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
 
 function DraggableRow({ row }: { row: Row<z.infer<typeof RFIDTagSchema>> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
-    id: row.original.id,
+    id: row.original.rfidTag,
   });
 
   return (
@@ -222,7 +222,7 @@ export function TableRFIDTag({
   );
 
   const dataIds = useMemo<UniqueIdentifier[]>(
-    () => data?.map(({ id }) => id) || [],
+    () => data?.map(({ rfidTag }) => rfidTag) || [],
     [data]
   );
 
@@ -236,7 +236,7 @@ export function TableRFIDTag({
       columnFilters,
       pagination,
     },
-    getRowId: (row) => row.id.toString(),
+    getRowId: (row) => row.rfidTag.toString(),
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
@@ -259,8 +259,8 @@ export function TableRFIDTag({
     const { active, over } = event;
     if (active && over && active.id !== over.id) {
       setData((data) => {
-        const oldIndex = dataIds.indexOf(active.id);
-        const newIndex = dataIds.indexOf(over.id);
+        const oldIndex = dataIds.indexOf(active.id as string);
+        const newIndex = dataIds.indexOf(over.id as string);
         return arrayMove(data, oldIndex, newIndex);
       });
     }

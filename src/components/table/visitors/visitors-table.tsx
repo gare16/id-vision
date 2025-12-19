@@ -145,7 +145,7 @@ const columns: ColumnDef<z.infer<typeof visitorSchema>>[] = [
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
           id={`${row.original.id}-born`}
         >
-          {row.original.birth_info}
+          {row.original.birthInfo}
         </p>
       </>
     ),

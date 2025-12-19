@@ -7,10 +7,10 @@ export default async function Page() {
   return (
     <DataTableProvider
       className="mt-5"
-      defaultValue="rfid_tag"
+      defaultValue="rfidTag"
       tableToolbarDesc="RFID Tag"
     >
-      <TableRFIDTag data={data} contentValue="rfid_tag" />
+      <TableRFIDTag data={data} contentValue="rfidTag" />
     </DataTableProvider>
   );
 }

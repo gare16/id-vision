@@ -30,8 +30,8 @@ export function SheetEditVisitor({
     const nik = formData.get("nik") as string;
     const name = formData.get("name") as string;
     const address = formData.get("address") as string;
-    const birth_info = formData.get("birth_info") as string;
-    const data = { nik, name, address, birth_info };
+    const birthInfo = formData.get("birthInfo") as string;
+    const data = { nik, name, address, birthInfo };
     console.log(data);
     startTransition(async () => {
       await updateVisitor(data).then((res) => {
@@ -78,8 +78,8 @@ export function SheetEditVisitor({
                   <Input name="address" defaultValue={item.address} />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <Label htmlFor="birth_info">Date of Birth</Label>
-                  <Input name="birth_info" defaultValue={item.birth_info} />
+                  <Label htmlFor="birthInfo">Date of Birth</Label>
+                  <Input name="birthInfo" defaultValue={item.birthInfo} />
                 </div>
               </div>
               <SheetFooter className="w-full mt-auto  flex gap-2 justify-center items-center sm:space-x-0">

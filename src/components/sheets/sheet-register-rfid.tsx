@@ -69,7 +69,7 @@ export function SheetRegisterRFID({
                   <Label htmlFor="address">RFID Tag</Label>
                   <Input
                     name="rfid_tag"
-                    defaultValue={item.rfid_tag}
+                    defaultValue={item.rfidTag}
                     readOnly
                   />
                 </div>

@@ -4,16 +4,16 @@ import { prisma } from "@/lib/prisma";
 import { subDays, startOfDay, endOfDay } from "date-fns";
 
 export async function getRfidTag() {
-  const res = await prisma.rfid_Tag.findMany({
+  const res = await prisma.rfidTag.findMany({
     select: {
-      Visitor: {
+      visitor: {
         select: {
           name: true,
         },
       },
       status: true,
-      rfid_tag: true,
-      id: true,
+      rfidTag: true,
+      nik: true,
     },
   });
   return res;
@@ -22,10 +22,10 @@ export async function getRfidTag() {
 export async function getDataSummaryCard() {
   const [active, inactive, visitors, logsToday, logsYesterday] =
     await Promise.all([
-      prisma.rfid_Tag.findMany({ where: { status: true } }),
-      prisma.rfid_Tag.findMany({ where: { status: false } }),
+      prisma.rfidTag.findMany({ where: { status: true } }),
+      prisma.rfidTag.findMany({ where: { status: false } }),
       prisma.visitor.findMany(),
-      prisma.log_Visitor.count({
+      prisma.logVisitor.count({
         where: {
           date: {
             gte: startOfDay(new Date()),
@@ -33,7 +33,7 @@ export async function getDataSummaryCard() {
           },
         },
       }),
-      prisma.log_Visitor.count({
+      prisma.logVisitor.count({
         where: {
           date: {
             gte: startOfDay(subDays(new Date(), 1)),
@@ -100,8 +100,8 @@ export async function createRfidTag({
   status: boolean;
 }) {
   try {
-    const created = await prisma.rfid_Tag.create({
-      data: { rfid_tag, status },
+    const created = await prisma.rfidTag.create({
+      data: { rfidTag: rfid_tag, status },
     });
     return { success: true, data: created };
   } catch (error) {
@@ -120,8 +120,8 @@ export async function updateRfidTag({
   status: boolean;
 }) {
   try {
-    const updated = await prisma.rfid_Tag.update({
-      where: { rfid_tag },
+    const updated = await prisma.rfidTag.update({
+      where: { rfidTag: rfid_tag },
       data: { status, nik },
     });
 
@@ -144,15 +144,17 @@ export async function createLogVisitor({
   };
 }) {
   try {
-    const created = await prisma.log_Visitor.create({
+    const created = await prisma.logVisitor.create({
       data: {
         access: data.access,
         date: data.date,
         location: data.location,
+        nikVisitor: data.nik,
+        rfidTagId: data.rfid_tag,
         nik: data.nik,
-        rfid_tag: data.rfid_tag,
-      },
-    });
+        rfidTag: data.rfid_tag,
+      }
+    })
     return { success: true, data: created };
   } catch (error) {
     console.error("Failed to create Log Visitor :", error);

@@ -1,44 +1,48 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
-  user_id  Int          @id @default(autoincrement())
+  userId   Int    @id @default(autoincrement())
   username String
   password String
 }
 
-model Log_Visitor {
-  id_log     Int        @id @default(autoincrement())
-  rfid_tag   String
+model LogVisitor {
+  idLog      Int      @id @default(autoincrement())
+  rfidTag    String
   nik        String
   date       DateTime
   access     Boolean
   location   String
-  Rfid_Tag   Rfid_Tag   @relation(fields: [rfid_tag], references: [rfid_tag], map: "Log_Visitor_id_tag_fkey")
-  Visitor    Visitor    @relation(fields: [nik], references: [nik])
+  rfidTagId  String
+  nikVisitor String
+
+  rfidTagRelation RfidTag @relation(fields: [rfidTagId], references: [rfidTag])
+  visitor         Visitor @relation(fields: [nikVisitor], references: [nik])
 }
 
 model Visitor {
-  id             Int              @id @default(autoincrement())
-  nik            String           @unique
-  name           String
-  address        String
-  birth_info     String
-  Log_Visitor Log_Visitor[]
-  Rfid_Tag       Rfid_Tag[]
+  id        Int    @id @default(autoincrement())
+  nik       String @unique
+  name      String
+  address   String
+  birthInfo String
+
+  logVisitors LogVisitor[]
+  rfidTags    RfidTag[]
 }
 
-model Rfid_Tag {
-  rfid_tag       String           @id
-  nik            String?
-  status         Boolean
-  id             Int              @default(autoincrement())
-  Log_Visitor    Log_Visitor[]
-  Visitor        Visitor?         @relation(fields: [nik], references: [nik], onDelete: Restrict)
-} 
+model RfidTag {
+  rfidTag String  @id
+  nik     String?
+  status  Boolean
+
+  logVisitors LogVisitor[]
+  visitor     Visitor?     @relation(fields: [nik], references: [nik], onDelete: Restrict, onUpdate: Cascade)
+}

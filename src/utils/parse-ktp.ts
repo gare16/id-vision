@@ -2,7 +2,7 @@ export interface KTPData {
   nik: string;
   name: string;
   address: string;
-  birth_info: string;
+  birthInfo: string;
 }
 
 export function parseKTPText(raw: string): KTPData {
@@ -20,7 +20,7 @@ export function parseKTPText(raw: string): KTPData {
     /TEMPATITGL LAHIR\s*:\s*([A-Z]+),\s*(\d{2}[-\/]?\d{2}[-\/]?\d{4})/.exec(
       text
     );
-  const birth_info = birthMatch
+  const birthInfo = birthMatch
     ? `${birthMatch[1].trim()}, ${birthMatch[2].trim()}`
     : "";
 
@@ -42,6 +42,6 @@ export function parseKTPText(raw: string): KTPData {
     nik: get(/NIK\s*:\s*(\d{10,})/),
     name: get(/NAMA\s*:\s*([A-Z\s]+)/),
     address: fullAddress,
-    birth_info,
+    birthInfo,
   };
 }

@@ -10,12 +10,13 @@ const log = z.object({
 export const logSchema = z.array(log);
 
 export const DailylogVisitorSchema = z.object({
-  id_log: z.number(),
+  idLog: z.number(),
   access: z.boolean(),
   location: z.string(),
-  rfid_tag: z.string(),
+  rfidTagId: z.string(),
+  nik: z.string(),
   date: z.date(), // or z.string().datetime() if you prefer strict ISO strings
-  Visitor: z.object({
+  visitor: z.object({
     name: z.string(),
   }),
 });

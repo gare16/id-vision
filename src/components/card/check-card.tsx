@@ -32,7 +32,7 @@ const CheckCardRFID = ({
       </CardHeader>
       <CardContent>
         <h1>
-          {items?.status === "denied" ? "Card Not Registered" : items?.rfid_tag}
+          {items?.status === "denied" ? "Card Not Registered" : items?.rfidTag}
         </h1>
       </CardContent>
       <CardFooter>

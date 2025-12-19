@@ -5,5 +5,5 @@ export const visitorSchema = z.object({
   nik: z.string(),
   name: z.string(),
   address: z.string(),
-  birth_info: z.string(),
+  birthInfo: z.string(),
 });

@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 export const RFIDTagSchema = z.object({
-  id: z.number(),
-  rfid_tag: z.string(),
+  rfidTag: z.string(),
+  nik: z.string().nullable().optional(),
   status: z.boolean(), // or z.string().datetime() if you prefer strict ISO strings
-  Visitor: z
+  visitor: z
     .object({
       name: z.string().nullable().optional(),
     })
@@ -12,6 +12,6 @@ export const RFIDTagSchema = z.object({
 });
 
 export const RegisterRFIDSchema = z.object({
-  rfid_tag: z.string(),
+  rfidTag: z.string(),
   status: z.string(),
 });

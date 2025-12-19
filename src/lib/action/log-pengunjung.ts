@@ -2,14 +2,15 @@ import { prisma } from "@/lib/prisma";
 import { endOfDay, startOfDay } from "date-fns";
 
 export async function getLogPengunjung() {
-  const res = await prisma.log_Visitor.findMany({
+  const res = await prisma.logVisitor.findMany({
     select: {
-      id_log: true,
+      idLog: true,
       access: true,
       location: true,
-      rfid_tag: true,
+      rfidTagId: true,
+      nik: true,
       date: true,
-      Visitor: {
+      visitor: {
         select: {
           name: true,
         },
@@ -20,7 +21,7 @@ export async function getLogPengunjung() {
 }
 
 export async function getChartLogPengunjung() {
-  const date = await prisma.log_Visitor.findMany({
+  const date = await prisma.logVisitor.findMany({
     select: {
       date: true,
     },
@@ -41,7 +42,7 @@ export async function getChartLogPengunjung() {
 }
 
 export async function getDailyTableLogVisitor() {
-  const log = await prisma.log_Visitor.findMany({
+  const log = await prisma.logVisitor.findMany({
     where: {
       date: {
         gte: startOfDay(new Date()),
@@ -49,12 +50,13 @@ export async function getDailyTableLogVisitor() {
       },
     },
     select: {
-      id_log: true,
+      idLog: true,
       access: true,
       location: true,
-      rfid_tag: true,
+      rfidTagId: true,
+      nik: true,
       date: true,
-      Visitor: {
+      visitor: {
         select: {
           name: true,
         },
