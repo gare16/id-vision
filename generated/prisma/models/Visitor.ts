@@ -538,10 +538,6 @@ export type VisitorUpdateOneRequiredWithoutLogVisitorsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.VisitorUpdateToOneWithWhereWithoutLogVisitorsInput, Prisma.VisitorUpdateWithoutLogVisitorsInput>, Prisma.VisitorUncheckedUpdateWithoutLogVisitorsInput>
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type VisitorCreateNestedOneWithoutRfidTagsInput = {
   create?: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagsInput, Prisma.VisitorUncheckedCreateWithoutRfidTagsInput>
   connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutRfidTagsInput

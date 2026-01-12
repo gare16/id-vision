@@ -11,8 +11,8 @@ export const logSchema = z.array(log);
 
 export const DailylogVisitorSchema = z.object({
   idLog: z.number(),
-  access: z.boolean(),
-  location: z.string(),
+  visitType: z.enum(["IN", "OUT"]),
+  location: z.string().nullable(),
   rfidTagId: z.string(),
   nik: z.string(),
   date: z.date(), // or z.string().datetime() if you prefer strict ISO strings

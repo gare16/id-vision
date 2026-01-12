@@ -39,10 +39,9 @@ export type LogVisitorMinAggregateOutputType = {
   rfidTag: string | null
   nik: string | null
   date: Date | null
-  access: boolean | null
+  visitType: $Enums.VisitType | null
   location: string | null
   rfidTagId: string | null
-  nikVisitor: string | null
 }
 
 export type LogVisitorMaxAggregateOutputType = {
@@ -50,10 +49,9 @@ export type LogVisitorMaxAggregateOutputType = {
   rfidTag: string | null
   nik: string | null
   date: Date | null
-  access: boolean | null
+  visitType: $Enums.VisitType | null
   location: string | null
   rfidTagId: string | null
-  nikVisitor: string | null
 }
 
 export type LogVisitorCountAggregateOutputType = {
@@ -61,10 +59,9 @@ export type LogVisitorCountAggregateOutputType = {
   rfidTag: number
   nik: number
   date: number
-  access: number
+  visitType: number
   location: number
   rfidTagId: number
-  nikVisitor: number
   _all: number
 }
 
@@ -82,10 +79,9 @@ export type LogVisitorMinAggregateInputType = {
   rfidTag?: true
   nik?: true
   date?: true
-  access?: true
+  visitType?: true
   location?: true
   rfidTagId?: true
-  nikVisitor?: true
 }
 
 export type LogVisitorMaxAggregateInputType = {
@@ -93,10 +89,9 @@ export type LogVisitorMaxAggregateInputType = {
   rfidTag?: true
   nik?: true
   date?: true
-  access?: true
+  visitType?: true
   location?: true
   rfidTagId?: true
-  nikVisitor?: true
 }
 
 export type LogVisitorCountAggregateInputType = {
@@ -104,10 +99,9 @@ export type LogVisitorCountAggregateInputType = {
   rfidTag?: true
   nik?: true
   date?: true
-  access?: true
+  visitType?: true
   location?: true
   rfidTagId?: true
-  nikVisitor?: true
   _all?: true
 }
 
@@ -202,10 +196,9 @@ export type LogVisitorGroupByOutputType = {
   rfidTag: string
   nik: string
   date: Date
-  access: boolean
-  location: string
+  visitType: $Enums.VisitType
+  location: string | null
   rfidTagId: string
-  nikVisitor: string
   _count: LogVisitorCountAggregateOutputType | null
   _avg: LogVisitorAvgAggregateOutputType | null
   _sum: LogVisitorSumAggregateOutputType | null
@@ -236,10 +229,9 @@ export type LogVisitorWhereInput = {
   rfidTag?: Prisma.StringFilter<"LogVisitor"> | string
   nik?: Prisma.StringFilter<"LogVisitor"> | string
   date?: Prisma.DateTimeFilter<"LogVisitor"> | Date | string
-  access?: Prisma.BoolFilter<"LogVisitor"> | boolean
-  location?: Prisma.StringFilter<"LogVisitor"> | string
+  visitType?: Prisma.EnumVisitTypeFilter<"LogVisitor"> | $Enums.VisitType
+  location?: Prisma.StringNullableFilter<"LogVisitor"> | string | null
   rfidTagId?: Prisma.StringFilter<"LogVisitor"> | string
-  nikVisitor?: Prisma.StringFilter<"LogVisitor"> | string
   visitor?: Prisma.XOR<Prisma.VisitorScalarRelationFilter, Prisma.VisitorWhereInput>
   rfidTagRelation?: Prisma.XOR<Prisma.RfidTagScalarRelationFilter, Prisma.RfidTagWhereInput>
 }
@@ -249,10 +241,9 @@ export type LogVisitorOrderByWithRelationInput = {
   rfidTag?: Prisma.SortOrder
   nik?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  access?: Prisma.SortOrder
-  location?: Prisma.SortOrder
+  visitType?: Prisma.SortOrder
+  location?: Prisma.SortOrderInput | Prisma.SortOrder
   rfidTagId?: Prisma.SortOrder
-  nikVisitor?: Prisma.SortOrder
   visitor?: Prisma.VisitorOrderByWithRelationInput
   rfidTagRelation?: Prisma.RfidTagOrderByWithRelationInput
 }
@@ -265,10 +256,9 @@ export type LogVisitorWhereUniqueInput = Prisma.AtLeast<{
   rfidTag?: Prisma.StringFilter<"LogVisitor"> | string
   nik?: Prisma.StringFilter<"LogVisitor"> | string
   date?: Prisma.DateTimeFilter<"LogVisitor"> | Date | string
-  access?: Prisma.BoolFilter<"LogVisitor"> | boolean
-  location?: Prisma.StringFilter<"LogVisitor"> | string
+  visitType?: Prisma.EnumVisitTypeFilter<"LogVisitor"> | $Enums.VisitType
+  location?: Prisma.StringNullableFilter<"LogVisitor"> | string | null
   rfidTagId?: Prisma.StringFilter<"LogVisitor"> | string
-  nikVisitor?: Prisma.StringFilter<"LogVisitor"> | string
   visitor?: Prisma.XOR<Prisma.VisitorScalarRelationFilter, Prisma.VisitorWhereInput>
   rfidTagRelation?: Prisma.XOR<Prisma.RfidTagScalarRelationFilter, Prisma.RfidTagWhereInput>
 }, "idLog">
@@ -278,10 +268,9 @@ export type LogVisitorOrderByWithAggregationInput = {
   rfidTag?: Prisma.SortOrder
   nik?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  access?: Prisma.SortOrder
-  location?: Prisma.SortOrder
+  visitType?: Prisma.SortOrder
+  location?: Prisma.SortOrderInput | Prisma.SortOrder
   rfidTagId?: Prisma.SortOrder
-  nikVisitor?: Prisma.SortOrder
   _count?: Prisma.LogVisitorCountOrderByAggregateInput
   _avg?: Prisma.LogVisitorAvgOrderByAggregateInput
   _max?: Prisma.LogVisitorMaxOrderByAggregateInput
@@ -297,18 +286,16 @@ export type LogVisitorScalarWhereWithAggregatesInput = {
   rfidTag?: Prisma.StringWithAggregatesFilter<"LogVisitor"> | string
   nik?: Prisma.StringWithAggregatesFilter<"LogVisitor"> | string
   date?: Prisma.DateTimeWithAggregatesFilter<"LogVisitor"> | Date | string
-  access?: Prisma.BoolWithAggregatesFilter<"LogVisitor"> | boolean
-  location?: Prisma.StringWithAggregatesFilter<"LogVisitor"> | string
+  visitType?: Prisma.EnumVisitTypeWithAggregatesFilter<"LogVisitor"> | $Enums.VisitType
+  location?: Prisma.StringNullableWithAggregatesFilter<"LogVisitor"> | string | null
   rfidTagId?: Prisma.StringWithAggregatesFilter<"LogVisitor"> | string
-  nikVisitor?: Prisma.StringWithAggregatesFilter<"LogVisitor"> | string
 }
 
 export type LogVisitorCreateInput = {
   rfidTag: string
-  nik: string
   date: Date | string
-  access: boolean
-  location: string
+  visitType: $Enums.VisitType
+  location?: string | null
   visitor: Prisma.VisitorCreateNestedOneWithoutLogVisitorsInput
   rfidTagRelation: Prisma.RfidTagCreateNestedOneWithoutLogVisitorsInput
 }
@@ -318,18 +305,16 @@ export type LogVisitorUncheckedCreateInput = {
   rfidTag: string
   nik: string
   date: Date | string
-  access: boolean
-  location: string
+  visitType: $Enums.VisitType
+  location?: string | null
   rfidTagId: string
-  nikVisitor: string
 }
 
 export type LogVisitorUpdateInput = {
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
-  nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitor?: Prisma.VisitorUpdateOneRequiredWithoutLogVisitorsNestedInput
   rfidTagRelation?: Prisma.RfidTagUpdateOneRequiredWithoutLogVisitorsNestedInput
 }
@@ -339,10 +324,9 @@ export type LogVisitorUncheckedUpdateInput = {
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
   nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfidTagId?: Prisma.StringFieldUpdateOperationsInput | string
-  nikVisitor?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type LogVisitorCreateManyInput = {
@@ -350,18 +334,16 @@ export type LogVisitorCreateManyInput = {
   rfidTag: string
   nik: string
   date: Date | string
-  access: boolean
-  location: string
+  visitType: $Enums.VisitType
+  location?: string | null
   rfidTagId: string
-  nikVisitor: string
 }
 
 export type LogVisitorUpdateManyMutationInput = {
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
-  nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LogVisitorUncheckedUpdateManyInput = {
@@ -369,10 +351,9 @@ export type LogVisitorUncheckedUpdateManyInput = {
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
   nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfidTagId?: Prisma.StringFieldUpdateOperationsInput | string
-  nikVisitor?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type LogVisitorCountOrderByAggregateInput = {
@@ -380,10 +361,9 @@ export type LogVisitorCountOrderByAggregateInput = {
   rfidTag?: Prisma.SortOrder
   nik?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  access?: Prisma.SortOrder
+  visitType?: Prisma.SortOrder
   location?: Prisma.SortOrder
   rfidTagId?: Prisma.SortOrder
-  nikVisitor?: Prisma.SortOrder
 }
 
 export type LogVisitorAvgOrderByAggregateInput = {
@@ -395,10 +375,9 @@ export type LogVisitorMaxOrderByAggregateInput = {
   rfidTag?: Prisma.SortOrder
   nik?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  access?: Prisma.SortOrder
+  visitType?: Prisma.SortOrder
   location?: Prisma.SortOrder
   rfidTagId?: Prisma.SortOrder
-  nikVisitor?: Prisma.SortOrder
 }
 
 export type LogVisitorMinOrderByAggregateInput = {
@@ -406,10 +385,9 @@ export type LogVisitorMinOrderByAggregateInput = {
   rfidTag?: Prisma.SortOrder
   nik?: Prisma.SortOrder
   date?: Prisma.SortOrder
-  access?: Prisma.SortOrder
+  visitType?: Prisma.SortOrder
   location?: Prisma.SortOrder
   rfidTagId?: Prisma.SortOrder
-  nikVisitor?: Prisma.SortOrder
 }
 
 export type LogVisitorSumOrderByAggregateInput = {
@@ -430,8 +408,12 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type EnumVisitTypeFieldUpdateOperationsInput = {
+  set?: $Enums.VisitType
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type LogVisitorCreateNestedManyWithoutVisitorInput = {
@@ -520,20 +502,18 @@ export type LogVisitorUncheckedUpdateManyWithoutRfidTagRelationNestedInput = {
 
 export type LogVisitorCreateWithoutVisitorInput = {
   rfidTag: string
-  nik: string
   date: Date | string
-  access: boolean
-  location: string
+  visitType: $Enums.VisitType
+  location?: string | null
   rfidTagRelation: Prisma.RfidTagCreateNestedOneWithoutLogVisitorsInput
 }
 
 export type LogVisitorUncheckedCreateWithoutVisitorInput = {
   idLog?: number
   rfidTag: string
-  nik: string
   date: Date | string
-  access: boolean
-  location: string
+  visitType: $Enums.VisitType
+  location?: string | null
   rfidTagId: string
 }
 
@@ -571,18 +551,16 @@ export type LogVisitorScalarWhereInput = {
   rfidTag?: Prisma.StringFilter<"LogVisitor"> | string
   nik?: Prisma.StringFilter<"LogVisitor"> | string
   date?: Prisma.DateTimeFilter<"LogVisitor"> | Date | string
-  access?: Prisma.BoolFilter<"LogVisitor"> | boolean
-  location?: Prisma.StringFilter<"LogVisitor"> | string
+  visitType?: Prisma.EnumVisitTypeFilter<"LogVisitor"> | $Enums.VisitType
+  location?: Prisma.StringNullableFilter<"LogVisitor"> | string | null
   rfidTagId?: Prisma.StringFilter<"LogVisitor"> | string
-  nikVisitor?: Prisma.StringFilter<"LogVisitor"> | string
 }
 
 export type LogVisitorCreateWithoutRfidTagRelationInput = {
   rfidTag: string
-  nik: string
   date: Date | string
-  access: boolean
-  location: string
+  visitType: $Enums.VisitType
+  location?: string | null
   visitor: Prisma.VisitorCreateNestedOneWithoutLogVisitorsInput
 }
 
@@ -591,9 +569,8 @@ export type LogVisitorUncheckedCreateWithoutRfidTagRelationInput = {
   rfidTag: string
   nik: string
   date: Date | string
-  access: boolean
-  location: string
-  nikVisitor: string
+  visitType: $Enums.VisitType
+  location?: string | null
 }
 
 export type LogVisitorCreateOrConnectWithoutRfidTagRelationInput = {
@@ -625,39 +602,35 @@ export type LogVisitorUpdateManyWithWhereWithoutRfidTagRelationInput = {
 export type LogVisitorCreateManyVisitorInput = {
   idLog?: number
   rfidTag: string
-  nik: string
   date: Date | string
-  access: boolean
-  location: string
+  visitType: $Enums.VisitType
+  location?: string | null
   rfidTagId: string
 }
 
 export type LogVisitorUpdateWithoutVisitorInput = {
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
-  nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfidTagRelation?: Prisma.RfidTagUpdateOneRequiredWithoutLogVisitorsNestedInput
 }
 
 export type LogVisitorUncheckedUpdateWithoutVisitorInput = {
   idLog?: Prisma.IntFieldUpdateOperationsInput | number
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
-  nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfidTagId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type LogVisitorUncheckedUpdateManyWithoutVisitorInput = {
   idLog?: Prisma.IntFieldUpdateOperationsInput | number
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
-  nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rfidTagId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -666,17 +639,15 @@ export type LogVisitorCreateManyRfidTagRelationInput = {
   rfidTag: string
   nik: string
   date: Date | string
-  access: boolean
-  location: string
-  nikVisitor: string
+  visitType: $Enums.VisitType
+  location?: string | null
 }
 
 export type LogVisitorUpdateWithoutRfidTagRelationInput = {
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
-  nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   visitor?: Prisma.VisitorUpdateOneRequiredWithoutLogVisitorsNestedInput
 }
 
@@ -685,9 +656,8 @@ export type LogVisitorUncheckedUpdateWithoutRfidTagRelationInput = {
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
   nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
-  nikVisitor?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LogVisitorUncheckedUpdateManyWithoutRfidTagRelationInput = {
@@ -695,9 +665,8 @@ export type LogVisitorUncheckedUpdateManyWithoutRfidTagRelationInput = {
   rfidTag?: Prisma.StringFieldUpdateOperationsInput | string
   nik?: Prisma.StringFieldUpdateOperationsInput | string
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  access?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  location?: Prisma.StringFieldUpdateOperationsInput | string
-  nikVisitor?: Prisma.StringFieldUpdateOperationsInput | string
+  visitType?: Prisma.EnumVisitTypeFieldUpdateOperationsInput | $Enums.VisitType
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -707,10 +676,9 @@ export type LogVisitorSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   rfidTag?: boolean
   nik?: boolean
   date?: boolean
-  access?: boolean
+  visitType?: boolean
   location?: boolean
   rfidTagId?: boolean
-  nikVisitor?: boolean
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
   rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["logVisitor"]>
@@ -720,10 +688,9 @@ export type LogVisitorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   rfidTag?: boolean
   nik?: boolean
   date?: boolean
-  access?: boolean
+  visitType?: boolean
   location?: boolean
   rfidTagId?: boolean
-  nikVisitor?: boolean
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
   rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["logVisitor"]>
@@ -733,10 +700,9 @@ export type LogVisitorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   rfidTag?: boolean
   nik?: boolean
   date?: boolean
-  access?: boolean
+  visitType?: boolean
   location?: boolean
   rfidTagId?: boolean
-  nikVisitor?: boolean
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
   rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["logVisitor"]>
@@ -746,13 +712,12 @@ export type LogVisitorSelectScalar = {
   rfidTag?: boolean
   nik?: boolean
   date?: boolean
-  access?: boolean
+  visitType?: boolean
   location?: boolean
   rfidTagId?: boolean
-  nikVisitor?: boolean
 }
 
-export type LogVisitorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idLog" | "rfidTag" | "nik" | "date" | "access" | "location" | "rfidTagId" | "nikVisitor", ExtArgs["result"]["logVisitor"]>
+export type LogVisitorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"idLog" | "rfidTag" | "nik" | "date" | "visitType" | "location" | "rfidTagId", ExtArgs["result"]["logVisitor"]>
 export type LogVisitorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   visitor?: boolean | Prisma.VisitorDefaultArgs<ExtArgs>
   rfidTagRelation?: boolean | Prisma.RfidTagDefaultArgs<ExtArgs>
@@ -777,10 +742,9 @@ export type $LogVisitorPayload<ExtArgs extends runtime.Types.Extensions.Internal
     rfidTag: string
     nik: string
     date: Date
-    access: boolean
-    location: string
+    visitType: $Enums.VisitType
+    location: string | null
     rfidTagId: string
-    nikVisitor: string
   }, ExtArgs["result"]["logVisitor"]>
   composites: {}
 }
@@ -1210,10 +1174,9 @@ export interface LogVisitorFieldRefs {
   readonly rfidTag: Prisma.FieldRef<"LogVisitor", 'String'>
   readonly nik: Prisma.FieldRef<"LogVisitor", 'String'>
   readonly date: Prisma.FieldRef<"LogVisitor", 'DateTime'>
-  readonly access: Prisma.FieldRef<"LogVisitor", 'Boolean'>
+  readonly visitType: Prisma.FieldRef<"LogVisitor", 'VisitType'>
   readonly location: Prisma.FieldRef<"LogVisitor", 'String'>
   readonly rfidTagId: Prisma.FieldRef<"LogVisitor", 'String'>
-  readonly nikVisitor: Prisma.FieldRef<"LogVisitor", 'String'>
 }
     
 

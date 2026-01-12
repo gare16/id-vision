@@ -87,10 +87,9 @@ export const LogVisitorScalarFieldEnum = {
   rfidTag: 'rfidTag',
   nik: 'nik',
   date: 'date',
-  access: 'access',
+  visitType: 'visitType',
   location: 'location',
-  rfidTagId: 'rfidTagId',
-  nikVisitor: 'nikVisitor'
+  rfidTagId: 'rfidTagId'
 } as const
 
 export type LogVisitorScalarFieldEnum = (typeof LogVisitorScalarFieldEnum)[keyof typeof LogVisitorScalarFieldEnum]

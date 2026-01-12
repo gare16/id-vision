@@ -145,15 +145,34 @@ export async function createLogVisitor({
   };
 }) {
   try {
+    // Determine the visitType based on the last log entry for this visitor
+    let visitType: "IN" | "OUT" = "IN"; // Default to IN for first-time visitors
+
+    const lastLogEntry = await prisma.logVisitor.findFirst({
+      where: {
+        nik: data.nik,
+      },
+      orderBy: {
+        date: "desc", // Get the most recent entry
+      },
+      select: {
+        visitType: true,
+      },
+    });
+
+    // If there was a previous log entry, alternate the visitType
+    if (lastLogEntry) {
+      visitType = lastLogEntry.visitType === "IN" ? "OUT" : "IN";
+    }
+
     const created = await prisma.logVisitor.create({
       data: {
-        access: data.access,
         date: data.date,
         location: data.location,
-        nikVisitor: data.nik,
-        rfidTagId: data.rfid_tag,
         nik: data.nik,
+        rfidTagId: data.rfid_tag,
         rfidTag: data.rfid_tag,
+        visitType, // Add the determined visitType
       },
     });
     return { success: true, data: created };

@@ -1,8 +1,7 @@
 "use client";
 
-import { useSortable } from "@dnd-kit/sortable";
 import { ColumnDef } from "@tanstack/react-table";
-import { GripVerticalIcon, MoreVerticalIcon } from "lucide-react";
+import { MoreVerticalIcon } from "lucide-react";
 import { z } from "zod";
 
 import { SheetEditVisitor } from "@/components/sheets/sheet-edit-visitor";
@@ -15,47 +14,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { visitorSchema } from "@/schema/visitors-schema";
 
-function DragHandle({ id }: { id: number }) {
-  const { attributes, listeners } = useSortable({
-    id,
-  });
-
-  return (
-    <Button
-      {...attributes}
-      {...listeners}
-      variant="ghost"
-      size="icon"
-      className="size-7 text-muted-foreground hover:bg-transparent"
-    >
-      <GripVerticalIcon className="size-3 text-muted-foreground" />
-      <span className="sr-only">Drag to reorder</span>
-    </Button>
-  );
-}
 export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
-  {
-    id: "drag",
-    header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
-  },
-  {
-    accessorKey: "nik",
-    header: () => <div className="w-full text-left">NIK</div>,
-    cell: ({ row }) => (
-      <>
-        <Label htmlFor={`${row.original.id}-nik`} className="sr-only">
-          NIK
-        </Label>
-        <p
-          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-nik`}
-        >
-          {row.original.nik}
-        </p>
-      </>
-    ),
-  },
   {
     accessorKey: "name",
     header: () => <div className="w-full text-left">Nama</div>,
@@ -64,46 +23,37 @@ export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
         <Label htmlFor={`${row.original.id}-name`} className="sr-only">
           Nama
         </Label>
-        <p
-          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-name`}
-        >
-          {row.original.name}
-        </p>
+        <div className="flex flex-col">
+          <p
+            className="max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
+            id={`${row.original.id}-name`}
+          >
+            {row.original.name}
+          </p>
+          <p className="text-sm text-muted-foreground">{row.original.nik}</p>
+        </div>
       </>
     ),
   },
   {
-    accessorKey: "address",
+    accessorKey: "nationality",
     header: () => <div className="w-full text-left">Address</div>,
     cell: ({ row }) => (
       <>
         <Label htmlFor={`${row.original.id}-address`} className="sr-only">
           Address
         </Label>
-        <p
-          className="h-full w-64 border-transparent text-pretty bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-address`}
-        >
-          {row.original.address}
-        </p>
-      </>
-    ),
-  },
-  {
-    accessorKey: "nationality",
-    header: () => <div className="w-full text-left">Nationality</div>,
-    cell: ({ row }) => (
-      <>
-        <Label htmlFor={`${row.original.id}-nationality`} className="sr-only">
-          Nationality
-        </Label>
-        <p
-          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-nationality`}
-        >
-          {row.original.nationality ?? "-"}
-        </p>
+        <div className="flex flex-col">
+          <p
+            className="h-full w-64 border-transparent text-pretty bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
+            id={`${row.original.id}-address`}
+          >
+            {row.original.address}
+          </p>
+          <p className="font-mono font-semibold">
+            {row.original.nationality ?? "-"}
+          </p>
+        </div>
       </>
     ),
   },
@@ -116,7 +66,7 @@ export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
           Phone Number
         </Label>
         <p
-          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
+          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background truncate"
           id={`${row.original.id}-phoneNumber`}
         >
           {row.original.phoneNumber ?? "-"}
@@ -153,7 +103,7 @@ export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
           Visiting Purpose
         </Label>
         <p
-          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
+          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background truncate"
           id={`${row.original.id}-visitingPurpose`}
         >
           {row.original.visitingPurpose ?? "-"}
@@ -173,7 +123,7 @@ export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
           Place Destination
         </Label>
         <p
-          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
+          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background truncate"
           id={`${row.original.id}-placeDestination`}
         >
           {row.original.placeDestination ?? "-"}
@@ -234,6 +184,7 @@ export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
   },
   {
     id: "actions",
+    header: () => <div className="w-full text-left">Action</div>,
     cell: ({ row }) => (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

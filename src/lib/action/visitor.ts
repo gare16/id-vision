@@ -1,9 +1,8 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import { KTPData } from "@/utils/parse-ktp";
+import { KTPData } from "@/types/ktp";
 
 interface ExtendedVisitorData extends KTPData {
-  nationality?: string | null;
   phoneNumber?: string | null;
   organization?: string | null;
   visitingPurpose?: string | null;
@@ -19,7 +18,19 @@ export async function getVisitor() {
 export async function createVisitor(data: ExtendedVisitorData) {
   try {
     const created = await prisma.visitor.create({
-      data: data,
+      data: {
+        nik: data.nik,
+        name: data.name,
+        address: data.address,
+        birthInfo: data.birthInfo,
+        nationality: data.nationality,
+        phoneNumber: data.phoneNumber,
+        organization: data.organization,
+        visitingPurpose: data.visitingPurpose,
+        placeDestination: data.placeDestination,
+        personToVisit: data.personToVisit,
+        vehicleNumber: data.vehicleNumber,
+      },
     });
     return { success: true, data: created };
   } catch (error) {
@@ -34,7 +45,18 @@ export async function updateVisitor(data: ExtendedVisitorData) {
       where: {
         nik: data.nik,
       },
-      data: data,
+      data: {
+        name: data.name,
+        address: data.address,
+        birthInfo: data.birthInfo,
+        nationality: data.nationality,
+        phoneNumber: data.phoneNumber,
+        organization: data.organization,
+        visitingPurpose: data.visitingPurpose,
+        placeDestination: data.placeDestination,
+        personToVisit: data.personToVisit,
+        vehicleNumber: data.vehicleNumber,
+      },
     });
     return { success: true, data: updated };
   } catch (error) {

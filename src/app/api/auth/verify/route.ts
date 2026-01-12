@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+
 import { validateToken } from "@/lib/auth";
 
 // GET /api/auth/verify
@@ -9,7 +10,7 @@ export async function GET(req: NextRequest) {
     if (!token) {
       return Response.json(
         { authenticated: false, message: "No token provided" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -26,14 +27,14 @@ export async function GET(req: NextRequest) {
     } else {
       return Response.json(
         { authenticated: false, message: "Invalid token" },
-        { status: 401 }
+        { status: 401 },
       );
     }
   } catch (error) {
     console.error("Token verification error:", error);
     return Response.json(
       { authenticated: false, message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-idvision
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: idvision321
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  emqx:
+    image: emqx/emqx:latest
+    container_name: emqx
+    restart: unless-stopped
+    ports:
+      - "1883:1883"   # MQTT TCP
+      - "8083:8083"   # MQTT WebSocket
+      - "18083:18083" # Dashboard
+    environment:
+      EMQX_LISTENER__WS__DEFAULT__ENABLE: "true"
+      EMQX_LISTENER__WS__DEFAULT__BIND: "0.0.0.0:8083"
+      EMQX_ALLOW_ANONYMOUS: "true"
+
+volumes:
+  postgres_data:

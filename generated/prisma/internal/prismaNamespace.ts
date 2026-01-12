@@ -756,10 +756,9 @@ export const LogVisitorScalarFieldEnum = {
   rfidTag: 'rfidTag',
   nik: 'nik',
   date: 'date',
-  access: 'access',
+  visitType: 'visitType',
   location: 'location',
-  rfidTagId: 'rfidTagId',
-  nikVisitor: 'nikVisitor'
+  rfidTagId: 'rfidTagId'
 } as const
 
 export type LogVisitorScalarFieldEnum = (typeof LogVisitorScalarFieldEnum)[keyof typeof LogVisitorScalarFieldEnum]
@@ -861,6 +860,20 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'VisitType'
+ */
+export type EnumVisitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VisitType'>
+    
+
+
+/**
+ * Reference to a field of type 'VisitType[]'
+ */
+export type ListEnumVisitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VisitType[]'>
     
 
 

@@ -1,16 +1,16 @@
-import { DataTableProvider } from "@/components/table/data-table";
-import { TableVisitors } from "@/components/table/visitors/visitors-table";
+import { columnVisitors } from "@/components/table/visitors/column";
+import { VisitorDataTable } from "@/components/table/visitors/visitors-table";
 import { getVisitor } from "@/lib/action/visitor";
 
 export default async function Page() {
   const data = await getVisitor();
   return (
-    <DataTableProvider
-      defaultValue="visitors"
-      tableToolbarDesc="Visitors"
-      className="mt-5"
-    >
-      <TableVisitors valueContent="visitors" data={data} />
-    </DataTableProvider>
+    <>
+      <VisitorDataTable
+        columns={columnVisitors}
+        data={data}
+        filters={["nationality", "placeDestination"]}
+      />
+    </>
   );
 }

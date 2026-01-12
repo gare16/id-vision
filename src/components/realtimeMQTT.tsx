@@ -25,7 +25,7 @@ const Connected = ({
 }) => {
   if (!message) {
     return (
-      <div className="w-full min-h-[100dvh] flex flex-col justify-center items-center gap-2">
+      <div className="w-full min-h-dvh flex flex-col justify-center items-center gap-2">
         <p>Please Tap the Card</p>
         <div className="loader"></div>
       </div>
@@ -33,7 +33,7 @@ const Connected = ({
   }
 
   return (
-    <div className="w-full min-h-[100dvh] flex flex-col justify-center items-center">
+    <div className="w-full min-h-dvh flex flex-col justify-center items-center">
       <CheckCardRFID items={message} />
     </div>
   );

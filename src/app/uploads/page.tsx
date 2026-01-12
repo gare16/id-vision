@@ -16,7 +16,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { createVisitor } from "@/lib/action/visitor";
-import { parseKTPText, KTPData } from "@/utils/parse-ktp";
+import { KTPData } from "@/types/ktp";
+import { parseKTPText } from "@/utils/parse-ktp";
 
 export default function Home() {
   const [isPending, startTransition] = useTransition();
@@ -137,7 +138,7 @@ export default function Home() {
                 <Input
                   id="nationality"
                   name="nationality"
-                  defaultValue=""
+                  defaultValue={formData?.nationality || ""}
                   placeholder="Enter nationality"
                 />
               </div>

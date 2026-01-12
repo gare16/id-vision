@@ -32,7 +32,7 @@ const MQTTContext = createContext<MQTTContextType>({
 
 export const MQTTProvider = ({ children }: { children: React.ReactNode }) => {
   const websocketUrl =
-    process.env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://192.168.43.85:8083/mqtt";
+    process.env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://localhost:8083/mqtt";
   const [messages, setMessages] = useState<z.infer<typeof RFIDPayloadSchema>>();
   const clientRef = useRef<mqtt.MqttClient | null>(null);
 

@@ -7,6 +7,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum VisitType {
+  IN
+  OUT
+}
+
 model User {
   userId   Int    @id @default(autoincrement())
   username String
@@ -14,16 +19,15 @@ model User {
 }
 
 model LogVisitor {
-  idLog           Int      @id @default(autoincrement())
+  idLog           Int       @id @default(autoincrement())
   rfidTag         String
-  nik             String
+  nik             String    // Foreign key ke Visitor
   date            DateTime
-  access          Boolean
-  location        String
-  rfidTagId       String
-  nikVisitor      String
-  visitor         Visitor  @relation(fields: [nikVisitor], references: [nik])
-  rfidTagRelation RfidTag  @relation(fields: [rfidTagId], references: [rfidTag])
+  visitType       VisitType // "IN" atau "OUT"
+  location        String?
+  visitor         Visitor   @relation(fields: [nik], references: [nik])
+  rfidTagRelation RfidTag   @relation(fields: [rfidTagId], references: [rfidTag])
+  rfidTagId       String    // Foreign key ke RfidTag
 }
 
 model Visitor {
@@ -48,5 +52,5 @@ model RfidTag {
   nik         String?
   status      Boolean
   logVisitors LogVisitor[]
-  visitor     Visitor?     @relation(fields: [nik], references: [nik], onDelete: Restrict)
+  visitor     Visitor?     @relation(fields: [nik], references: [nik], onDelete: Restrict, onUpdate: Cascade)
 }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// POST /api/auth/logout
-export async function POST(request: NextRequest) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function POST(_request: NextRequest) {
   try {
     // Create response
     const response = NextResponse.json({

@@ -46,11 +46,11 @@ export default async function RootLayout({
         >
           <SidebarProvider defaultOpen={defaultOpen}>
             <MQTTProvider>
-              <AppSidebar variant="sidebar" />
+              <AppSidebar variant="inset" />
               <SidebarInset>
                 <SiteHeader />
                 {children}
-                <Toaster richColors expand={false} position="top-center" />;
+                <Toaster richColors expand={false} position="top-center" />
               </SidebarInset>
             </MQTTProvider>
           </SidebarProvider>

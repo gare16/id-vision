@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-control-regex */
 export interface KTPData {
   nik: string;
   name: string;
@@ -24,8 +26,8 @@ export function parseKTPText(raw: string): KTPData {
   const get = (regex: RegExp) => regex.exec(text)?.[1]?.trim() || "";
 
   const birthMatch =
-    /TEMPATITGL LAHIR\s*:\s*([A-Z]+),\s*(\d{2}[-\/]?\d{2}[-\/]?\d{4})/.exec(
-      text
+    /TEMPATITGL LAHIR\s*:\s*([A-Z]+),\s*(\d{2}[-\./]?\d{2}[-\/]?\d{4})/.exec(
+      text,
     );
   const birthInfo = birthMatch
     ? `${birthMatch[1].trim()}, ${birthMatch[2].trim()}`

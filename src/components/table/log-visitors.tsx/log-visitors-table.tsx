@@ -144,7 +144,28 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
           id={`${row.original.idLog}-location`}
         >
-          {row.original.location}
+          {row.original.location || "-"}
+        </p>
+      </>
+    ),
+  },
+  {
+    accessorKey: "visitType",
+    header: () => <div className="w-full text-left">Type</div>,
+    cell: ({ row }) => (
+      <>
+        <Label htmlFor={`${row.original.idLog}-visit-type`} className="sr-only">
+          Type
+        </Label>
+        <p
+          className={`h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background ${
+            row.original.visitType === "IN"
+              ? "text-green-600 font-semibold"
+              : "text-red-600 font-semibold"
+          }`}
+          id={`${row.original.idLog}-visit-type`}
+        >
+          {row.original.visitType}
         </p>
       </>
     ),
@@ -200,9 +221,11 @@ function DraggableRow({
 export function DailyTableLogVisitors({
   data: initialData,
   contentValue,
+  initialFilterType = "all",
 }: {
   data: z.infer<typeof DailylogVisitorSchema>[];
   contentValue: string;
+  initialFilterType?: "all" | "IN" | "OUT";
 }) {
   const { value, setTrue } = useBoolean(false);
   const [data, setData] = useState(() => initialData);
@@ -214,6 +237,9 @@ export function DailyTableLogVisitors({
     pageIndex: 0,
     pageSize: 10,
   });
+  const [filterType, setFilterType] = useState<"all" | "IN" | "OUT">(
+    initialFilterType,
+  );
   const sortableId = useId();
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
@@ -252,6 +278,15 @@ export function DailyTableLogVisitors({
   });
 
   useEffect(() => {
+    // Apply filter when filterType changes
+    if (filterType === "all") {
+      setData(initialData);
+    } else {
+      setData(initialData.filter((item) => item.visitType === filterType));
+    }
+  }, [filterType, initialData]);
+
+  useEffect(() => {
     setTrue();
   }, []);
 
@@ -280,8 +315,24 @@ export function DailyTableLogVisitors({
       className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
     >
       <div className="overflow-hidden rounded-lg border">
-        <div className="w-full flex items-center justify-between">
-          <div />
+        <div className="w-full flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center px-2">
+            <Select
+              value={filterType}
+              onValueChange={(value) =>
+                setFilterType(value as "all" | "IN" | "OUT")
+              }
+            >
+              <SelectTrigger className="w-45">
+                <SelectValue placeholder="Filter by type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Visits</SelectItem>
+                <SelectItem value="IN">Entry Only</SelectItem>
+                <SelectItem value="OUT">Exit Only</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <TableSearchInput
             table={table}
             columnId="name"
