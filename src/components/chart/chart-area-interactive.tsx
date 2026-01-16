@@ -52,7 +52,7 @@ export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
     if (isMobile) {
       setTimeRange("7d");
     }
-  }, []);
+  }, [isMobile, setTrue]);
 
   const filteredData = data.filter((item) => {
     const date = new Date(item.date);

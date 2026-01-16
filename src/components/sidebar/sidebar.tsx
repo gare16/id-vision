@@ -43,7 +43,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <Link href="/">
                 <Biohazard className="h-5 w-5" />
-                <span className="text-base font-semibold">ID Visions</span>
+                <span className="text-base font-semibold">VMS</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

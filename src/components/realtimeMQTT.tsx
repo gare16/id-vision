@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import { useMQTT } from "@/context/mqtt-context";
-import { RFIDPayloadSchema } from "@/schema/mqtt-payload";
+import { RFIDCheckPayloadSchema } from "@/schema/mqtt-payload";
 
 import CheckCardRFID from "./card/check-card";
 
@@ -12,7 +12,6 @@ const MQTTComponent = () => {
 
   return (
     <>
-      {/* {JSON.stringify(messages)} */}
       <Connected message={messages} />
     </>
   );
@@ -21,7 +20,7 @@ const MQTTComponent = () => {
 const Connected = ({
   message,
 }: {
-  message: z.infer<typeof RFIDPayloadSchema> | undefined;
+  message: z.infer<typeof RFIDCheckPayloadSchema> | undefined;
 }) => {
   if (!message) {
     return (
@@ -34,6 +33,7 @@ const Connected = ({
 
   return (
     <div className="w-full min-h-dvh flex flex-col justify-center items-center">
+      {JSON.stringify(message)}
       <CheckCardRFID items={message} />
     </div>
   );

@@ -48,3 +48,21 @@ CATATAN TAMBAHAN:
 - Sistem autentikasi menggunakan JWT
 - Terdapat integrasi dengan OCR (Tesseract.js) untuk pengolahan gambar
 - Terdapat integrasi MQTT untuk komunikasi real-time
+
+
+
+
+
+
+{
+  "rfidTag": "RFID002",
+  "location": "Main Entrance",
+  "operationType": "check"
+}
+
+{
+  "rfidTag": "RFID002",
+  "deviceId": "reader-001",
+  "location": "Main Entrance",
+  "timestamp": "2026-01-16T10:30:00.000Z"
+}

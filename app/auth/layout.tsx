@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import "@/app/globals.css";
+import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Register - ID Vision",
-  description: "Create your ID Vision account",
+  title: "Register - VMS",
+  description: "Create your VMS account",
 };
 
 export default async function AuthLayout({
