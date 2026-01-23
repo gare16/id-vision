@@ -33,7 +33,6 @@ const Connected = ({
 
   return (
     <div className="w-full min-h-dvh flex flex-col justify-center items-center">
-      {JSON.stringify(message)}
       <CheckCardRFID items={message} />
     </div>
   );

@@ -57,7 +57,9 @@ export class RFIDLogsTopicHandler implements TopicHandler {
 
       // Automatically create a log entry
       try {
+        console.log(`Execute Try CheckRDID in Database.`);
         const dataVisitor = await checkRfidInDatabase(validatedData.rfidTag);
+        console.log(`value of data Visitors: `, dataVisitor);
         if (
           dataVisitor.rfidTagRecord?.visitor &&
           dataVisitor.rfidTagRecord.status
@@ -75,11 +77,12 @@ export class RFIDLogsTopicHandler implements TopicHandler {
             const responseTopic = `${this.topic}/response`;
             const responseData = {
               eventId: validatedData.rfidTag,
-              status: "success",
+              status: "RFID_ACTIVE",
               logId: logResult.data?.idLog,
               timestamp: new Date().toISOString(),
             };
 
+            console.log("Success Publish RFID: ", responseData);
             this.client.publish(responseTopic, JSON.stringify(responseData));
           }
 
@@ -88,9 +91,26 @@ export class RFIDLogsTopicHandler implements TopicHandler {
             this.onLogCreated(logResult);
           }
         } else {
-          return { success: false, error: "Create failed" };
+          if (this.client && !dataVisitor.rfidTagRecord?.status) {
+            // Publish not found response
+            const responseTopic = `${this.topic}/response`;
+            const responseData = {
+              eventId: validatedData.rfidTag,
+              status: "RFID_INACTIVE",
+            };
+
+            this.client.publish(responseTopic, JSON.stringify(responseData));
+            console.log("Success Publish RFID_INACTIVE RFID: ", responseData);
+          }
+          console.log("Create failed, RFID_INACTIVE");
+
+          return {
+            success: false,
+            error: "Create failed, RFID_INACTIVE.",
+          };
         }
       } catch (logError) {
+        console.log(`Execute Catch CheckRDID in Database.`);
         console.error("Error creating visitor log:", logError);
 
         // Publish error response
@@ -105,6 +125,7 @@ export class RFIDLogsTopicHandler implements TopicHandler {
           };
 
           this.client.publish(responseTopic, JSON.stringify(responseData));
+          console.log(`Error Publish RFID: `, responseData);
         }
       }
     } catch (error) {

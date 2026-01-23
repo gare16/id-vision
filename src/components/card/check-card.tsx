@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { RFIDCheckPayloadSchema } from "@/schema/mqtt-payload";
 
+import { SheetRegisterRFID } from "../sheets/sheet-register-rfid";
 import {
   Card,
   CardContent,
@@ -45,11 +46,7 @@ const CheckCardRFID = ({
         </p>
       </CardContent>
       <CardFooter className="flex flex-col items-start gap-2">
-        {/* {items?.status === "denied" ? (
-          <SheetRegisterRFID item={items} />
-        ) : rawRFIDEvent ? (
-          <CreateLogFromRFID rfidEvent={rawRFIDEvent} />
-        ) : null} */}
+        {items?.status === "Inactive" && <SheetRegisterRFID item={items} />}
       </CardFooter>
     </Card>
   );

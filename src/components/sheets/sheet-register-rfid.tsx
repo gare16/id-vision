@@ -4,7 +4,7 @@ import { useTransition } from "react";
 import { z } from "zod";
 
 import { createRfidTag } from "@/lib/action/rfid";
-import { RegisterRFIDSchema } from "@/schema/rfid-schema";
+import { RFIDCheckPayloadSchema } from "@/schema/mqtt-payload";
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -29,7 +29,7 @@ import {
 export function SheetRegisterRFID({
   item,
 }: {
-  item: z.infer<typeof RegisterRFIDSchema>;
+  item: z.infer<typeof RFIDCheckPayloadSchema>;
 }) {
   const [isPending, startTransition] = useTransition();
   const handleCreateRFID = (e: React.FormEvent<HTMLFormElement>) => {

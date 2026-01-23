@@ -17,6 +17,9 @@ export async function getLogPengunjung() {
         },
       },
     },
+    orderBy: {
+      date: "desc",
+    },
   });
   return res;
 }

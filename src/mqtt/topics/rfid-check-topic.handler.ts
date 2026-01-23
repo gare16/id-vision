@@ -50,7 +50,6 @@ export class RFIDCheckTopicHandler implements TopicHandler {
       const rfidExists = await checkRfidInDatabase(parsedData.rfidTag);
 
       // Prepare response data based on RFID existence
-      const responseTopic = `${this.topic}/response`;
       const responseData = {
         ...parsedData,
         processedAt: new Date().toISOString(),
@@ -64,25 +63,8 @@ export class RFIDCheckTopicHandler implements TopicHandler {
       if (this.onMessage) {
         this.onMessage(responseData);
       }
-
-      if (this.client) {
-        this.client.publish(responseTopic, JSON.stringify(responseData));
-      }
     } catch (error) {
       console.error("Error processing RFID check message:", error);
-
-      // Send error response
-      const responseTopic = `${this.topic}/response`;
-      const errorResponse = {
-        error: "Invalid message format",
-        processedAt: new Date().toISOString(),
-        status: "error",
-        visitor: null,
-      };
-
-      if (this.client) {
-        this.client.publish(responseTopic, JSON.stringify(errorResponse));
-      }
     }
   }
 }
