@@ -17,6 +17,8 @@ export function formatDateToYMD(input: Date | string): string {
   ];
   const month = monthNames[date.getMonth()];
   const year = date.getFullYear();
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
 
-  return `${day} ${month} ${year}`;
+  return `${day} ${month} ${year} ${hour}:${minutes}`;
 }
