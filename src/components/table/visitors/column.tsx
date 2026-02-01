@@ -132,23 +132,6 @@ export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
     ),
   },
   {
-    accessorKey: "personToVisit",
-    header: () => <div className="w-full text-left">Person to Visit</div>,
-    cell: ({ row }) => (
-      <>
-        <Label htmlFor={`${row.original.id}-personToVisit`} className="sr-only">
-          Person to Visit
-        </Label>
-        <p
-          className="h-8 max-w-32 wrap-break-word border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.id}-personToVisit`}
-        >
-          {row.original.personToVisit ?? "-"}
-        </p>
-      </>
-    ),
-  },
-  {
     accessorKey: "vehicleNumber",
     header: () => <div className="w-full text-left">Vehicle Number</div>,
     cell: ({ row }) => (

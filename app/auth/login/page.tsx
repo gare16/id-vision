@@ -96,15 +96,6 @@ export default function LoginPage() {
             >
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Don't have an account?{" "}
-              <a
-                href="/auth/register"
-                className="underline underline-offset-4 hover:text-primary"
-              >
-                Register here
-              </a>
-            </p>
           </CardFooter>
         </form>
       </Card>

@@ -9,14 +9,29 @@ const log = z.object({
 
 export const logSchema = z.array(log);
 
+export const LocationSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+});
+
 export const DailylogVisitorSchema = z.object({
-  idLog: z.number(),
+  id: z.number(),
   visitType: z.enum(["IN", "OUT"]),
-  location: z.string().nullable(),
+  location: LocationSchema.nullable(),
   rfidTagId: z.string(),
   nik: z.string(),
-  date: z.date(), // or z.string().datetime() if you prefer strict ISO strings
+  date: z.date(), // Prisma DateTime maps to ISO string
   visitor: z.object({
+    id: z.number(),
+    nik: z.string(),
     name: z.string(),
+    address: z.string(),
+    birthInfo: z.string(),
+    nationality: z.string().nullable(),
+    phoneNumber: z.string().nullable(),
+    organization: z.string().nullable(),
+    visitingPurpose: z.string().nullable(),
+    placeDestination: z.string().nullable(),
+    vehicleNumber: z.string().nullable(),
   }),
 });

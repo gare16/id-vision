@@ -49,7 +49,7 @@ export default async function RootLayout({
               <AppSidebar variant="inset" />
               <SidebarInset>
                 <SiteHeader />
-                {children}
+                <div className="flex-1 overflow-hidden">{children}</div>
                 <Toaster richColors expand={false} position="top-center" />
               </SidebarInset>
             </MQTTProvider>

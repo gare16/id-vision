@@ -385,9 +385,11 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  LogVisitor: 'LogVisitor',
   Visitor: 'Visitor',
-  RfidTag: 'RfidTag'
+  RfidTag: 'RfidTag',
+  Location: 'Location',
+  RfidTagLocation: 'RfidTagLocation',
+  LogVisitor: 'LogVisitor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -403,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "logVisitor" | "visitor" | "rfidTag"
+    modelProps: "user" | "visitor" | "rfidTag" | "location" | "rfidTagLocation" | "logVisitor"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -478,80 +480,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
-        }
-      }
-    }
-    LogVisitor: {
-      payload: Prisma.$LogVisitorPayload<ExtArgs>
-      fields: Prisma.LogVisitorFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.LogVisitorFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.LogVisitorFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
-        }
-        findFirst: {
-          args: Prisma.LogVisitorFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.LogVisitorFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
-        }
-        findMany: {
-          args: Prisma.LogVisitorFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>[]
-        }
-        create: {
-          args: Prisma.LogVisitorCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
-        }
-        createMany: {
-          args: Prisma.LogVisitorCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.LogVisitorCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>[]
-        }
-        delete: {
-          args: Prisma.LogVisitorDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
-        }
-        update: {
-          args: Prisma.LogVisitorUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
-        }
-        deleteMany: {
-          args: Prisma.LogVisitorDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.LogVisitorUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.LogVisitorUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>[]
-        }
-        upsert: {
-          args: Prisma.LogVisitorUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
-        }
-        aggregate: {
-          args: Prisma.LogVisitorAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateLogVisitor>
-        }
-        groupBy: {
-          args: Prisma.LogVisitorGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.LogVisitorGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.LogVisitorCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.LogVisitorCountAggregateOutputType> | number
         }
       }
     }
@@ -703,6 +631,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Location: {
+      payload: Prisma.$LocationPayload<ExtArgs>
+      fields: Prisma.LocationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LocationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LocationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+        }
+        findFirst: {
+          args: Prisma.LocationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LocationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+        }
+        findMany: {
+          args: Prisma.LocationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>[]
+        }
+        create: {
+          args: Prisma.LocationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+        }
+        createMany: {
+          args: Prisma.LocationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LocationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>[]
+        }
+        delete: {
+          args: Prisma.LocationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+        }
+        update: {
+          args: Prisma.LocationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+        }
+        deleteMany: {
+          args: Prisma.LocationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LocationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LocationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>[]
+        }
+        upsert: {
+          args: Prisma.LocationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+        }
+        aggregate: {
+          args: Prisma.LocationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLocation>
+        }
+        groupBy: {
+          args: Prisma.LocationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LocationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocationCountAggregateOutputType> | number
+        }
+      }
+    }
+    RfidTagLocation: {
+      payload: Prisma.$RfidTagLocationPayload<ExtArgs>
+      fields: Prisma.RfidTagLocationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RfidTagLocationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RfidTagLocationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>
+        }
+        findFirst: {
+          args: Prisma.RfidTagLocationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RfidTagLocationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>
+        }
+        findMany: {
+          args: Prisma.RfidTagLocationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>[]
+        }
+        create: {
+          args: Prisma.RfidTagLocationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>
+        }
+        createMany: {
+          args: Prisma.RfidTagLocationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RfidTagLocationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>[]
+        }
+        delete: {
+          args: Prisma.RfidTagLocationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>
+        }
+        update: {
+          args: Prisma.RfidTagLocationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>
+        }
+        deleteMany: {
+          args: Prisma.RfidTagLocationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RfidTagLocationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RfidTagLocationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>[]
+        }
+        upsert: {
+          args: Prisma.RfidTagLocationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RfidTagLocationPayload>
+        }
+        aggregate: {
+          args: Prisma.RfidTagLocationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRfidTagLocation>
+        }
+        groupBy: {
+          args: Prisma.RfidTagLocationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RfidTagLocationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RfidTagLocationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RfidTagLocationCountAggregateOutputType> | number
+        }
+      }
+    }
+    LogVisitor: {
+      payload: Prisma.$LogVisitorPayload<ExtArgs>
+      fields: Prisma.LogVisitorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LogVisitorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LogVisitorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
+        }
+        findFirst: {
+          args: Prisma.LogVisitorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LogVisitorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
+        }
+        findMany: {
+          args: Prisma.LogVisitorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>[]
+        }
+        create: {
+          args: Prisma.LogVisitorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
+        }
+        createMany: {
+          args: Prisma.LogVisitorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LogVisitorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>[]
+        }
+        delete: {
+          args: Prisma.LogVisitorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
+        }
+        update: {
+          args: Prisma.LogVisitorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
+        }
+        deleteMany: {
+          args: Prisma.LogVisitorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LogVisitorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LogVisitorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>[]
+        }
+        upsert: {
+          args: Prisma.LogVisitorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LogVisitorPayload>
+        }
+        aggregate: {
+          args: Prisma.LogVisitorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLogVisitor>
+        }
+        groupBy: {
+          args: Prisma.LogVisitorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogVisitorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LogVisitorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LogVisitorCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -751,19 +901,6 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const LogVisitorScalarFieldEnum = {
-  idLog: 'idLog',
-  rfidTag: 'rfidTag',
-  nik: 'nik',
-  date: 'date',
-  visitType: 'visitType',
-  location: 'location',
-  rfidTagId: 'rfidTagId'
-} as const
-
-export type LogVisitorScalarFieldEnum = (typeof LogVisitorScalarFieldEnum)[keyof typeof LogVisitorScalarFieldEnum]
-
-
 export const VisitorScalarFieldEnum = {
   id: 'id',
   nik: 'nik',
@@ -775,7 +912,6 @@ export const VisitorScalarFieldEnum = {
   organization: 'organization',
   visitingPurpose: 'visitingPurpose',
   placeDestination: 'placeDestination',
-  personToVisit: 'personToVisit',
   vehicleNumber: 'vehicleNumber'
 } as const
 
@@ -784,11 +920,40 @@ export type VisitorScalarFieldEnum = (typeof VisitorScalarFieldEnum)[keyof typeo
 
 export const RfidTagScalarFieldEnum = {
   rfidTag: 'rfidTag',
-  nik: 'nik',
-  status: 'status'
+  status: 'status',
+  nik: 'nik'
 } as const
 
 export type RfidTagScalarFieldEnum = (typeof RfidTagScalarFieldEnum)[keyof typeof RfidTagScalarFieldEnum]
+
+
+export const LocationScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
+
+
+export const RfidTagLocationScalarFieldEnum = {
+  rfidTagId: 'rfidTagId',
+  locationId: 'locationId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type RfidTagLocationScalarFieldEnum = (typeof RfidTagLocationScalarFieldEnum)[keyof typeof RfidTagLocationScalarFieldEnum]
+
+
+export const LogVisitorScalarFieldEnum = {
+  id: 'id',
+  nik: 'nik',
+  rfidTagId: 'rfidTagId',
+  locationId: 'locationId',
+  date: 'date',
+  visitType: 'visitType'
+} as const
+
+export type LogVisitorScalarFieldEnum = (typeof LogVisitorScalarFieldEnum)[keyof typeof LogVisitorScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -850,6 +1015,13 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -874,13 +1046,6 @@ export type EnumVisitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'VisitType[]'
  */
 export type ListEnumVisitTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VisitType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -993,9 +1158,11 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  logVisitor?: Prisma.LogVisitorOmit
   visitor?: Prisma.VisitorOmit
   rfidTag?: Prisma.RfidTagOmit
+  location?: Prisma.LocationOmit
+  rfidTagLocation?: Prisma.RfidTagLocationOmit
+  logVisitor?: Prisma.LogVisitorOmit
 }
 
 /* Types for Logging */

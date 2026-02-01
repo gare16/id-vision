@@ -11,7 +11,6 @@ export const VisitorSchema = z.object({
   organization: z.string().nullable(),
   visitingPurpose: z.string().nullable(),
   placeDestination: z.string().nullable(),
-  personToVisit: z.string().nullable(),
   vehicleNumber: z.string().nullable(),
 });
 

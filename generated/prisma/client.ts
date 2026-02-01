@@ -45,11 +45,6 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
- * Model LogVisitor
- * 
- */
-export type LogVisitor = Prisma.LogVisitorModel
-/**
  * Model Visitor
  * 
  */
@@ -59,3 +54,18 @@ export type Visitor = Prisma.VisitorModel
  * 
  */
 export type RfidTag = Prisma.RfidTagModel
+/**
+ * Model Location
+ * 
+ */
+export type Location = Prisma.LocationModel
+/**
+ * Model RfidTagLocation
+ * 
+ */
+export type RfidTagLocation = Prisma.RfidTagLocationModel
+/**
+ * Model LogVisitor
+ * 
+ */
+export type LogVisitor = Prisma.LogVisitorModel

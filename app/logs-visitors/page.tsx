@@ -1,5 +1,5 @@
 import { DataTableProvider } from "@/components/table/data-table";
-import { DailyTableLogVisitors } from "@/components/table/log-visitors.tsx/log-visitors-table";
+import { DailyTableLogVisitors } from "@/components/table/log-visitors/log-visitors-table";
 import { getLogPengunjung } from "@/lib/action/log-pengunjung";
 
 interface SearchParams {

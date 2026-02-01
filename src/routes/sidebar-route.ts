@@ -1,4 +1,5 @@
 import {
+  Building2,
   LayoutDashboardIcon,
   ScrollText,
   Tag,
@@ -23,6 +24,12 @@ export const data = {
       title: "Visitors",
       url: "/visitors",
       icon: User,
+      isActive: false,
+    },
+    {
+      title: "Locations",
+      url: "/locations",
+      icon: Building2,
       isActive: false,
     },
     {

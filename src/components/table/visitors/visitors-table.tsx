@@ -168,8 +168,8 @@ export function VisitorDataTable<TData, TValue>({
   pagination: serverPagination,
   filters = [],
   enableSearch = true,
-  title = "List of Visitors",
-  subtitle = "Manage and view all visitors information",
+  title,
+  subtitle,
   headerAction,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter();
@@ -301,13 +301,15 @@ export function VisitorDataTable<TData, TValue>({
   return (
     <div className="space-y-6 p-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="heading-m-medium text-base">{title}</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>
+      {title && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h1 className="heading-m-medium text-base">{title}</h1>
+            <p className="text-sm text-muted-foreground mt-0.5">{subtitle}</p>
+          </div>
+          {headerAction}
         </div>
-        {headerAction}
-      </div>
+      )}
 
       {/* Search & Filters Row */}
       <div className="flex flex-col">

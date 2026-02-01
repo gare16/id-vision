@@ -22,7 +22,6 @@ type VisitorFromDb = {
   organization: string | null;
   visitingPurpose: string | null;
   placeDestination: string | null;
-  personToVisit: string | null;
   vehicleNumber: string | null;
 };
 
@@ -71,7 +70,6 @@ export async function checkRfidInDatabase(rfidTag: string): Promise<{
         organization: rfidRecord.visitor.organization,
         visitingPurpose: rfidRecord.visitor.visitingPurpose,
         placeDestination: rfidRecord.visitor.placeDestination,
-        personToVisit: rfidRecord.visitor.personToVisit,
         vehicleNumber: rfidRecord.visitor.vehicleNumber,
       };
 

@@ -9,7 +9,17 @@ export async function getRfidTag() {
     select: {
       visitor: {
         select: {
+          id: true,
+          nik: true,
           name: true,
+          address: true,
+          birthInfo: true,
+          nationality: true,
+          phoneNumber: true,
+          organization: true,
+          visitingPurpose: true,
+          placeDestination: true,
+          vehicleNumber: true,
         },
       },
       status: true,
@@ -145,6 +155,15 @@ export async function createLogVisitor({
   };
 }) {
   try {
+    // Find the location by name to get its ID
+    const location = await prisma.location.findUnique({
+      where: { name: data.location },
+    });
+
+    if (!location) {
+      return { success: false, error: "Location not found" };
+    }
+
     // Determine the visitType based on the last log entry for this visitor
     let visitType: "IN" | "OUT" = "IN"; // Default to IN for first-time visitors
 
@@ -168,10 +187,9 @@ export async function createLogVisitor({
     const created = await prisma.logVisitor.create({
       data: {
         date: data.date,
-        location: data.location,
+        locationId: location.id,
         nik: data.nik,
         rfidTagId: data.rfid_tag,
-        rfidTag: data.rfid_tag,
         visitType, // Add the determined visitType
       },
     });

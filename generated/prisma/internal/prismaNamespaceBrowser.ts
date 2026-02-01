@@ -52,9 +52,11 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  LogVisitor: 'LogVisitor',
   Visitor: 'Visitor',
-  RfidTag: 'RfidTag'
+  RfidTag: 'RfidTag',
+  Location: 'Location',
+  RfidTagLocation: 'RfidTagLocation',
+  LogVisitor: 'LogVisitor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -82,19 +84,6 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const LogVisitorScalarFieldEnum = {
-  idLog: 'idLog',
-  rfidTag: 'rfidTag',
-  nik: 'nik',
-  date: 'date',
-  visitType: 'visitType',
-  location: 'location',
-  rfidTagId: 'rfidTagId'
-} as const
-
-export type LogVisitorScalarFieldEnum = (typeof LogVisitorScalarFieldEnum)[keyof typeof LogVisitorScalarFieldEnum]
-
-
 export const VisitorScalarFieldEnum = {
   id: 'id',
   nik: 'nik',
@@ -106,7 +95,6 @@ export const VisitorScalarFieldEnum = {
   organization: 'organization',
   visitingPurpose: 'visitingPurpose',
   placeDestination: 'placeDestination',
-  personToVisit: 'personToVisit',
   vehicleNumber: 'vehicleNumber'
 } as const
 
@@ -115,11 +103,40 @@ export type VisitorScalarFieldEnum = (typeof VisitorScalarFieldEnum)[keyof typeo
 
 export const RfidTagScalarFieldEnum = {
   rfidTag: 'rfidTag',
-  nik: 'nik',
-  status: 'status'
+  status: 'status',
+  nik: 'nik'
 } as const
 
 export type RfidTagScalarFieldEnum = (typeof RfidTagScalarFieldEnum)[keyof typeof RfidTagScalarFieldEnum]
+
+
+export const LocationScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
+
+
+export const RfidTagLocationScalarFieldEnum = {
+  rfidTagId: 'rfidTagId',
+  locationId: 'locationId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type RfidTagLocationScalarFieldEnum = (typeof RfidTagLocationScalarFieldEnum)[keyof typeof RfidTagLocationScalarFieldEnum]
+
+
+export const LogVisitorScalarFieldEnum = {
+  id: 'id',
+  nik: 'nik',
+  rfidTagId: 'rfidTagId',
+  locationId: 'locationId',
+  date: 'date',
+  visitType: 'visitType'
+} as const
+
+export type LogVisitorScalarFieldEnum = (typeof LogVisitorScalarFieldEnum)[keyof typeof LogVisitorScalarFieldEnum]
 
 
 export const SortOrder = {

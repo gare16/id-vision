@@ -10,7 +10,6 @@ export interface KTPData {
   organization?: string | null;
   visitingPurpose?: string | null;
   placeDestination?: string | null;
-  personToVisit?: string | null;
   vehicleNumber?: string | null;
 }
 

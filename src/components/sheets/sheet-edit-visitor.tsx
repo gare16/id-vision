@@ -39,7 +39,6 @@ export function SheetEditVisitor({
       organization: formData.get("organization") as string,
       visitingPurpose: formData.get("visitingPurpose") as string,
       placeDestination: formData.get("placeDestination") as string,
-      personToVisit: formData.get("personToVisit") as string,
       vehicleNumber: formData.get("vehicleNumber") as string,
     };
     console.log(data);
@@ -126,13 +125,6 @@ export function SheetEditVisitor({
                   <Input
                     name="placeDestination"
                     defaultValue={item.placeDestination ?? ""}
-                  />
-                </div>
-                <div className="flex flex-col gap-3">
-                  <Label htmlFor="personToVisit">Person to Visit</Label>
-                  <Input
-                    name="personToVisit"
-                    defaultValue={item.personToVisit ?? ""}
                   />
                 </div>
               </div>

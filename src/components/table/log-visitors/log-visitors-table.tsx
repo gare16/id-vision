@@ -92,7 +92,7 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
   {
     id: "drag",
     header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.idLog} />,
+    cell: ({ row }) => <DragHandle id={row.original.id} />,
   },
   {
     accessorFn: (row) => row.visitor.name,
@@ -108,7 +108,7 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
         </Label>
         <p
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
-          id={`${row.original.idLog}-name`}
+          id={`${row.original.id}-name`}
         >
           {row.original.visitor.name}
         </p>
@@ -120,12 +120,12 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
     header: () => <div className="w-full text-left">RFID Tag</div>,
     cell: ({ row }) => (
       <>
-        <Label htmlFor={`${row.original.idLog}-rfid_tag`} className="sr-only">
+        <Label htmlFor={`${row.original.id}-rfid_tag`} className="sr-only">
           RFID Tag
         </Label>
         <p
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.idLog}-rfid_tag`}
+          id={`${row.original.id}-rfid_tag`}
         >
           {row.original.rfidTagId}
         </p>
@@ -137,14 +137,14 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
     header: () => <div className="w-full text-left">Location</div>,
     cell: ({ row }) => (
       <>
-        <Label htmlFor={`${row.original.idLog}-location`} className="sr-only">
+        <Label htmlFor={`${row.original.id}-location`} className="sr-only">
           location
         </Label>
         <p
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
-          id={`${row.original.idLog}-location`}
+          id={`${row.original.id}-location`}
         >
-          {row.original.location || "-"}
+          {row.original.location?.name || "-"}
         </p>
       </>
     ),
@@ -154,7 +154,7 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
     header: () => <div className="w-full text-left">Type</div>,
     cell: ({ row }) => (
       <>
-        <Label htmlFor={`${row.original.idLog}-visit-type`} className="sr-only">
+        <Label htmlFor={`${row.original.id}-visit-type`} className="sr-only">
           Type
         </Label>
         <p
@@ -163,7 +163,7 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
               ? "text-green-600 font-semibold"
               : "text-red-600 font-semibold"
           }`}
-          id={`${row.original.idLog}-visit-type`}
+          id={`${row.original.id}-visit-type`}
         >
           {row.original.visitType}
         </p>
@@ -175,12 +175,12 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
     header: () => <div className="w-full text-left">Date</div>,
     cell: ({ row }) => (
       <>
-        <Label htmlFor={`${row.original.idLog}-date`} className="sr-only">
+        <Label htmlFor={`${row.original.id}-date`} className="sr-only">
           Date
         </Label>
         <p
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
-          id={`${row.original.idLog}-date`}
+          id={`${row.original.id}-date`}
         >
           {formatDateToYMD(row.original.date)}
         </p>
@@ -195,7 +195,7 @@ function DraggableRow({
   row: Row<z.infer<typeof DailylogVisitorSchema>>;
 }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
-    id: row.original.idLog,
+    id: row.original.id,
   });
 
   return (
@@ -248,7 +248,7 @@ export function DailyTableLogVisitors({
   );
 
   const dataIds = useMemo<UniqueIdentifier[]>(
-    () => data?.map(({ idLog }) => idLog) || [],
+    () => data?.map(({ id }) => id) || [],
     [data],
   );
 
@@ -262,7 +262,7 @@ export function DailyTableLogVisitors({
       columnFilters,
       pagination,
     },
-    getRowId: (row) => row.idLog.toString(),
+    getRowId: (row) => row.id.toString(),
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,

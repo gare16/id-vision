@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 export async function getLogPengunjung() {
   const res = await prisma.logVisitor.findMany({
     select: {
-      idLog: true,
+      id: true,
       visitType: true,
       location: true,
       rfidTagId: true,
@@ -13,7 +13,17 @@ export async function getLogPengunjung() {
       date: true,
       visitor: {
         select: {
+          id: true,
+          nik: true,
           name: true,
+          address: true,
+          birthInfo: true,
+          nationality: true,
+          phoneNumber: true,
+          organization: true,
+          visitingPurpose: true,
+          placeDestination: true,
+          vehicleNumber: true,
         },
       },
     },
@@ -57,7 +67,7 @@ export async function getDailyTableLogVisitor() {
       },
     },
     select: {
-      idLog: true,
+      id: true,
       visitType: true,
       location: true,
       rfidTagId: true,
@@ -65,7 +75,17 @@ export async function getDailyTableLogVisitor() {
       date: true,
       visitor: {
         select: {
+          id: true,
+          nik: true,
           name: true,
+          address: true,
+          birthInfo: true,
+          nationality: true,
+          phoneNumber: true,
+          organization: true,
+          visitingPurpose: true,
+          placeDestination: true,
+          vehicleNumber: true,
         },
       },
     },

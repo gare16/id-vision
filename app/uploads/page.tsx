@@ -44,7 +44,6 @@ export default function Home() {
       organization: formData.get("organization") as string,
       visitingPurpose: formData.get("visitingPurpose") as string,
       placeDestination: formData.get("placeDestination") as string,
-      personToVisit: formData.get("personToVisit") as string,
       vehicleNumber: formData.get("vehicleNumber") as string,
     };
 
@@ -192,16 +191,6 @@ export default function Home() {
                   name="placeDestination"
                   defaultValue=""
                   placeholder="Enter destination"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="personToVisit">Person to Visit</Label>
-                <Input
-                  id="personToVisit"
-                  name="personToVisit"
-                  defaultValue=""
-                  placeholder="Enter person to visit"
                 />
               </div>
 

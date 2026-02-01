@@ -3,7 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { z } from "zod";
 
-import { updateRfidTag } from "@/lib/action/rfid";
+import { getRfidTag, updateRfidTag } from "@/lib/action/rfid";
 import { RFIDTagSchema } from "@/schema/rfid-schema";
 import { visitorSchema } from "@/schema/visitors-schema";
 
@@ -34,11 +34,38 @@ export function SheetEditRFIDTag({
 }) {
   const [isPending, startTransition] = useTransition();
   const [visitors, setVisitors] = useState<z.infer<typeof visitorSchema>[]>([]);
+  const [hasTag, setHasTag] = useState<
+    {
+      rfidTag: string;
+      nik: string | null;
+      status: boolean;
+      visitor: { name: string } | null;
+    }[]
+  >([]);
+  const [selectedVisitor, setSelectedVisitor] = useState<string>(
+    item.nik ?? "",
+  );
+  const [selectedStatus, setSelectedStatus] = useState<string>(
+    item.status ? "active" : "inactive",
+  );
+
+  // bikin Set nama dari data1 biar filter lebih cepat
+  const namesToRemove = new Set(hasTag.map((d) => d.visitor?.name));
+
+  // filter data2, tapi tetap simpan data3
+  const filteredData = visitors.filter((d) => {
+    const isInData1 = namesToRemove.has(d.name);
+    const isData3 = d.nik === item.nik; // bisa juga check name + nik biar lebih aman
+    return !isInData1 || isData3;
+  });
 
   useEffect(() => {
     const fetchVisitors = async () => {
       const res = await fetch("/api/visitors");
       const data = await res.json();
+
+      const resultTag = await getRfidTag();
+      setHasTag(resultTag);
       setVisitors(data);
     };
     fetchVisitors();
@@ -82,21 +109,21 @@ export function SheetEditRFIDTag({
             <form className="flex flex-col gap-4" onSubmit={handleEditSubmit}>
               <div className="flex flex-col gap-3">
                 <Label htmlFor="visitorNIK">Name</Label>
-                {visitors.length > 0 && (
+                {filteredData.length > 0 && (
                   <Select
                     name="visitorNIK"
-                    defaultValue={item.visitor?.name ?? ""}
+                    value={selectedVisitor}
+                    onValueChange={setSelectedVisitor}
                   >
                     <SelectTrigger className="flex w-40">
                       <SelectValue placeholder="Select a visitor" />
                     </SelectTrigger>
                     <SelectContent>
-                      {visitors.map((v) => (
+                      {filteredData.map((v) => (
                         <SelectItem key={v.nik} value={v.nik}>
                           {v.name}
                         </SelectItem>
                       ))}
-                      <SelectItem value={" "}>None</SelectItem>
                     </SelectContent>
                   </Select>
                 )}
@@ -114,7 +141,8 @@ export function SheetEditRFIDTag({
                   <Label>Status</Label>
                   <Select
                     name="status"
-                    defaultValue={item.status ? "active" : "inactive"}
+                    value={selectedStatus}
+                    onValueChange={setSelectedStatus}
                   >
                     <SelectTrigger
                       className="flex w-40"

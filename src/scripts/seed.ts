@@ -22,6 +22,30 @@ async function main() {
     }),
   ]);
 
+  // Create dummy locations
+  const locations = await Promise.all([
+    prisma.location.create({
+      data: {
+        name: "Main Gate",
+      },
+    }),
+    prisma.location.create({
+      data: {
+        name: "Main Office",
+      },
+    }),
+    prisma.location.create({
+      data: {
+        name: "Conference Room",
+      },
+    }),
+    prisma.location.create({
+      data: {
+        name: "IT Department",
+      },
+    }),
+  ]);
+
   // Create dummy visitors
   const visitors = await Promise.all([
     prisma.visitor.create({
@@ -35,7 +59,6 @@ async function main() {
         organization: "ABC Company",
         visitingPurpose: "Business Meeting",
         placeDestination: "Main Office",
-        personToVisit: "Mr. Manager",
         vehicleNumber: "B 1234 ABC",
       },
     }),
@@ -50,7 +73,6 @@ async function main() {
         organization: "XYZ Corporation",
         visitingPurpose: "Client Visit",
         placeDestination: "Conference Room",
-        personToVisit: "Ms. Director",
         vehicleNumber: "D 5678 XYZ",
       },
     }),
@@ -65,7 +87,6 @@ async function main() {
         organization: "Tech Solutions Inc.",
         visitingPurpose: "Technical Support",
         placeDestination: "IT Department",
-        personToVisit: "IT Head",
         vehicleNumber: "L 9012 TSI",
       },
     }),
@@ -80,7 +101,6 @@ async function main() {
         organization: "Global Services Ltd.",
         visitingPurpose: "Audit",
         placeDestination: "Finance Department",
-        personToVisit: "Finance Manager",
         vehicleNumber: "BK 3456 GSL",
       },
     }),
@@ -95,7 +115,6 @@ async function main() {
         organization: "Innovation Hub",
         visitingPurpose: "Partnership Discussion",
         placeDestination: "Executive Floor",
-        personToVisit: "CEO",
         vehicleNumber: "DD 7890 IH",
       },
     }),
@@ -110,7 +129,6 @@ async function main() {
         organization: "Creative Studio",
         visitingPurpose: "Project Presentation",
         placeDestination: "Design Studio",
-        personToVisit: "Art Director",
         vehicleNumber: "AB 2345 CS",
       },
     }),
@@ -125,7 +143,6 @@ async function main() {
         organization: "Local Government",
         visitingPurpose: "Official Visit",
         placeDestination: "Government Office",
-        personToVisit: "Mayor",
         vehicleNumber: "H 6789 LG",
       },
     }),
@@ -140,7 +157,6 @@ async function main() {
         organization: "Tourism Board",
         visitingPurpose: "Inspection",
         placeDestination: "Tourist Information Center",
-        personToVisit: "Director",
         vehicleNumber: "DK 1234 TB",
       },
     }),
@@ -155,7 +171,6 @@ async function main() {
         organization: "University",
         visitingPurpose: "Academic Conference",
         placeDestination: "Auditorium",
-        personToVisit: "Dean",
         vehicleNumber: "BG 5678 UNV",
       },
     }),
@@ -170,7 +185,6 @@ async function main() {
         organization: "Environmental Group",
         visitingPurpose: "Research",
         placeDestination: "Research Lab",
-        personToVisit: "Lead Scientist",
         vehicleNumber: "S 9012 EG",
       },
     }),
@@ -204,52 +218,64 @@ async function main() {
     }),
   ]);
 
+  // Create RFID tag locations
+  await Promise.all([
+    prisma.rfidTagLocation.create({
+      data: {
+        rfidTagId: "RFID001",
+        locationId: locations[0].id, // Main Gate
+      },
+    }),
+    prisma.rfidTagLocation.create({
+      data: {
+        rfidTagId: "RFID002",
+        locationId: locations[0].id, // Main Gate
+      },
+    }),
+  ]);
+
   // Create dummy log visitors
   const logVisitors = await Promise.all([
     prisma.logVisitor.create({
       data: {
-        rfidTag: "RFID001",
+        rfidTagId: "RFID001",
         nik: "1234567890123456",
         date: new Date("2025-12-01T08:30:00"),
         visitType: "IN",
-        location: "Main Gate",
-        rfidTagId: "RFID001",
+        locationId: locations[0].id, // Main Gate
       },
     }),
     prisma.logVisitor.create({
       data: {
-        rfidTag: "RFID002",
+        rfidTagId: "RFID002",
         nik: "9876543210987654",
         date: new Date("2025-12-01T09:15:00"),
         visitType: "IN",
-        location: "Main Gate",
-        rfidTagId: "RFID002",
+        locationId: locations[0].id, // Main Gate
       },
     }),
     prisma.logVisitor.create({
       data: {
-        rfidTag: "RFID001",
+        rfidTagId: "RFID001",
         nik: "1234567890123456",
         date: new Date("2025-12-01T17:45:00"),
         visitType: "OUT",
-        location: "Main Gate",
-        rfidTagId: "RFID001",
+        locationId: locations[0].id, // Main Gate
       },
     }),
     prisma.logVisitor.create({
       data: {
-        rfidTag: "RFID003",
+        rfidTagId: "RFID003",
         nik: "5678901234567890",
         date: new Date("2025-12-02T10:20:00"),
         visitType: "IN",
-        location: "Main Gate",
-        rfidTagId: "RFID003",
+        locationId: locations[0].id, // Main Gate
       },
     }),
   ]);
 
   console.log(
-    `total users created: ${users.length}\ntotal visitors created: ${visitors.length}\ntotal rfidTag created: ${rfidTags.length}\ntotal log visitor created: ${logVisitors.length}`,
+    `total users created: ${users.length}\ntotal locations created: ${locations.length}\ntotal visitors created: ${visitors.length}\ntotal rfidTag created: ${rfidTags.length}\ntotal log visitor created: ${logVisitors.length}`,
   );
 }
 

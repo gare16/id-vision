@@ -2,16 +2,26 @@ import { z } from "zod";
 
 export const RFIDTagSchema = z.object({
   rfidTag: z.string(),
-  nik: z.string().nullable().optional(),
-  status: z.boolean(), // or z.string().datetime() if you prefer strict ISO strings
+  nik: z.string().nullable(),
+  status: z.boolean(),
   visitor: z
     .object({
-      name: z.string().nullable().optional(),
+      id: z.number(),
+      nik: z.string(),
+      name: z.string(),
+      address: z.string(),
+      birthInfo: z.string(),
+      nationality: z.string().nullable(),
+      phoneNumber: z.string().nullable(),
+      organization: z.string().nullable(),
+      visitingPurpose: z.string().nullable(),
+      placeDestination: z.string().nullable(),
+      vehicleNumber: z.string().nullable(),
     })
     .nullable(),
 });
 
 export const RegisterRFIDSchema = z.object({
   rfidTag: z.string(),
-  status: z.string(),
+  status: z.boolean(),
 });

@@ -7,7 +7,6 @@ interface ExtendedVisitorData extends KTPData {
   organization?: string | null;
   visitingPurpose?: string | null;
   placeDestination?: string | null;
-  personToVisit?: string | null;
   vehicleNumber?: string | null;
 }
 
@@ -28,7 +27,6 @@ export async function createVisitor(data: ExtendedVisitorData) {
         organization: data.organization,
         visitingPurpose: data.visitingPurpose,
         placeDestination: data.placeDestination,
-        personToVisit: data.personToVisit,
         vehicleNumber: data.vehicleNumber,
       },
     });
@@ -54,7 +52,6 @@ export async function updateVisitor(data: ExtendedVisitorData) {
         organization: data.organization,
         visitingPurpose: data.visitingPurpose,
         placeDestination: data.placeDestination,
-        personToVisit: data.personToVisit,
         vehicleNumber: data.vehicleNumber,
       },
     });

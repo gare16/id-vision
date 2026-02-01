@@ -7,50 +7,72 @@ datasource db {
   provider = "postgresql"
 }
 
-enum VisitType {
-  IN
-  OUT
-}
-
 model User {
   userId   Int    @id @default(autoincrement())
   username String
   password String
 }
 
-model LogVisitor {
-  idLog           Int       @id @default(autoincrement())
-  rfidTag         String
-  nik             String    // Foreign key ke Visitor
-  date            DateTime
-  visitType       VisitType // "IN" atau "OUT"
-  location        String?
-  visitor         Visitor   @relation(fields: [nik], references: [nik])
-  rfidTagRelation RfidTag   @relation(fields: [rfidTagId], references: [rfidTag])
-  rfidTagId       String    // Foreign key ke RfidTag
-}
-
 model Visitor {
-  id               Int          @id @default(autoincrement())
-  nik              String       @unique
-  name             String
-  address          String
-  birthInfo        String
-  nationality      String?
-  phoneNumber      String?
+  id          Int     @id @default(autoincrement())
+  nik         String  @unique
+  name        String
+  address     String
+  birthInfo   String
+  nationality String?
+  phoneNumber String?
   organization     String?
   visitingPurpose  String?
   placeDestination String?
-  personToVisit    String?
   vehicleNumber    String?
-  logVisitors      LogVisitor[]
-  rfidTags         RfidTag[]
+
+  rfidTags RfidTag[]
+  logs     LogVisitor[]
 }
 
 model RfidTag {
-  rfidTag     String       @id
-  nik         String?
-  status      Boolean
+  rfidTag String  @id
+  status  Boolean
+  nik     String?
+
+  visitor   Visitor?          @relation(fields: [nik], references: [nik], onDelete: Restrict)
+  logs      LogVisitor[]
+  locations RfidTagLocation[]
+}
+
+model Location {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  rfidTags    RfidTagLocation[]
   logVisitors LogVisitor[]
-  visitor     Visitor?     @relation(fields: [nik], references: [nik], onDelete: Restrict, onUpdate: Cascade)
+}
+
+model RfidTagLocation {
+  rfidTagId  String
+  locationId Int
+  assignedAt DateTime @default(now())
+
+  rfidTag  RfidTag  @relation(fields: [rfidTagId], references: [rfidTag], onDelete: Cascade)
+  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@id([rfidTagId, locationId])
+}
+
+model LogVisitor {
+  id         Int       @id @default(autoincrement())
+  nik        String
+  rfidTagId  String
+  locationId Int?
+  date       DateTime  @default(now())
+  visitType  VisitType
+
+  visitor  Visitor   @relation(fields: [nik], references: [nik])
+  rfidTag  RfidTag   @relation(fields: [rfidTagId], references: [rfidTag])
+  location Location? @relation(fields: [locationId], references: [id])
+}
+
+enum VisitType {
+  IN
+  OUT
 }

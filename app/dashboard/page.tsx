@@ -2,7 +2,7 @@ import { requireAuth } from "@/components/auth/auth-checker";
 import { ChartAreaInteractive } from "@/components/chart/chart-area-interactive";
 import { SectionCards } from "@/components/dnd-card/dnd-section-card";
 import { DataTableProvider } from "@/components/table/data-table";
-import { DailyTableLogVisitors } from "@/components/table/log-visitors.tsx/log-visitors-table";
+import { DailyTableLogVisitors } from "@/components/table/log-visitors/log-visitors-table";
 import {
   getChartLogPengunjung,
   getDailyTableLogVisitor,

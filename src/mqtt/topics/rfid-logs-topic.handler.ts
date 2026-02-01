@@ -78,7 +78,7 @@ export class RFIDLogsTopicHandler implements TopicHandler {
             const responseData = {
               eventId: validatedData.rfidTag,
               status: "RFID_ACTIVE",
-              logId: logResult.data?.idLog,
+              logId: logResult.data?.id,
               timestamp: new Date().toISOString(),
             };
 
