@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export interface CreateVisitorLogInput {
   rfidTag: string;
-  location: string;
+  location: string | undefined;
   nik: string;
   date?: Date;
 }
@@ -89,18 +89,4 @@ export async function createVisitorLog(input: CreateVisitorLogInput) {
       error: "An unexpected error occurred while creating visitor log",
     };
   }
-}
-
-// Function to get cached RFID events (would connect to Redis in production)
-export async function getCachedRFIDEvents() {
-  // This is a placeholder - in production, this would fetch from Redis or similar cache
-  // For now, returning an empty array since we're using in-memory cache in the context
-  return [];
-}
-
-// Function to get the latest RFID event
-export async function getLatestRFIDEvent() {
-  // This would fetch from Redis or similar cache in production
-  // For now, this would need to come from the MQTT context state
-  return null;
 }

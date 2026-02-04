@@ -66,7 +66,7 @@ import {
 } from "@/components/ui/table";
 import { TabsContent } from "@/components/ui/tabs";
 import { useBoolean } from "@/hooks/use-boolean";
-import { formatDateToYMD } from "@/lib/format-date";
+import { formatDateToLocaleString } from "@/lib/format-date";
 import { DailylogVisitorSchema } from "@/schema/log-schema";
 
 function DragHandle({ id }: { id: number }) {
@@ -182,7 +182,7 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background"
           id={`${row.original.id}-date`}
         >
-          {formatDateToYMD(row.original.date)}
+          {formatDateToLocaleString(row.original.date)}
         </p>
       </>
     ),

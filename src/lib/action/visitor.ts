@@ -11,7 +11,11 @@ interface ExtendedVisitorData extends KTPData {
 }
 
 export async function getVisitor() {
-  return await prisma.visitor.findMany();
+  return await prisma.visitor.findMany({
+    orderBy: {
+      id: "desc",
+    },
+  });
 }
 
 export async function createVisitor(data: ExtendedVisitorData) {

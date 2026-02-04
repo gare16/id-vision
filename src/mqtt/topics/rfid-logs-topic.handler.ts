@@ -1,20 +1,22 @@
 import { MqttClient } from "mqtt";
 
 import { RawRFIDEventSchema } from "@/context/mqtt-context";
-import { createVisitorLog } from "@/lib/action/create-visitor-log";
 
 import { TopicHandler } from "./topic-handler.interface";
-import { checkRfidInDatabase } from "../../../lib/services/rfid-check.service";
 
-// Define the type for the log result
-type LogResult = Awaited<ReturnType<typeof createVisitorLog>>;
+type LogResult = {
+  success: boolean;
+  data?: { id: string };
+  error?: string;
+};
 
 export class RFIDLogsTopicHandler implements TopicHandler {
   topic = "rfid/logs";
 
   private client: MqttClient | null = null;
 
-  constructor(private onLogCreated?: (log: LogResult) => void) {}
+  // The callback might not be as useful now, but we'll keep it for potential UI updates
+  constructor(private onLogProcessed?: (log: LogResult) => void) {}
 
   initialize(client: MqttClient): void {
     this.client = client;
@@ -41,106 +43,60 @@ export class RFIDLogsTopicHandler implements TopicHandler {
   }
 
   private async handleMessage(message: string) {
+    let validatedData;
     try {
-      // Parse the incoming RFID event
+      console.log(`error function this log topic: `);
       const eventData = JSON.parse(message);
-
-      // Validate the event data structure
-      const validatedData = RawRFIDEventSchema.parse({
+      validatedData = RawRFIDEventSchema.parse({
         rfidTag: eventData.rfidTag || eventData.uid || eventData.tag,
         deviceId: eventData.deviceId || "unknown",
         location: eventData.location || "unknown",
-        timestamp: eventData.timestamp || new Date().toISOString(),
       });
 
-      console.log("RFID Log event received:", validatedData);
+      console.log("Forwarding RFID Log event to API:", validatedData);
 
-      // Automatically create a log entry
-      try {
-        console.log(`Execute Try CheckRDID in Database.`);
-        const dataVisitor = await checkRfidInDatabase(validatedData.rfidTag);
-        console.log(`value of data Visitors: `, dataVisitor);
-        if (
-          dataVisitor.rfidTagRecord?.visitor &&
-          dataVisitor.rfidTagRecord.status
-        ) {
-          const logResult = await createVisitorLog({
-            rfidTag: validatedData.rfidTag,
-            location: validatedData.location,
-            nik: dataVisitor.rfidTagRecord?.visitor?.nik,
-            date: new Date(validatedData.timestamp),
-          });
+      const apiResponse = await fetch("/api/log-rfid-event", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validatedData),
+      });
 
-          console.log("Visitor log created successfully:", logResult);
-          // Publish success response
-          if (this.client && logResult.success) {
-            const responseTopic = `${this.topic}/response`;
-            const responseData = {
-              eventId: validatedData.rfidTag,
-              status: "RFID_ACTIVE",
-              logId: logResult.data?.id,
-              timestamp: new Date().toISOString(),
-            };
+      const responseData = await apiResponse.json();
 
-            console.log("Success Publish RFID: ", responseData);
-            this.client.publish(responseTopic, JSON.stringify(responseData));
-          }
+      if (!this.client) return;
 
-          // Call the callback if provided
-          if (this.onLogCreated) {
-            this.onLogCreated(logResult);
-          }
-        } else {
-          if (this.client && !dataVisitor.rfidTagRecord?.status) {
-            // Publish not found response
-            const responseTopic = `${this.topic}/response`;
-            const responseData = {
-              eventId: validatedData.rfidTag,
-              status: "RFID_INACTIVE",
-            };
+      const responseTopic = `${this.topic}/response`;
+      const mqttResponse = {
+        eventId: validatedData.rfidTag,
+        timestamp: new Date().toISOString(),
+        ...responseData,
+      };
 
-            this.client.publish(responseTopic, JSON.stringify(responseData));
-            console.log("Success Publish RFID_INACTIVE RFID: ", responseData);
-          }
-          console.log("Create failed, RFID_INACTIVE");
+      this.client.publish(responseTopic, JSON.stringify(mqttResponse));
+      console.log("Published API response to MQTT:", mqttResponse);
 
-          return {
-            success: false,
-            error: "Create failed, RFID_INACTIVE.",
-          };
-        }
-      } catch (logError) {
-        console.log(`Execute Catch CheckRDID in Database.`);
-        console.error("Error creating visitor log:", logError);
-
-        // Publish error response
-        if (this.client) {
-          const responseTopic = `${this.topic}/response`;
-          const responseData = {
-            eventId: validatedData.rfidTag,
-            status: "error",
-            error:
-              logError instanceof Error ? logError.message : "Unknown error",
-            timestamp: new Date().toISOString(),
-          };
-
-          this.client.publish(responseTopic, JSON.stringify(responseData));
-          console.log(`Error Publish RFID: `, responseData);
-        }
+      if (this.onLogProcessed) {
+        this.onLogProcessed({
+          success: apiResponse.ok,
+          data: responseData.logId ? { id: responseData.logId } : undefined,
+          error: apiResponse.ok
+            ? undefined
+            : responseData.message || "API Error",
+        });
       }
     } catch (error) {
-      console.error("Error processing RFID logs message:", error);
+      console.error("Error processing or forwarding RFID logs message:", error);
 
-      // Publish validation error response
       if (this.client) {
         const responseTopic = `${this.topic}/response`;
         const responseData = {
+          eventId: validatedData?.rfidTag,
           status: "validation_error",
           error:
             error instanceof Error ? error.message : "Invalid message format",
-          timestamp: new Date().toISOString(),
         };
-
         this.client.publish(responseTopic, JSON.stringify(responseData));
       }
     }

@@ -47,6 +47,8 @@ import { useEffect, useId, useMemo, useState } from "react";
 import { z } from "zod";
 
 import { SheetEditRFIDTag } from "@/components/sheets/sheet-edit-rfid";
+import { SheetSetLocationRFID } from "@/components/sheets/sheet-set-location-rfid";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -153,6 +155,27 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
     ),
   },
   {
+    accessorKey: "location",
+    header: () => <div className="w-full text-left">Location</div>,
+    cell: ({ row }) => (
+      <>
+        <Label htmlFor={`${row.original.rfidTag}-location`} className="sr-only">
+          Location
+        </Label>
+        <p
+          className="h-8 w-fit border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background flex flex-wrap gap-1"
+          id={`${row.original.rfidTag}-location`}
+        >
+          {row.original.locations && row.original.locations.length > 0
+            ? row.original.locations.map((loc) => (
+                <Badge key={loc.location.id}>{loc.location.name}</Badge>
+              ))
+            : "Not assigned"}
+        </p>
+      </>
+    ),
+  },
+  {
     id: "actions",
     cell: ({ row }) => (
       <DropdownMenu>
@@ -168,6 +191,7 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-32">
           <SheetEditRFIDTag item={row.original} />
+          <SheetSetLocationRFID item={row.original} />
         </DropdownMenuContent>
       </DropdownMenu>
     ),

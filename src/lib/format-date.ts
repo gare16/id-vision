@@ -1,24 +1,17 @@
-export function formatDateToYMD(input: Date | string): string {
+export function formatDateToLocaleString(
+  input: Date | string | undefined,
+): string {
+  if (!input) {
+    return "N/A";
+  }
   const date = new Date(input);
-  const day = date.getDate();
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear();
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
-
-  return `${day} ${month} ${year} ${hour}:${minutes}`;
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: false,
+  }).format(date);
 }

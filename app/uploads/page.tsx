@@ -127,6 +127,7 @@ export default function Home() {
                 <Input
                   id="birthInfo"
                   name="birthInfo"
+                  type="date"
                   defaultValue={formData?.birthInfo || ""}
                   placeholder="Enter birth info"
                 />

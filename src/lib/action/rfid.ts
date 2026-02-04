@@ -25,6 +25,14 @@ export async function getRfidTag() {
       status: true,
       rfidTag: true,
       nik: true,
+      locations: {
+        include: {
+          location: true,
+        },
+        orderBy: {
+          assignedAt: "desc",
+        },
+      },
     },
   });
   return res;

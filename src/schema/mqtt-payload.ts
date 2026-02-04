@@ -16,7 +16,7 @@ export const VisitorSchema = z.object({
 
 // Schema for RFID check requests
 export const RFIDCheckPayloadSchema = z.object({
-  location: z.string(),
+  location: z.string().optional(),
   rfidTag: z.string(),
   processedAt: z.string().datetime().optional(), // ISO string
   rfidExists: z.boolean().optional(),
@@ -29,5 +29,4 @@ export const RFIDLogPayloadSchema = z.object({
   rfidTag: z.string(),
   deviceId: z.string(),
   location: z.string(),
-  timestamp: z.string().optional(),
 });

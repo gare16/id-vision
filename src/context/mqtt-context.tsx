@@ -19,8 +19,7 @@ import { RFIDCheckPayloadSchema } from "@/schema/mqtt-payload";
 export const RawRFIDEventSchema = z.object({
   rfidTag: z.string(),
   deviceId: z.string(),
-  location: z.string(),
-  timestamp: z.string(),
+  location: z.string().optional(),
 });
 
 export type RawRFIDEvent = z.infer<typeof RawRFIDEventSchema>;
@@ -79,8 +78,6 @@ export const MQTTProvider = ({ children }: { children: React.ReactNode }) => {
       const rawEvent: RawRFIDEvent = {
         rfidTag: data.rfidTag,
         deviceId: "gateway", // Could be enhanced to include actual device ID
-        location: data.location,
-        timestamp: new Date().toISOString(), // Current time as we don't have original timestamp
       };
 
       // Store in temporary cache
@@ -117,7 +114,6 @@ export const MQTTProvider = ({ children }: { children: React.ReactNode }) => {
             rfidTag: parsed.rfidTag,
             deviceId: "gateway", // Could be enhanced to include actual device ID
             location: parsed.location,
-            timestamp: new Date().toISOString(), // Current time as we don't have original timestamp
           };
 
           // Store in temporary cache

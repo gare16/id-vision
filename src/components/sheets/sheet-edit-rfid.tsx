@@ -40,6 +40,7 @@ export function SheetEditRFIDTag({
       nik: string | null;
       status: boolean;
       visitor: { name: string } | null;
+      locations: Array<{ location: { id: number; name: string } }> | undefined;
     }[]
   >([]);
   const [selectedVisitor, setSelectedVisitor] = useState<string>(

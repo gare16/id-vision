@@ -19,6 +19,16 @@ export const RFIDTagSchema = z.object({
       vehicleNumber: z.string().nullable(),
     })
     .nullable(),
+  locations: z
+    .array(
+      z.object({
+        location: z.object({
+          id: z.number(),
+          name: z.string(),
+        }),
+      }),
+    )
+    .optional(),
 });
 
 export const RegisterRFIDSchema = z.object({
