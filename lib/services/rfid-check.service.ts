@@ -67,30 +67,30 @@ export async function checkRfidInDatabase(rfidTag: string): Promise<{
         rfidTag: rfidTag.trim(),
       },
       include: {
-        visitor: true, // Include visitor information if associated
-        locations: {
-          // Include locations
+        Visitor: true, // Include visitor information if associated
+        RfidTagLocation: {
+          // Include RfidTagLocation relations
           include: {
-            location: true, // Include the Location details
+            Location: true, // Include the Location details
           },
         },
       },
     });
 
     if (rfidRecord) {
-      const transformedVisitor: VisitorFromDb | null = rfidRecord.visitor
+      const transformedVisitor: VisitorFromDb | null = rfidRecord.Visitor
         ? {
-            id: rfidRecord.visitor.id,
-            nik: rfidRecord.visitor.nik,
-            name: rfidRecord.visitor.name,
-            address: rfidRecord.visitor.address,
-            birthInfo: rfidRecord.visitor.birthInfo,
-            nationality: rfidRecord.visitor.nationality,
-            phoneNumber: rfidRecord.visitor.phoneNumber,
-            organization: rfidRecord.visitor.organization,
-            visitingPurpose: rfidRecord.visitor.visitingPurpose,
-            placeDestination: rfidRecord.visitor.placeDestination,
-            vehicleNumber: rfidRecord.visitor.vehicleNumber,
+            id: rfidRecord.Visitor.id,
+            nik: rfidRecord.Visitor.nik,
+            name: rfidRecord.Visitor.name,
+            address: rfidRecord.Visitor.address,
+            birthInfo: rfidRecord.Visitor.birthInfo,
+            nationality: rfidRecord.Visitor.nationality,
+            phoneNumber: rfidRecord.Visitor.phoneNumber,
+            organization: rfidRecord.Visitor.organization,
+            visitingPurpose: rfidRecord.Visitor.visitingPurpose,
+            placeDestination: rfidRecord.Visitor.placeDestination,
+            vehicleNumber: rfidRecord.Visitor.vehicleNumber,
           }
         : null;
 
@@ -99,14 +99,14 @@ export async function checkRfidInDatabase(rfidTag: string): Promise<{
         nik: rfidRecord.nik,
         status: rfidRecord.status,
         visitor: transformedVisitor,
-        locations: rfidRecord.locations.map((rtl) => ({
+        locations: rfidRecord.RfidTagLocation.map((rtl) => ({
           // Map over RfidTagLocation
           rfidTagId: rtl.rfidTagId,
           locationId: rtl.locationId,
           assignedAt: rtl.assignedAt,
           location: {
-            id: rtl.location.id,
-            name: rtl.location.name,
+            id: rtl.Location.id,
+            name: rtl.Location.name,
           },
         })),
       };

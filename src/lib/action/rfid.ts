@@ -1,13 +1,15 @@
 "use server";
 
 import { subDays, startOfDay, endOfDay } from "date-fns";
+import { revalidatePath } from "next/cache";
 
 import { prisma } from "@/lib/prisma";
 
-export async function getRfidTag() {
+// Function for the RFID Tag page that returns full data structure
+export async function getRfidTagForTable() {
   const res = await prisma.rfidTag.findMany({
     select: {
-      visitor: {
+      Visitor: {
         select: {
           id: true,
           nik: true,
@@ -25,17 +27,75 @@ export async function getRfidTag() {
       status: true,
       rfidTag: true,
       nik: true,
-      locations: {
-        include: {
-          location: true,
-        },
-        orderBy: {
-          assignedAt: "desc",
+      RfidTagLocation: {
+        select: {
+          locationId: true,
+          Location: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     },
   });
   return res;
+}
+
+// Function for the SheetEditRFIDTag component that returns simplified data structure
+export async function getRfidTag() {
+  const res = await prisma.rfidTag.findMany({
+    select: {
+      Visitor: {
+        select: {
+          id: true,
+          nik: true,
+          name: true,
+          address: true,
+          birthInfo: true,
+          nationality: true,
+          phoneNumber: true,
+          organization: true,
+          visitingPurpose: true,
+          placeDestination: true,
+          vehicleNumber: true,
+        },
+      },
+      status: true,
+      rfidTag: true,
+      nik: true,
+      RfidTagLocation: {
+        select: {
+          locationId: true,
+          Location: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // Transform the data to match the expected format
+  return res.map((item) => ({
+    rfidTag: item.rfidTag,
+    nik: item.nik,
+    status: item.status,
+    visitor: item.Visitor
+      ? {
+          name: item.Visitor.name,
+        }
+      : null,
+    locations: item.RfidTagLocation
+      ? item.RfidTagLocation.map((location) => ({
+          location: {
+            id: location.locationId,
+            name: location.Location.name,
+          },
+        }))
+      : undefined,
+  }));
 }
 
 export async function getDataSummaryCard() {
@@ -148,6 +208,21 @@ export async function updateRfidTag({
   } catch (error) {
     console.error("Failed to update RFID tag:", error);
     return { success: false, error: "Update failed" };
+  }
+}
+
+export async function deleteRfidTag({ rfid_tag }: { rfid_tag: string }) {
+  try {
+    // Delete the RFID tag - Prisma should handle the referential action automatically
+    // due to onDelete: SetNull in the schema
+    const deleted = await prisma.rfidTag.delete({
+      where: { rfidTag: rfid_tag },
+    });
+    revalidatePath("/rfid-tag");
+    return { success: true, data: deleted };
+  } catch (error) {
+    console.error("Failed to delete RFID tag:", error);
+    return { success: false, error: "Delete failed" };
   }
 }
 

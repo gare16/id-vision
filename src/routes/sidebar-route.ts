@@ -48,10 +48,6 @@ export const data = {
           title: "List RFID Tag",
           url: "/rfid-tag",
         },
-        {
-          title: "Check RFID",
-          url: "/check-rfid",
-        },
       ],
     },
   ],

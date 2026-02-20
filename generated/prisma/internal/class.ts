@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  userId   Int    @id @default(autoincrement())\n  username String\n  password String\n}\n\nmodel Visitor {\n  id               Int     @id @default(autoincrement())\n  nik              String  @unique\n  name             String\n  address          String\n  birthInfo        String\n  nationality      String?\n  phoneNumber      String?\n  organization     String?\n  visitingPurpose  String?\n  placeDestination String?\n  vehicleNumber    String?\n\n  rfidTags RfidTag[]\n  logs     LogVisitor[]\n}\n\nmodel RfidTag {\n  rfidTag String  @id\n  status  Boolean\n  nik     String?\n\n  visitor   Visitor?          @relation(fields: [nik], references: [nik], onDelete: Restrict)\n  logs      LogVisitor[]\n  locations RfidTagLocation[]\n}\n\nmodel Location {\n  id   Int    @id @default(autoincrement())\n  name String @unique\n\n  rfidTags    RfidTagLocation[]\n  logVisitors LogVisitor[]\n}\n\nmodel RfidTagLocation {\n  rfidTagId  String\n  locationId Int\n  assignedAt DateTime @default(now())\n\n  rfidTag  RfidTag  @relation(fields: [rfidTagId], references: [rfidTag], onDelete: Cascade)\n  location Location @relation(fields: [locationId], references: [id], onDelete: Cascade)\n\n  @@id([rfidTagId, locationId])\n}\n\nmodel LogVisitor {\n  id         Int       @id @default(autoincrement())\n  nik        String\n  rfidTagId  String\n  locationId Int?\n  date       DateTime  @default(now())\n  visitType  VisitType\n\n  visitor  Visitor   @relation(fields: [nik], references: [nik])\n  rfidTag  RfidTag   @relation(fields: [rfidTagId], references: [rfidTag])\n  location Location? @relation(fields: [locationId], references: [id])\n}\n\nenum VisitType {\n  IN\n  OUT\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Location {\n  id              Int               @id @default(autoincrement())\n  name            String            @unique\n  LogVisitor      LogVisitor[]\n  RfidTagLocation RfidTagLocation[]\n}\n\nmodel LogVisitor {\n  id         Int       @id @default(autoincrement())\n  nik        String\n  rfidTagId  String?\n  locationId Int?\n  date       DateTime  @default(now())\n  visitType  VisitType\n  Location   Location? @relation(fields: [locationId], references: [id])\n  Visitor    Visitor   @relation(fields: [nik], references: [nik])\n  RfidTag    RfidTag?  @relation(fields: [rfidTagId], references: [rfidTag])\n}\n\nmodel RfidTag {\n  rfidTag         String            @id\n  status          Boolean\n  nik             String?\n  LogVisitor      LogVisitor[]\n  Visitor         Visitor?          @relation(fields: [nik], references: [nik], onDelete: Cascade)\n  RfidTagLocation RfidTagLocation[]\n}\n\nmodel RfidTagLocation {\n  rfidTagId  String\n  locationId Int\n  assignedAt DateTime @default(now())\n  Location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)\n  RfidTag    RfidTag  @relation(fields: [rfidTagId], references: [rfidTag], onDelete: Cascade)\n\n  @@id([rfidTagId, locationId])\n}\n\nmodel User {\n  userId   Int    @id @default(autoincrement())\n  username String\n  password String\n}\n\nmodel Visitor {\n  id               Int          @id @default(autoincrement())\n  nik              String       @unique\n  name             String\n  address          String\n  birthInfo        String\n  nationality      String?\n  phoneNumber      String?\n  organization     String?\n  visitingPurpose  String?\n  placeDestination String?\n  vehicleNumber    String?\n  LogVisitor       LogVisitor[]\n  RfidTag          RfidTag[]\n}\n\nenum VisitType {\n  IN\n  OUT\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Visitor\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nik\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"birthInfo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nationality\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"organization\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"visitingPurpose\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"placeDestination\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"vehicleNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rfidTags\",\"kind\":\"object\",\"type\":\"RfidTag\",\"relationName\":\"RfidTagToVisitor\"},{\"name\":\"logs\",\"kind\":\"object\",\"type\":\"LogVisitor\",\"relationName\":\"LogVisitorToVisitor\"}],\"dbName\":null},\"RfidTag\":{\"fields\":[{\"name\":\"rfidTag\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"nik\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"visitor\",\"kind\":\"object\",\"type\":\"Visitor\",\"relationName\":\"RfidTagToVisitor\"},{\"name\":\"logs\",\"kind\":\"object\",\"type\":\"LogVisitor\",\"relationName\":\"LogVisitorToRfidTag\"},{\"name\":\"locations\",\"kind\":\"object\",\"type\":\"RfidTagLocation\",\"relationName\":\"RfidTagToRfidTagLocation\"}],\"dbName\":null},\"Location\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rfidTags\",\"kind\":\"object\",\"type\":\"RfidTagLocation\",\"relationName\":\"LocationToRfidTagLocation\"},{\"name\":\"logVisitors\",\"kind\":\"object\",\"type\":\"LogVisitor\",\"relationName\":\"LocationToLogVisitor\"}],\"dbName\":null},\"RfidTagLocation\":{\"fields\":[{\"name\":\"rfidTagId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"locationId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"assignedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"rfidTag\",\"kind\":\"object\",\"type\":\"RfidTag\",\"relationName\":\"RfidTagToRfidTagLocation\"},{\"name\":\"location\",\"kind\":\"object\",\"type\":\"Location\",\"relationName\":\"LocationToRfidTagLocation\"}],\"dbName\":null},\"LogVisitor\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nik\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rfidTagId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"locationId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"visitType\",\"kind\":\"enum\",\"type\":\"VisitType\"},{\"name\":\"visitor\",\"kind\":\"object\",\"type\":\"Visitor\",\"relationName\":\"LogVisitorToVisitor\"},{\"name\":\"rfidTag\",\"kind\":\"object\",\"type\":\"RfidTag\",\"relationName\":\"LogVisitorToRfidTag\"},{\"name\":\"location\",\"kind\":\"object\",\"type\":\"Location\",\"relationName\":\"LocationToLogVisitor\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Location\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"LogVisitor\",\"kind\":\"object\",\"type\":\"LogVisitor\",\"relationName\":\"LocationToLogVisitor\"},{\"name\":\"RfidTagLocation\",\"kind\":\"object\",\"type\":\"RfidTagLocation\",\"relationName\":\"LocationToRfidTagLocation\"}],\"dbName\":null},\"LogVisitor\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nik\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"rfidTagId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"locationId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"visitType\",\"kind\":\"enum\",\"type\":\"VisitType\"},{\"name\":\"Location\",\"kind\":\"object\",\"type\":\"Location\",\"relationName\":\"LocationToLogVisitor\"},{\"name\":\"Visitor\",\"kind\":\"object\",\"type\":\"Visitor\",\"relationName\":\"LogVisitorToVisitor\"},{\"name\":\"RfidTag\",\"kind\":\"object\",\"type\":\"RfidTag\",\"relationName\":\"LogVisitorToRfidTag\"}],\"dbName\":null},\"RfidTag\":{\"fields\":[{\"name\":\"rfidTag\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"nik\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"LogVisitor\",\"kind\":\"object\",\"type\":\"LogVisitor\",\"relationName\":\"LogVisitorToRfidTag\"},{\"name\":\"Visitor\",\"kind\":\"object\",\"type\":\"Visitor\",\"relationName\":\"RfidTagToVisitor\"},{\"name\":\"RfidTagLocation\",\"kind\":\"object\",\"type\":\"RfidTagLocation\",\"relationName\":\"RfidTagToRfidTagLocation\"}],\"dbName\":null},\"RfidTagLocation\":{\"fields\":[{\"name\":\"rfidTagId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"locationId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"assignedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"Location\",\"kind\":\"object\",\"type\":\"Location\",\"relationName\":\"LocationToRfidTagLocation\"},{\"name\":\"RfidTag\",\"kind\":\"object\",\"type\":\"RfidTag\",\"relationName\":\"RfidTagToRfidTagLocation\"}],\"dbName\":null},\"User\":{\"fields\":[{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null},\"Visitor\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nik\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"birthInfo\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nationality\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"organization\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"visitingPurpose\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"placeDestination\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"vehicleNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"LogVisitor\",\"kind\":\"object\",\"type\":\"LogVisitor\",\"relationName\":\"LogVisitorToVisitor\"},{\"name\":\"RfidTag\",\"kind\":\"object\",\"type\":\"RfidTag\",\"relationName\":\"RfidTagToVisitor\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -58,8 +58,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Locations
+   * const locations = await prisma.location.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -80,8 +80,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Locations
+ * const locations = await prisma.location.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -175,6 +175,46 @@ export interface PrismaClient<
   }>>
 
       /**
+   * `prisma.location`: Exposes CRUD operations for the **Location** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Locations
+    * const locations = await prisma.location.findMany()
+    * ```
+    */
+  get location(): Prisma.LocationDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.logVisitor`: Exposes CRUD operations for the **LogVisitor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LogVisitors
+    * const logVisitors = await prisma.logVisitor.findMany()
+    * ```
+    */
+  get logVisitor(): Prisma.LogVisitorDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.rfidTag`: Exposes CRUD operations for the **RfidTag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RfidTags
+    * const rfidTags = await prisma.rfidTag.findMany()
+    * ```
+    */
+  get rfidTag(): Prisma.RfidTagDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.rfidTagLocation`: Exposes CRUD operations for the **RfidTagLocation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more RfidTagLocations
+    * const rfidTagLocations = await prisma.rfidTagLocation.findMany()
+    * ```
+    */
+  get rfidTagLocation(): Prisma.RfidTagLocationDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
@@ -193,46 +233,6 @@ export interface PrismaClient<
     * ```
     */
   get visitor(): Prisma.VisitorDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.rfidTag`: Exposes CRUD operations for the **RfidTag** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more RfidTags
-    * const rfidTags = await prisma.rfidTag.findMany()
-    * ```
-    */
-  get rfidTag(): Prisma.RfidTagDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.location`: Exposes CRUD operations for the **Location** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Locations
-    * const locations = await prisma.location.findMany()
-    * ```
-    */
-  get location(): Prisma.LocationDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.rfidTagLocation`: Exposes CRUD operations for the **RfidTagLocation** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more RfidTagLocations
-    * const rfidTagLocations = await prisma.rfidTagLocation.findMany()
-    * ```
-    */
-  get rfidTagLocation(): Prisma.RfidTagLocationDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.logVisitor`: Exposes CRUD operations for the **LogVisitor** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more LogVisitors
-    * const logVisitors = await prisma.logVisitor.findMany()
-    * ```
-    */
-  get logVisitor(): Prisma.LogVisitorDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

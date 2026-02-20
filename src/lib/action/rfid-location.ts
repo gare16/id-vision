@@ -9,7 +9,7 @@ export async function getRfidTagLocations(rfidTag: string) {
       rfidTagId: rfidTag,
     },
     include: {
-      location: true,
+      Location: true,
     },
   });
 

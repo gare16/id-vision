@@ -196,7 +196,7 @@ async function main() {
       data: {
         rfidTag: "RFID001",
         status: true,
-        visitor: {
+        Visitor: {
           connect: { nik: visitors[0].nik },
         },
       },
@@ -205,7 +205,7 @@ async function main() {
       data: {
         rfidTag: "RFID002",
         status: true,
-        visitor: {
+        Visitor: {
           connect: { nik: visitors[1].nik },
         },
       },

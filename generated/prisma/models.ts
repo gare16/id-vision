@@ -8,10 +8,10 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Location'
+export type * from './models/LogVisitor'
+export type * from './models/RfidTag'
+export type * from './models/RfidTagLocation'
 export type * from './models/User'
 export type * from './models/Visitor'
-export type * from './models/RfidTag'
-export type * from './models/Location'
-export type * from './models/RfidTagLocation'
-export type * from './models/LogVisitor'
 export type * from './commonInputTypes'

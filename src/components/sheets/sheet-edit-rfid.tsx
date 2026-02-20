@@ -62,12 +62,25 @@ export function SheetEditRFIDTag({
 
   useEffect(() => {
     const fetchVisitors = async () => {
-      const res = await fetch("/api/visitors");
-      const data = await res.json();
+      try {
+        const res = await fetch("/api/visitors");
 
-      const resultTag = await getRfidTag();
-      setHasTag(resultTag);
-      setVisitors(data);
+        if (!res.ok) {
+          console.error(
+            `Failed to fetch visitors: ${res.status} ${res.statusText}`,
+          );
+          const errorText = await res.text();
+          console.error("Error response:", errorText);
+          return;
+        }
+
+        const data = await res.json();
+        const resultTag = await getRfidTag();
+        setHasTag(resultTag);
+        setVisitors(data);
+      } catch (error) {
+        console.error("Error fetching visitors:", error);
+      }
     };
     fetchVisitors();
   }, []);
@@ -102,7 +115,7 @@ export function SheetEditRFIDTag({
       </SheetTrigger>
       <SheetContent side="bottom" className="px-4 flex flex-col">
         <SheetHeader className="gap-1">
-          <SheetTitle>{item.visitor?.name ?? "Unknown Visitor"}</SheetTitle>
+          <SheetTitle>{item.Visitor?.name ?? "Unknown Visitor"}</SheetTitle>
           <SheetDescription>Showing RFID Tag to Edit</SheetDescription>
         </SheetHeader>
         <div className="w-full flex justify-center items-center">

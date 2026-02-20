@@ -18,7 +18,7 @@ export const DailylogVisitorSchema = z.object({
   id: z.number(),
   visitType: z.enum(["IN", "OUT"]),
   location: LocationSchema.nullable(),
-  rfidTagId: z.string(),
+  rfidTagId: z.string().nullable(),
   nik: z.string(),
   date: z.date(), // Prisma DateTime maps to ISO string
   visitor: z.object({

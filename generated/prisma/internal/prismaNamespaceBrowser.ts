@@ -51,12 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User',
-  Visitor: 'Visitor',
-  RfidTag: 'RfidTag',
   Location: 'Location',
+  LogVisitor: 'LogVisitor',
+  RfidTag: 'RfidTag',
   RfidTagLocation: 'RfidTagLocation',
-  LogVisitor: 'LogVisitor'
+  User: 'User',
+  Visitor: 'Visitor'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -73,6 +73,44 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const LocationScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
+
+
+export const LogVisitorScalarFieldEnum = {
+  id: 'id',
+  nik: 'nik',
+  rfidTagId: 'rfidTagId',
+  locationId: 'locationId',
+  date: 'date',
+  visitType: 'visitType'
+} as const
+
+export type LogVisitorScalarFieldEnum = (typeof LogVisitorScalarFieldEnum)[keyof typeof LogVisitorScalarFieldEnum]
+
+
+export const RfidTagScalarFieldEnum = {
+  rfidTag: 'rfidTag',
+  status: 'status',
+  nik: 'nik'
+} as const
+
+export type RfidTagScalarFieldEnum = (typeof RfidTagScalarFieldEnum)[keyof typeof RfidTagScalarFieldEnum]
+
+
+export const RfidTagLocationScalarFieldEnum = {
+  rfidTagId: 'rfidTagId',
+  locationId: 'locationId',
+  assignedAt: 'assignedAt'
+} as const
+
+export type RfidTagLocationScalarFieldEnum = (typeof RfidTagLocationScalarFieldEnum)[keyof typeof RfidTagLocationScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -99,44 +137,6 @@ export const VisitorScalarFieldEnum = {
 } as const
 
 export type VisitorScalarFieldEnum = (typeof VisitorScalarFieldEnum)[keyof typeof VisitorScalarFieldEnum]
-
-
-export const RfidTagScalarFieldEnum = {
-  rfidTag: 'rfidTag',
-  status: 'status',
-  nik: 'nik'
-} as const
-
-export type RfidTagScalarFieldEnum = (typeof RfidTagScalarFieldEnum)[keyof typeof RfidTagScalarFieldEnum]
-
-
-export const LocationScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-} as const
-
-export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
-
-
-export const RfidTagLocationScalarFieldEnum = {
-  rfidTagId: 'rfidTagId',
-  locationId: 'locationId',
-  assignedAt: 'assignedAt'
-} as const
-
-export type RfidTagLocationScalarFieldEnum = (typeof RfidTagLocationScalarFieldEnum)[keyof typeof RfidTagLocationScalarFieldEnum]
-
-
-export const LogVisitorScalarFieldEnum = {
-  id: 'id',
-  nik: 'nik',
-  rfidTagId: 'rfidTagId',
-  locationId: 'locationId',
-  date: 'date',
-  visitType: 'visitType'
-} as const
-
-export type LogVisitorScalarFieldEnum = (typeof LogVisitorScalarFieldEnum)[keyof typeof LogVisitorScalarFieldEnum]
 
 
 export const SortOrder = {

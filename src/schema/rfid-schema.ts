@@ -4,7 +4,7 @@ export const RFIDTagSchema = z.object({
   rfidTag: z.string(),
   nik: z.string().nullable(),
   status: z.boolean(),
-  visitor: z
+  Visitor: z
     .object({
       id: z.number(),
       nik: z.string(),
@@ -19,11 +19,11 @@ export const RFIDTagSchema = z.object({
       vehicleNumber: z.string().nullable(),
     })
     .nullable(),
-  locations: z
+  RfidTagLocation: z
     .array(
       z.object({
-        location: z.object({
-          id: z.number(),
+        locationId: z.string,
+        Location: z.object({
           name: z.string(),
         }),
       }),

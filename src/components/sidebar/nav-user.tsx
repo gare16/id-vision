@@ -42,7 +42,11 @@ export function NavUser({
         // Redirect to login page after successful logout
         window.location.href = "/auth/login";
       } else {
-        console.error("Logout API failed:", await response.text());
+        console.error(
+          "Logout API failed:",
+          response.status,
+          await response.text(),
+        );
         // Even if API fails, still redirect to prevent user confusion
         window.location.href = "/auth/login";
       }

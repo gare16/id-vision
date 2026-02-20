@@ -46,6 +46,7 @@ import {
 import { useEffect, useId, useMemo, useState } from "react";
 import { z } from "zod";
 
+import { DeleteRFIDButton } from "@/components/buttons/delete-rfid-button";
 import { SheetEditRFIDTag } from "@/components/sheets/sheet-edit-rfid";
 import { SheetSetLocationRFID } from "@/components/sheets/sheet-set-location-rfid";
 import { Badge } from "@/components/ui/badge";
@@ -107,16 +108,16 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
     cell: ({ row }) => (
       <>
         <Label
-          htmlFor={`${row.original.visitor?.name}-name`}
+          htmlFor={`${row.original.RfidTagLocation}-name`}
           className="sr-only"
         >
           Nama
         </Label>
         <p
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
-          id={`${row.original.rfidTag}-name`}
+          id={`${row.original.Visitor?.name}-name`}
         >
-          {row.original.visitor?.name}
+          {row.original.Visitor?.name}
         </p>
       </>
     ),
@@ -166,9 +167,10 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
           className="h-8 w-fit border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background flex flex-wrap gap-1"
           id={`${row.original.rfidTag}-location`}
         >
-          {row.original.locations && row.original.locations.length > 0
-            ? row.original.locations.map((loc) => (
-                <Badge key={loc.location.id}>{loc.location.name}</Badge>
+          {row.original.RfidTagLocation &&
+          row.original.RfidTagLocation.length > 0
+            ? row.original.RfidTagLocation.map((loc) => (
+                <Badge key={loc.Location.name}>{loc.Location.name}</Badge>
               ))
             : "Not assigned"}
         </p>
@@ -192,6 +194,7 @@ const columns: ColumnDef<z.infer<typeof RFIDTagSchema>>[] = [
         <DropdownMenuContent align="start" className="w-32">
           <SheetEditRFIDTag item={row.original} />
           <SheetSetLocationRFID item={row.original} />
+          <DeleteRFIDButton item={row.original} />
         </DropdownMenuContent>
       </DropdownMenu>
     ),
@@ -232,6 +235,11 @@ export function TableRFIDTag({
 }) {
   const { value, setTrue } = useBoolean(false);
   const [data, setData] = useState(() => initialData);
+
+  // Sync local state with prop updates (e.g., after deletion)
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);

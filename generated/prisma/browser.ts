@@ -18,6 +18,26 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model Location
+ * 
+ */
+export type Location = Prisma.LocationModel
+/**
+ * Model LogVisitor
+ * 
+ */
+export type LogVisitor = Prisma.LogVisitorModel
+/**
+ * Model RfidTag
+ * 
+ */
+export type RfidTag = Prisma.RfidTagModel
+/**
+ * Model RfidTagLocation
+ * 
+ */
+export type RfidTagLocation = Prisma.RfidTagLocationModel
+/**
  * Model User
  * 
  */
@@ -27,23 +47,3 @@ export type User = Prisma.UserModel
  * 
  */
 export type Visitor = Prisma.VisitorModel
-/**
- * Model RfidTag
- * 
- */
-export type RfidTag = Prisma.RfidTagModel
-/**
- * Model Location
- * 
- */
-export type Location = Prisma.LocationModel
-/**
- * Model RfidTagLocation
- * 
- */
-export type RfidTagLocation = Prisma.RfidTagLocationModel
-/**
- * Model LogVisitor
- * 
- */
-export type LogVisitor = Prisma.LogVisitorModel

@@ -55,7 +55,7 @@ export function SheetSetLocationRFID({
 
       // Ambil lokasi saat ini untuk RFID tag ini
       const rfidLocations = await getRfidTagLocations(item.rfidTag);
-      setCurrentLocation(rfidLocations.map((loc) => loc.location.name));
+      setCurrentLocation(rfidLocations.map((loc) => loc.Location.name));
       setSelectedLocation(rfidLocations.map((loc) => loc.locationId));
     };
 
@@ -91,7 +91,7 @@ export function SheetSetLocationRFID({
       <SheetContent side="bottom" className="px-4 flex flex-col">
         <SheetHeader className="gap-1">
           <SheetTitle>
-            Set Location for {item.visitor?.name ?? "Unknown Visitor"}
+            Set Location for {item.Visitor?.name ?? "Unknown Visitor"}
           </SheetTitle>
           <SheetDescription>Manage RFID Tag locations</SheetDescription>
         </SheetHeader>

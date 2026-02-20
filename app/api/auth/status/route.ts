@@ -1,33 +1,54 @@
-import { NextRequest } from "next/server";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
-import { validateToken } from "@/lib/auth";
+import { JwtPayload } from "@/lib/auth";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const token = request.cookies.get("token")?.value;
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
 
     if (!token) {
-      return Response.json({ isAuthenticated: false }, { status: 200 });
+      return NextResponse.json({
+        isAuthenticated: false,
+        user: null,
+        message: "No authentication token found",
+      });
     }
 
-    const user = await validateToken(token);
+    try {
+      const decoded = jwt.verify(
+        token,
+        process.env.JWT_SECRET || "fallback_secret_key",
+      ) as JwtPayload;
 
-    if (user) {
-      return Response.json(
-        {
-          isAuthenticated: true,
-          user: {
-            userId: user.userId,
-            username: user.username,
-          },
+      // Fetch user details from database if needed
+      // For now, we'll just return the decoded token info
+      return NextResponse.json({
+        isAuthenticated: true,
+        user: {
+          userId: decoded.userId,
+          username: decoded.username,
         },
-        { status: 200 },
-      );
-    } else {
-      return Response.json({ isAuthenticated: false }, { status: 200 });
+      });
+    } catch (error) {
+      console.error("Token verification error:", error);
+      return NextResponse.json({
+        isAuthenticated: false,
+        user: null,
+        message: "Invalid or expired token",
+      });
     }
   } catch (error) {
     console.error("Auth status check error:", error);
-    return Response.json({ isAuthenticated: false }, { status: 200 });
+    return NextResponse.json(
+      {
+        isAuthenticated: false,
+        user: null,
+        message: "Internal server error",
+      },
+      { status: 500 },
+    );
   }
 }

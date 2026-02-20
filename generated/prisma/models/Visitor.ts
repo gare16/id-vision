@@ -264,8 +264,8 @@ export type VisitorWhereInput = {
   visitingPurpose?: Prisma.StringNullableFilter<"Visitor"> | string | null
   placeDestination?: Prisma.StringNullableFilter<"Visitor"> | string | null
   vehicleNumber?: Prisma.StringNullableFilter<"Visitor"> | string | null
-  rfidTags?: Prisma.RfidTagListRelationFilter
-  logs?: Prisma.LogVisitorListRelationFilter
+  LogVisitor?: Prisma.LogVisitorListRelationFilter
+  RfidTag?: Prisma.RfidTagListRelationFilter
 }
 
 export type VisitorOrderByWithRelationInput = {
@@ -280,8 +280,8 @@ export type VisitorOrderByWithRelationInput = {
   visitingPurpose?: Prisma.SortOrderInput | Prisma.SortOrder
   placeDestination?: Prisma.SortOrderInput | Prisma.SortOrder
   vehicleNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  rfidTags?: Prisma.RfidTagOrderByRelationAggregateInput
-  logs?: Prisma.LogVisitorOrderByRelationAggregateInput
+  LogVisitor?: Prisma.LogVisitorOrderByRelationAggregateInput
+  RfidTag?: Prisma.RfidTagOrderByRelationAggregateInput
 }
 
 export type VisitorWhereUniqueInput = Prisma.AtLeast<{
@@ -299,8 +299,8 @@ export type VisitorWhereUniqueInput = Prisma.AtLeast<{
   visitingPurpose?: Prisma.StringNullableFilter<"Visitor"> | string | null
   placeDestination?: Prisma.StringNullableFilter<"Visitor"> | string | null
   vehicleNumber?: Prisma.StringNullableFilter<"Visitor"> | string | null
-  rfidTags?: Prisma.RfidTagListRelationFilter
-  logs?: Prisma.LogVisitorListRelationFilter
+  LogVisitor?: Prisma.LogVisitorListRelationFilter
+  RfidTag?: Prisma.RfidTagListRelationFilter
 }, "id" | "nik">
 
 export type VisitorOrderByWithAggregationInput = {
@@ -350,8 +350,8 @@ export type VisitorCreateInput = {
   visitingPurpose?: string | null
   placeDestination?: string | null
   vehicleNumber?: string | null
-  rfidTags?: Prisma.RfidTagCreateNestedManyWithoutVisitorInput
-  logs?: Prisma.LogVisitorCreateNestedManyWithoutVisitorInput
+  LogVisitor?: Prisma.LogVisitorCreateNestedManyWithoutVisitorInput
+  RfidTag?: Prisma.RfidTagCreateNestedManyWithoutVisitorInput
 }
 
 export type VisitorUncheckedCreateInput = {
@@ -366,8 +366,8 @@ export type VisitorUncheckedCreateInput = {
   visitingPurpose?: string | null
   placeDestination?: string | null
   vehicleNumber?: string | null
-  rfidTags?: Prisma.RfidTagUncheckedCreateNestedManyWithoutVisitorInput
-  logs?: Prisma.LogVisitorUncheckedCreateNestedManyWithoutVisitorInput
+  LogVisitor?: Prisma.LogVisitorUncheckedCreateNestedManyWithoutVisitorInput
+  RfidTag?: Prisma.RfidTagUncheckedCreateNestedManyWithoutVisitorInput
 }
 
 export type VisitorUpdateInput = {
@@ -381,8 +381,8 @@ export type VisitorUpdateInput = {
   visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rfidTags?: Prisma.RfidTagUpdateManyWithoutVisitorNestedInput
-  logs?: Prisma.LogVisitorUpdateManyWithoutVisitorNestedInput
+  LogVisitor?: Prisma.LogVisitorUpdateManyWithoutVisitorNestedInput
+  RfidTag?: Prisma.RfidTagUpdateManyWithoutVisitorNestedInput
 }
 
 export type VisitorUncheckedUpdateInput = {
@@ -397,8 +397,8 @@ export type VisitorUncheckedUpdateInput = {
   visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rfidTags?: Prisma.RfidTagUncheckedUpdateManyWithoutVisitorNestedInput
-  logs?: Prisma.LogVisitorUncheckedUpdateManyWithoutVisitorNestedInput
+  LogVisitor?: Prisma.LogVisitorUncheckedUpdateManyWithoutVisitorNestedInput
+  RfidTag?: Prisma.RfidTagUncheckedUpdateManyWithoutVisitorNestedInput
 }
 
 export type VisitorCreateManyInput = {
@@ -440,6 +440,16 @@ export type VisitorUncheckedUpdateManyInput = {
   visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type VisitorScalarRelationFilter = {
+  is?: Prisma.VisitorWhereInput
+  isNot?: Prisma.VisitorWhereInput
+}
+
+export type VisitorNullableScalarRelationFilter = {
+  is?: Prisma.VisitorWhereInput | null
+  isNot?: Prisma.VisitorWhereInput | null
 }
 
 export type VisitorCountOrderByAggregateInput = {
@@ -492,51 +502,37 @@ export type VisitorSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type VisitorNullableScalarRelationFilter = {
-  is?: Prisma.VisitorWhereInput | null
-  isNot?: Prisma.VisitorWhereInput | null
-}
-
-export type VisitorScalarRelationFilter = {
-  is?: Prisma.VisitorWhereInput
-  isNot?: Prisma.VisitorWhereInput
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type VisitorCreateNestedOneWithoutRfidTagsInput = {
-  create?: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagsInput, Prisma.VisitorUncheckedCreateWithoutRfidTagsInput>
-  connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutRfidTagsInput
+export type VisitorCreateNestedOneWithoutLogVisitorInput = {
+  create?: Prisma.XOR<Prisma.VisitorCreateWithoutLogVisitorInput, Prisma.VisitorUncheckedCreateWithoutLogVisitorInput>
+  connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutLogVisitorInput
   connect?: Prisma.VisitorWhereUniqueInput
 }
 
-export type VisitorUpdateOneWithoutRfidTagsNestedInput = {
-  create?: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagsInput, Prisma.VisitorUncheckedCreateWithoutRfidTagsInput>
-  connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutRfidTagsInput
-  upsert?: Prisma.VisitorUpsertWithoutRfidTagsInput
+export type VisitorUpdateOneRequiredWithoutLogVisitorNestedInput = {
+  create?: Prisma.XOR<Prisma.VisitorCreateWithoutLogVisitorInput, Prisma.VisitorUncheckedCreateWithoutLogVisitorInput>
+  connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutLogVisitorInput
+  upsert?: Prisma.VisitorUpsertWithoutLogVisitorInput
+  connect?: Prisma.VisitorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VisitorUpdateToOneWithWhereWithoutLogVisitorInput, Prisma.VisitorUpdateWithoutLogVisitorInput>, Prisma.VisitorUncheckedUpdateWithoutLogVisitorInput>
+}
+
+export type VisitorCreateNestedOneWithoutRfidTagInput = {
+  create?: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagInput, Prisma.VisitorUncheckedCreateWithoutRfidTagInput>
+  connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutRfidTagInput
+  connect?: Prisma.VisitorWhereUniqueInput
+}
+
+export type VisitorUpdateOneWithoutRfidTagNestedInput = {
+  create?: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagInput, Prisma.VisitorUncheckedCreateWithoutRfidTagInput>
+  connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutRfidTagInput
+  upsert?: Prisma.VisitorUpsertWithoutRfidTagInput
   disconnect?: Prisma.VisitorWhereInput | boolean
   delete?: Prisma.VisitorWhereInput | boolean
   connect?: Prisma.VisitorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.VisitorUpdateToOneWithWhereWithoutRfidTagsInput, Prisma.VisitorUpdateWithoutRfidTagsInput>, Prisma.VisitorUncheckedUpdateWithoutRfidTagsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.VisitorUpdateToOneWithWhereWithoutRfidTagInput, Prisma.VisitorUpdateWithoutRfidTagInput>, Prisma.VisitorUncheckedUpdateWithoutRfidTagInput>
 }
 
-export type VisitorCreateNestedOneWithoutLogsInput = {
-  create?: Prisma.XOR<Prisma.VisitorCreateWithoutLogsInput, Prisma.VisitorUncheckedCreateWithoutLogsInput>
-  connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutLogsInput
-  connect?: Prisma.VisitorWhereUniqueInput
-}
-
-export type VisitorUpdateOneRequiredWithoutLogsNestedInput = {
-  create?: Prisma.XOR<Prisma.VisitorCreateWithoutLogsInput, Prisma.VisitorUncheckedCreateWithoutLogsInput>
-  connectOrCreate?: Prisma.VisitorCreateOrConnectWithoutLogsInput
-  upsert?: Prisma.VisitorUpsertWithoutLogsInput
-  connect?: Prisma.VisitorWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.VisitorUpdateToOneWithWhereWithoutLogsInput, Prisma.VisitorUpdateWithoutLogsInput>, Prisma.VisitorUncheckedUpdateWithoutLogsInput>
-}
-
-export type VisitorCreateWithoutRfidTagsInput = {
+export type VisitorCreateWithoutLogVisitorInput = {
   nik: string
   name: string
   address: string
@@ -547,10 +543,10 @@ export type VisitorCreateWithoutRfidTagsInput = {
   visitingPurpose?: string | null
   placeDestination?: string | null
   vehicleNumber?: string | null
-  logs?: Prisma.LogVisitorCreateNestedManyWithoutVisitorInput
+  RfidTag?: Prisma.RfidTagCreateNestedManyWithoutVisitorInput
 }
 
-export type VisitorUncheckedCreateWithoutRfidTagsInput = {
+export type VisitorUncheckedCreateWithoutLogVisitorInput = {
   id?: number
   nik: string
   name: string
@@ -562,26 +558,26 @@ export type VisitorUncheckedCreateWithoutRfidTagsInput = {
   visitingPurpose?: string | null
   placeDestination?: string | null
   vehicleNumber?: string | null
-  logs?: Prisma.LogVisitorUncheckedCreateNestedManyWithoutVisitorInput
+  RfidTag?: Prisma.RfidTagUncheckedCreateNestedManyWithoutVisitorInput
 }
 
-export type VisitorCreateOrConnectWithoutRfidTagsInput = {
+export type VisitorCreateOrConnectWithoutLogVisitorInput = {
   where: Prisma.VisitorWhereUniqueInput
-  create: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagsInput, Prisma.VisitorUncheckedCreateWithoutRfidTagsInput>
+  create: Prisma.XOR<Prisma.VisitorCreateWithoutLogVisitorInput, Prisma.VisitorUncheckedCreateWithoutLogVisitorInput>
 }
 
-export type VisitorUpsertWithoutRfidTagsInput = {
-  update: Prisma.XOR<Prisma.VisitorUpdateWithoutRfidTagsInput, Prisma.VisitorUncheckedUpdateWithoutRfidTagsInput>
-  create: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagsInput, Prisma.VisitorUncheckedCreateWithoutRfidTagsInput>
+export type VisitorUpsertWithoutLogVisitorInput = {
+  update: Prisma.XOR<Prisma.VisitorUpdateWithoutLogVisitorInput, Prisma.VisitorUncheckedUpdateWithoutLogVisitorInput>
+  create: Prisma.XOR<Prisma.VisitorCreateWithoutLogVisitorInput, Prisma.VisitorUncheckedCreateWithoutLogVisitorInput>
   where?: Prisma.VisitorWhereInput
 }
 
-export type VisitorUpdateToOneWithWhereWithoutRfidTagsInput = {
+export type VisitorUpdateToOneWithWhereWithoutLogVisitorInput = {
   where?: Prisma.VisitorWhereInput
-  data: Prisma.XOR<Prisma.VisitorUpdateWithoutRfidTagsInput, Prisma.VisitorUncheckedUpdateWithoutRfidTagsInput>
+  data: Prisma.XOR<Prisma.VisitorUpdateWithoutLogVisitorInput, Prisma.VisitorUncheckedUpdateWithoutLogVisitorInput>
 }
 
-export type VisitorUpdateWithoutRfidTagsInput = {
+export type VisitorUpdateWithoutLogVisitorInput = {
   nik?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
@@ -592,10 +588,10 @@ export type VisitorUpdateWithoutRfidTagsInput = {
   visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logs?: Prisma.LogVisitorUpdateManyWithoutVisitorNestedInput
+  RfidTag?: Prisma.RfidTagUpdateManyWithoutVisitorNestedInput
 }
 
-export type VisitorUncheckedUpdateWithoutRfidTagsInput = {
+export type VisitorUncheckedUpdateWithoutLogVisitorInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nik?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -607,10 +603,10 @@ export type VisitorUncheckedUpdateWithoutRfidTagsInput = {
   visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  logs?: Prisma.LogVisitorUncheckedUpdateManyWithoutVisitorNestedInput
+  RfidTag?: Prisma.RfidTagUncheckedUpdateManyWithoutVisitorNestedInput
 }
 
-export type VisitorCreateWithoutLogsInput = {
+export type VisitorCreateWithoutRfidTagInput = {
   nik: string
   name: string
   address: string
@@ -621,10 +617,10 @@ export type VisitorCreateWithoutLogsInput = {
   visitingPurpose?: string | null
   placeDestination?: string | null
   vehicleNumber?: string | null
-  rfidTags?: Prisma.RfidTagCreateNestedManyWithoutVisitorInput
+  LogVisitor?: Prisma.LogVisitorCreateNestedManyWithoutVisitorInput
 }
 
-export type VisitorUncheckedCreateWithoutLogsInput = {
+export type VisitorUncheckedCreateWithoutRfidTagInput = {
   id?: number
   nik: string
   name: string
@@ -636,26 +632,26 @@ export type VisitorUncheckedCreateWithoutLogsInput = {
   visitingPurpose?: string | null
   placeDestination?: string | null
   vehicleNumber?: string | null
-  rfidTags?: Prisma.RfidTagUncheckedCreateNestedManyWithoutVisitorInput
+  LogVisitor?: Prisma.LogVisitorUncheckedCreateNestedManyWithoutVisitorInput
 }
 
-export type VisitorCreateOrConnectWithoutLogsInput = {
+export type VisitorCreateOrConnectWithoutRfidTagInput = {
   where: Prisma.VisitorWhereUniqueInput
-  create: Prisma.XOR<Prisma.VisitorCreateWithoutLogsInput, Prisma.VisitorUncheckedCreateWithoutLogsInput>
+  create: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagInput, Prisma.VisitorUncheckedCreateWithoutRfidTagInput>
 }
 
-export type VisitorUpsertWithoutLogsInput = {
-  update: Prisma.XOR<Prisma.VisitorUpdateWithoutLogsInput, Prisma.VisitorUncheckedUpdateWithoutLogsInput>
-  create: Prisma.XOR<Prisma.VisitorCreateWithoutLogsInput, Prisma.VisitorUncheckedCreateWithoutLogsInput>
+export type VisitorUpsertWithoutRfidTagInput = {
+  update: Prisma.XOR<Prisma.VisitorUpdateWithoutRfidTagInput, Prisma.VisitorUncheckedUpdateWithoutRfidTagInput>
+  create: Prisma.XOR<Prisma.VisitorCreateWithoutRfidTagInput, Prisma.VisitorUncheckedCreateWithoutRfidTagInput>
   where?: Prisma.VisitorWhereInput
 }
 
-export type VisitorUpdateToOneWithWhereWithoutLogsInput = {
+export type VisitorUpdateToOneWithWhereWithoutRfidTagInput = {
   where?: Prisma.VisitorWhereInput
-  data: Prisma.XOR<Prisma.VisitorUpdateWithoutLogsInput, Prisma.VisitorUncheckedUpdateWithoutLogsInput>
+  data: Prisma.XOR<Prisma.VisitorUpdateWithoutRfidTagInput, Prisma.VisitorUncheckedUpdateWithoutRfidTagInput>
 }
 
-export type VisitorUpdateWithoutLogsInput = {
+export type VisitorUpdateWithoutRfidTagInput = {
   nik?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
@@ -666,10 +662,10 @@ export type VisitorUpdateWithoutLogsInput = {
   visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rfidTags?: Prisma.RfidTagUpdateManyWithoutVisitorNestedInput
+  LogVisitor?: Prisma.LogVisitorUpdateManyWithoutVisitorNestedInput
 }
 
-export type VisitorUncheckedUpdateWithoutLogsInput = {
+export type VisitorUncheckedUpdateWithoutRfidTagInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nik?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -681,7 +677,7 @@ export type VisitorUncheckedUpdateWithoutLogsInput = {
   visitingPurpose?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   placeDestination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vehicleNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rfidTags?: Prisma.RfidTagUncheckedUpdateManyWithoutVisitorNestedInput
+  LogVisitor?: Prisma.LogVisitorUncheckedUpdateManyWithoutVisitorNestedInput
 }
 
 
@@ -690,13 +686,13 @@ export type VisitorUncheckedUpdateWithoutLogsInput = {
  */
 
 export type VisitorCountOutputType = {
-  rfidTags: number
-  logs: number
+  LogVisitor: number
+  RfidTag: number
 }
 
 export type VisitorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rfidTags?: boolean | VisitorCountOutputTypeCountRfidTagsArgs
-  logs?: boolean | VisitorCountOutputTypeCountLogsArgs
+  LogVisitor?: boolean | VisitorCountOutputTypeCountLogVisitorArgs
+  RfidTag?: boolean | VisitorCountOutputTypeCountRfidTagArgs
 }
 
 /**
@@ -712,15 +708,15 @@ export type VisitorCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * VisitorCountOutputType without action
  */
-export type VisitorCountOutputTypeCountRfidTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.RfidTagWhereInput
+export type VisitorCountOutputTypeCountLogVisitorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LogVisitorWhereInput
 }
 
 /**
  * VisitorCountOutputType without action
  */
-export type VisitorCountOutputTypeCountLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.LogVisitorWhereInput
+export type VisitorCountOutputTypeCountRfidTagArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RfidTagWhereInput
 }
 
 
@@ -736,8 +732,8 @@ export type VisitorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   visitingPurpose?: boolean
   placeDestination?: boolean
   vehicleNumber?: boolean
-  rfidTags?: boolean | Prisma.Visitor$rfidTagsArgs<ExtArgs>
-  logs?: boolean | Prisma.Visitor$logsArgs<ExtArgs>
+  LogVisitor?: boolean | Prisma.Visitor$LogVisitorArgs<ExtArgs>
+  RfidTag?: boolean | Prisma.Visitor$RfidTagArgs<ExtArgs>
   _count?: boolean | Prisma.VisitorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["visitor"]>
 
@@ -785,8 +781,8 @@ export type VisitorSelectScalar = {
 
 export type VisitorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nik" | "name" | "address" | "birthInfo" | "nationality" | "phoneNumber" | "organization" | "visitingPurpose" | "placeDestination" | "vehicleNumber", ExtArgs["result"]["visitor"]>
 export type VisitorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  rfidTags?: boolean | Prisma.Visitor$rfidTagsArgs<ExtArgs>
-  logs?: boolean | Prisma.Visitor$logsArgs<ExtArgs>
+  LogVisitor?: boolean | Prisma.Visitor$LogVisitorArgs<ExtArgs>
+  RfidTag?: boolean | Prisma.Visitor$RfidTagArgs<ExtArgs>
   _count?: boolean | Prisma.VisitorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type VisitorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -795,8 +791,8 @@ export type VisitorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $VisitorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Visitor"
   objects: {
-    rfidTags: Prisma.$RfidTagPayload<ExtArgs>[]
-    logs: Prisma.$LogVisitorPayload<ExtArgs>[]
+    LogVisitor: Prisma.$LogVisitorPayload<ExtArgs>[]
+    RfidTag: Prisma.$RfidTagPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1204,8 +1200,8 @@ readonly fields: VisitorFieldRefs;
  */
 export interface Prisma__VisitorClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  rfidTags<T extends Prisma.Visitor$rfidTagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Visitor$rfidTagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RfidTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  logs<T extends Prisma.Visitor$logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Visitor$logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogVisitorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  LogVisitor<T extends Prisma.Visitor$LogVisitorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Visitor$LogVisitorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LogVisitorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  RfidTag<T extends Prisma.Visitor$RfidTagArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Visitor$RfidTagArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RfidTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1634,33 +1630,9 @@ export type VisitorDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * Visitor.rfidTags
+ * Visitor.LogVisitor
  */
-export type Visitor$rfidTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the RfidTag
-   */
-  select?: Prisma.RfidTagSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the RfidTag
-   */
-  omit?: Prisma.RfidTagOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.RfidTagInclude<ExtArgs> | null
-  where?: Prisma.RfidTagWhereInput
-  orderBy?: Prisma.RfidTagOrderByWithRelationInput | Prisma.RfidTagOrderByWithRelationInput[]
-  cursor?: Prisma.RfidTagWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.RfidTagScalarFieldEnum | Prisma.RfidTagScalarFieldEnum[]
-}
-
-/**
- * Visitor.logs
- */
-export type Visitor$logsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Visitor$LogVisitorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the LogVisitor
    */
@@ -1679,6 +1651,30 @@ export type Visitor$logsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.LogVisitorScalarFieldEnum | Prisma.LogVisitorScalarFieldEnum[]
+}
+
+/**
+ * Visitor.RfidTag
+ */
+export type Visitor$RfidTagArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RfidTag
+   */
+  select?: Prisma.RfidTagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RfidTag
+   */
+  omit?: Prisma.RfidTagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RfidTagInclude<ExtArgs> | null
+  where?: Prisma.RfidTagWhereInput
+  orderBy?: Prisma.RfidTagOrderByWithRelationInput | Prisma.RfidTagOrderByWithRelationInput[]
+  cursor?: Prisma.RfidTagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RfidTagScalarFieldEnum | Prisma.RfidTagScalarFieldEnum[]
 }
 
 /**

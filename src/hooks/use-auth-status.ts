@@ -23,6 +23,23 @@ export function useAuthStatus() {
     const checkAuthStatus = async () => {
       try {
         const response = await fetch("/api/auth/status");
+
+        // Check if the response is OK before parsing JSON
+        if (!response.ok) {
+          console.error(
+            `Auth status check failed: ${response.status} ${response.statusText}`,
+          );
+          const errorText = await response.text();
+          console.error("Error response:", errorText);
+
+          setAuthStatus({
+            isAuthenticated: false,
+            user: null,
+            isLoading: false,
+          });
+          return;
+        }
+
         const data = await response.json();
 
         setAuthStatus({

@@ -33,15 +33,31 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       });
 
+      if (!response.ok) {
+        // Handle error response
+        let errorMessage = "Login failed. Please try again.";
+        try {
+          // Attempt to parse error response as JSON
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch (jsonError) {
+          // If JSON parsing fails, use the response text or default message
+          try {
+            const errorText = await response.text();
+            errorMessage = errorText || errorMessage;
+          } catch (textError) {
+            // If both JSON and text fail, use the default message
+          }
+        }
+        toast.error(errorMessage);
+        return;
+      }
+
       const data = await response.json();
 
-      if (response.ok) {
-        toast.success("Login successful!");
-        // Redirect to dashboard after successful login
-        window.location.href = "/dashboard";
-      } else {
-        toast.error(data.message || "Login failed. Please try again.");
-      }
+      toast.success("Login successful!");
+      // Redirect to dashboard after successful login
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error("Login error:", error);
       toast.error("An error occurred during login. Please try again.");

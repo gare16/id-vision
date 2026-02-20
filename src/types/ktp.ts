@@ -13,6 +13,6 @@ export interface KTPData {
   phoneNumber?: string | null;
   organization?: string | null;
   visitingPurpose?: string | null;
-  placeDestination?: string | null;
+  placeDestination?: string[] | null;
   vehicleNumber?: string | null;
 }

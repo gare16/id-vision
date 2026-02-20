@@ -6,8 +6,9 @@ interface ExtendedVisitorData extends KTPData {
   phoneNumber?: string | null;
   organization?: string | null;
   visitingPurpose?: string | null;
-  placeDestination?: string | null;
+  placeDestination?: string[] | null;
   vehicleNumber?: string | null;
+  rfidTag?: string | null;
 }
 
 export async function getVisitor() {
@@ -20,6 +21,7 @@ export async function getVisitor() {
 
 export async function createVisitor(data: ExtendedVisitorData) {
   try {
+    console.log({ data });
     const created = await prisma.visitor.create({
       data: {
         nik: data.nik,
@@ -30,10 +32,42 @@ export async function createVisitor(data: ExtendedVisitorData) {
         phoneNumber: data.phoneNumber,
         organization: data.organization,
         visitingPurpose: data.visitingPurpose,
-        placeDestination: data.placeDestination,
+        placeDestination: data.placeDestination?.join(","),
         vehicleNumber: data.vehicleNumber,
       },
     });
+
+    // Create RFID tag if provided
+    if (data.rfidTag && created) {
+      await prisma.rfidTag.create({
+        data: {
+          rfidTag: data.rfidTag,
+          nik: data.nik,
+          status: true,
+        },
+      });
+
+      // Create RFID tag location assignments if placeDestinations are provided
+      if (data.placeDestination && data.placeDestination.length > 0) {
+        await prisma.$transaction(async (tx) => {
+          for (const locationName of data.placeDestination!) {
+            const location = await tx.location.findUnique({
+              where: { name: locationName },
+            });
+
+            if (location) {
+              await tx.rfidTagLocation.create({
+                data: {
+                  rfidTagId: data.rfidTag!,
+                  locationId: location.id,
+                },
+              });
+            }
+          }
+        });
+      }
+    }
+
     return { success: true, data: created };
   } catch (error) {
     console.error("Failed to create visitor:", error);
@@ -55,7 +89,7 @@ export async function updateVisitor(data: ExtendedVisitorData) {
         phoneNumber: data.phoneNumber,
         organization: data.organization,
         visitingPurpose: data.visitingPurpose,
-        placeDestination: data.placeDestination,
+        placeDestination: data.placeDestination?.join(",") || "",
         vehicleNumber: data.vehicleNumber,
       },
     });

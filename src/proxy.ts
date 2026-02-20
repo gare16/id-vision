@@ -32,7 +32,6 @@ async function isAuthenticated(_request: NextRequest) {
 export async function proxy(request: NextRequest) {
   // Define protected routes that require authentication
   const protectedPaths = [
-    "/check-rfid",
     "/logs-visitors",
     "/rfid-tag",
     "/uploads",
@@ -62,7 +61,6 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/check-rfid/:path*",
     "/logs-visitors/:path*",
     "/rfid-tag/:path*",
     "/uploads/:path*",

@@ -14,7 +14,25 @@ import {
 import { Label } from "@/components/ui/label";
 import { visitorSchema } from "@/schema/visitors-schema";
 
-export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
+interface ActiveRfid {
+  rfidTag: string;
+  nik: string | null;
+  status: boolean;
+  visitor?: {
+    name: string;
+  } | null;
+}
+
+interface GetColumnVisitorsProps {
+  locations?: { id: number; name: string }[];
+  activeRfid?: ActiveRfid[];
+}
+
+export function getColumnVisitors({
+  locations = [],
+  activeRfid = [],
+}: GetColumnVisitorsProps = {}): ColumnDef<z.infer<typeof visitorSchema>>[] {
+  return [
   {
     accessorKey: "name",
     header: () => <div className="w-full text-left">Nama</div>,
@@ -181,9 +199,14 @@ export const columnVisitors: ColumnDef<z.infer<typeof visitorSchema>>[] = [
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-32">
-          <SheetEditVisitor item={row.original} />
+          <SheetEditVisitor
+            item={row.original}
+            locations={locations}
+            activeRfid={activeRfid}
+          />
         </DropdownMenuContent>
       </DropdownMenu>
     ),
   },
 ];
+}

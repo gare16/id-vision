@@ -7,11 +7,16 @@ export async function getLogPengunjung() {
     select: {
       id: true,
       visitType: true,
-      location: true,
+      Location: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
       rfidTagId: true,
       nik: true,
       date: true,
-      visitor: {
+      Visitor: {
         select: {
           id: true,
           nik: true,
@@ -31,7 +36,13 @@ export async function getLogPengunjung() {
       date: "desc",
     },
   });
-  return res;
+
+  // Transform the data to match the expected schema (lowercase field names)
+  return res.map((item) => ({
+    ...item,
+    location: item.Location,
+    visitor: item.Visitor,
+  }));
 }
 
 export async function getChartLogPengunjung() {
@@ -69,11 +80,16 @@ export async function getDailyTableLogVisitor() {
     select: {
       id: true,
       visitType: true,
-      location: true,
+      Location: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
       rfidTagId: true,
       nik: true,
       date: true,
-      visitor: {
+      Visitor: {
         select: {
           id: true,
           nik: true,
@@ -90,5 +106,11 @@ export async function getDailyTableLogVisitor() {
       },
     },
   });
-  return log;
+
+  // Transform the data to match the expected schema (lowercase field names)
+  return log.map((item) => ({
+    ...item,
+    location: item.Location,
+    visitor: item.Visitor,
+  }));
 }

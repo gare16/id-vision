@@ -29,8 +29,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Locations
+ * const locations = await prisma.location.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -39,6 +39,26 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Location
+ * 
+ */
+export type Location = Prisma.LocationModel
+/**
+ * Model LogVisitor
+ * 
+ */
+export type LogVisitor = Prisma.LogVisitorModel
+/**
+ * Model RfidTag
+ * 
+ */
+export type RfidTag = Prisma.RfidTagModel
+/**
+ * Model RfidTagLocation
+ * 
+ */
+export type RfidTagLocation = Prisma.RfidTagLocationModel
 /**
  * Model User
  * 
@@ -49,23 +69,3 @@ export type User = Prisma.UserModel
  * 
  */
 export type Visitor = Prisma.VisitorModel
-/**
- * Model RfidTag
- * 
- */
-export type RfidTag = Prisma.RfidTagModel
-/**
- * Model Location
- * 
- */
-export type Location = Prisma.LocationModel
-/**
- * Model RfidTagLocation
- * 
- */
-export type RfidTagLocation = Prisma.RfidTagLocationModel
-/**
- * Model LogVisitor
- * 
- */
-export type LogVisitor = Prisma.LogVisitorModel

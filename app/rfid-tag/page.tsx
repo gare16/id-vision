@@ -1,9 +1,9 @@
 import { DataTableProvider } from "@/components/table/data-table";
 import { TableRFIDTag } from "@/components/table/rfid-tag/rfid-tag-table";
-import { getRfidTag } from "@/lib/action/rfid";
+import { getRfidTagForTable } from "@/lib/action/rfid";
 
 export default async function Page() {
-  const data = await getRfidTag();
+  const data = await getRfidTagForTable();
   return (
     <DataTableProvider
       className="mt-5"

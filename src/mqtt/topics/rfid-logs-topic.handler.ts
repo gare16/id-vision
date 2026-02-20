@@ -63,6 +63,16 @@ export class RFIDLogsTopicHandler implements TopicHandler {
         body: JSON.stringify(validatedData),
       });
 
+      // Check if the response is OK before parsing JSON
+      if (!apiResponse.ok) {
+        console.error(`API request failed with status ${apiResponse.status}`);
+        // Try to get error text instead of JSON
+        const errorText = await apiResponse.text();
+        console.error("API Error Response:", errorText);
+
+        throw new Error(`API request failed with status ${apiResponse.status}`);
+      }
+
       const responseData = await apiResponse.json();
 
       if (!this.client) return;

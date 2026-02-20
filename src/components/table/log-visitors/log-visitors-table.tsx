@@ -127,7 +127,7 @@ const columns: ColumnDef<z.infer<typeof DailylogVisitorSchema>>[] = [
           className="h-8 w-16 border-transparent bg-transparent text-left shadow-none focus-visible:border focus-visible:bg-background"
           id={`${row.original.id}-rfid_tag`}
         >
-          {row.original.rfidTagId}
+          {row.original.rfidTagId || "-"}
         </p>
       </>
     ),
